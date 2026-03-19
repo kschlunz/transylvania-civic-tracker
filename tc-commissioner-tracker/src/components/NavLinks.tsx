@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: "/", label: "Dashboard" },
   { href: "/commissioners", label: "Commissioners" },
   { href: "/topics", label: "Topics", matchPrefix: "/topics" },
+  { href: "/follow-ups", label: "Follow-ups" },
   { href: "/meetings", label: "Meetings" },
 ];
 

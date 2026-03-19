@@ -30,11 +30,29 @@ export interface KeyVote {
   result: string;
   mover: string;
   seconder: string;
+  background?: string;
+  discussion?: string;
 }
 
 export interface PublicComment {
   speaker: string;
   summary: string;
+}
+
+export interface FollowUpItem {
+  id: string;
+  dateRaised: string;
+  /** Commissioner ID, staff name (e.g. "Jaime Laughter"), or "staff" as fallback */
+  owner: string;
+  description: string;
+  status: "open" | "in_progress" | "resolved" | "dropped";
+  categories: string[];
+  relatedMeetingId: string;
+  /** Most recent meeting where this item was referenced */
+  lastReferencedMeetingId?: string;
+  resolvedDate?: string;
+  resolvedMeetingId?: string;
+  resolution?: string;
 }
 
 export interface Meeting {
@@ -49,6 +67,7 @@ export interface Meeting {
   keyVotes: KeyVote[];
   commissionerActivity: Record<string, CommissionerActivity>;
   publicComments: PublicComment[];
+  followUps?: FollowUpItem[];
 }
 
 export interface PublicStatement {

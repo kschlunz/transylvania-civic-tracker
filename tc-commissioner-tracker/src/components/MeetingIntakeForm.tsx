@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import type { Meeting } from "@/lib/types";
+import { useState, useMemo } from "react";
+import type { Meeting, FollowUpItem } from "@/lib/types";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
+import { useMeetings } from "@/lib/meetings-context";
 
 function getCommissionerName(id: string) {
+  if (id === "staff") return "County Staff";
   return COMMISSIONERS.find((c) => c.id === id)?.name ?? id;
 }
 
@@ -12,24 +14,57 @@ function getCommissionerColor(id: string) {
   return COMMISSIONERS.find((c) => c.id === id)?.color ?? "#888";
 }
 
+interface ResolvedFollowUp {
+  id: string;
+  status: "in_progress" | "resolved";
+  resolution: string;
+}
+
+interface ProcessedResult {
+  meeting: Meeting;
+  resolvedFollowUps: ResolvedFollowUp[];
+}
+
 interface MeetingIntakeFormProps {
-  onAccept: (meeting: Meeting) => void;
+  onAccept: (meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) => void;
   onClose: () => void;
 }
 
 export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFormProps) {
+  const { meetings } = useMeetings();
   const [minutesText, setMinutesText] = useState("");
-  const [meeting, setMeeting] = useState<Meeting | null>(null);
+  const [result, setResult] = useState<ProcessedResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
+  const [rejectedResolutions, setRejectedResolutions] = useState<Set<string>>(new Set());
+
+  // Gather all open follow-ups from all meetings
+  const openFollowUps = useMemo(() => {
+    const items: FollowUpItem[] = [];
+    for (const m of meetings) {
+      if (m.followUps) {
+        items.push(...m.followUps.filter((f) => f.status === "open" || f.status === "in_progress"));
+      }
+    }
+    // Also check localStorage overrides
+    let overrides: Record<string, string> = {};
+    try {
+      overrides = JSON.parse(localStorage.getItem("tc-followup-status") || "{}");
+    } catch { /* ignore */ }
+    return items.filter((f) => {
+      const override = overrides[f.id];
+      return !override || override === "open" || override === "in_progress";
+    });
+  }, [meetings]);
 
   async function handleProcess() {
     setLoading(true);
     setError(null);
-    setMeeting(null);
+    setResult(null);
     setElapsed(0);
+    setRejectedResolutions(new Set());
 
     const timer = setInterval(() => setElapsed((e) => e + 1), 1000);
 
@@ -37,7 +72,15 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
       const res = await fetch("/api/process-minutes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ minutesText }),
+        body: JSON.stringify({
+          minutesText,
+          openFollowUps: openFollowUps.map((f) => ({
+            id: f.id,
+            dateRaised: f.dateRaised,
+            owner: f.owner,
+            description: f.description,
+          })),
+        }),
       });
 
       if (!res.ok) {
@@ -45,8 +88,17 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
         throw new Error(data.error || "Failed to process minutes");
       }
 
-      const data: Meeting = await res.json();
-      setMeeting(data);
+      const data = await res.json();
+
+      // Separate resolvedFollowUps from the meeting data
+      const { resolvedFollowUps = [], ...meetingData } = data;
+
+      // The meeting's followUps field should contain only newFollowUps
+      // Claude may return them as "followUps" (new items only per prompt)
+      setResult({
+        meeting: meetingData as Meeting,
+        resolvedFollowUps: resolvedFollowUps as ResolvedFollowUp[],
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -56,18 +108,35 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
   }
 
   function handleRetry() {
-    setMeeting(null);
+    setResult(null);
     setError(null);
     setElapsed(0);
     setToast(null);
+    setRejectedResolutions(new Set());
+  }
+
+  function toggleResolution(id: string) {
+    setRejectedResolutions((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
   }
 
   async function handleAccept() {
-    if (!meeting) return;
+    if (!result) return;
+
+    const acceptedResolutions = result.resolvedFollowUps.filter(
+      (r) => !rejectedResolutions.has(r.id)
+    );
 
     // Copy formatted JSON to clipboard
-    const json = JSON.stringify(meeting, null, 2);
-    const filename = `${meeting.date}.json`;
+    const json = JSON.stringify(result.meeting, null, 2);
+    const filename = `${result.meeting.date}.json`;
     try {
       await navigator.clipboard.writeText(json);
       setToast(`Meeting JSON copied — paste into src/data/meetings/${filename} and commit`);
@@ -75,16 +144,15 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
       setToast(`Could not copy to clipboard. Save the JSON manually as src/data/meetings/${filename}`);
     }
 
-    // Save to localStorage as draft and notify parent
-    onAccept(meeting);
+    onAccept(result.meeting, acceptedResolutions);
   }
+
+  const meeting = result?.meeting ?? null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-primary/20 backdrop-blur-md" onClick={onClose} />
 
-      {/* Modal */}
       <div className="relative w-full max-w-4xl bg-surface-bright shadow-2xl rounded-xl overflow-hidden border border-outline-variant/30 flex flex-col max-h-[90vh]">
         {/* Header */}
         <div className="flex items-center justify-between px-8 py-6 border-b border-outline-variant/10">
@@ -105,6 +173,11 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
             <>
               <p className="text-on-surface-variant font-body text-sm mb-8 leading-relaxed">
                 Our system will parse key decisions, voting records, and thematic shifts to update the ledger.
+                {openFollowUps.length > 0 && (
+                  <span className="block mt-2 text-secondary font-bold">
+                    {openFollowUps.length} open follow-up{openFollowUps.length !== 1 ? "s" : ""} will be checked for resolution.
+                  </span>
+                )}
               </p>
 
               <div className="relative">
@@ -134,7 +207,96 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
               )}
             </>
           ) : (
-            <MeetingPreview meeting={meeting} />
+            <>
+              <MeetingPreview meeting={meeting} />
+
+              {/* Follow-up Updates section */}
+              {result && result.resolvedFollowUps.length > 0 && (
+                <div className="mt-8">
+                  <h4 className="font-headline font-bold text-primary text-xl mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">update</span>
+                    Follow-up Updates ({result.resolvedFollowUps.length})
+                  </h4>
+                  <p className="text-xs text-on-surface-variant mb-4">
+                    Claude identified these open follow-ups as addressed in this meeting. Uncheck any that are incorrect.
+                  </p>
+                  <div className="space-y-3">
+                    {result.resolvedFollowUps.map((resolved) => {
+                      const original = openFollowUps.find((f) => f.id === resolved.id);
+                      const rejected = rejectedResolutions.has(resolved.id);
+
+                      return (
+                        <div
+                          key={resolved.id}
+                          className={`border rounded-lg p-5 transition-all ${
+                            rejected
+                              ? "border-outline-variant/20 bg-surface-container-low opacity-50"
+                              : "border-secondary/30 bg-secondary-fixed/20"
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <button
+                              onClick={() => toggleResolution(resolved.id)}
+                              className="mt-0.5 shrink-0"
+                            >
+                              <span className={`material-symbols-outlined text-lg ${rejected ? "text-outline" : "text-secondary"}`}>
+                                {rejected ? "check_box_outline_blank" : "check_box"}
+                              </span>
+                            </button>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
+                                  resolved.status === "resolved"
+                                    ? "bg-secondary-fixed text-on-secondary-fixed"
+                                    : "bg-tertiary-fixed text-on-tertiary-fixed-variant"
+                                }`}>
+                                  {resolved.status === "resolved" ? "Resolved" : "In Progress"}
+                                </span>
+                                {original && (
+                                  <span className="text-[10px] text-on-surface-variant">
+                                    Originally raised {new Date(original.dateRaised + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} by {getCommissionerName(original.owner)}
+                                  </span>
+                                )}
+                              </div>
+                              {original && (
+                                <p className="text-sm text-on-surface-variant mb-2">{original.description}</p>
+                              )}
+                              <p className="text-sm text-on-surface font-medium">
+                                <span className="material-symbols-outlined text-[14px] mr-1 align-middle">arrow_forward</span>
+                                {resolved.resolution}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* New Follow-ups */}
+              {meeting.followUps && meeting.followUps.length > 0 && (
+                <div className="mt-8">
+                  <h4 className="font-headline font-bold text-primary text-xl mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">pending_actions</span>
+                    New Follow-ups ({meeting.followUps.length})
+                  </h4>
+                  <div className="space-y-3">
+                    {meeting.followUps.map((fu) => (
+                      <div key={fu.id} className="bg-surface-container-lowest border border-outline-variant/20 p-5 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-error/10 text-error">Open</span>
+                          <span className="text-[10px] text-on-surface-variant font-bold">
+                            {getCommissionerName(fu.owner)}
+                          </span>
+                        </div>
+                        <p className="text-sm text-on-surface">{fu.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 

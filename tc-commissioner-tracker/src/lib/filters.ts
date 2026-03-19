@@ -52,10 +52,6 @@ function getDateRange(dateRange: string, dateFrom?: string, dateTo?: string): { 
         end: now.toISOString().slice(0, 10),
       };
     }
-    case "2026":
-      return { start: "2026-01-01", end: "2026-12-31" };
-    case "2025":
-      return { start: "2025-01-01", end: "2025-12-31" };
     case "custom":
       if (dateFrom || dateTo) {
         return {
@@ -64,8 +60,13 @@ function getDateRange(dateRange: string, dateFrom?: string, dateTo?: string): { 
         };
       }
       return null;
-    default:
+    default: {
+      // Handle dynamic year values like "2026", "2025", "2024", etc.
+      if (/^\d{4}$/.test(dateRange)) {
+        return { start: `${dateRange}-01-01`, end: `${dateRange}-12-31` };
+      }
       return null;
+    }
   }
 }
 

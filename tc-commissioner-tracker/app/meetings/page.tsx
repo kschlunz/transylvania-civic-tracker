@@ -7,7 +7,13 @@ import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import MeetingIntakeForm from "@/components/MeetingIntakeForm";
 import FilterBar from "@/components/FilterBar";
-import type { Meeting } from "@/lib/types";
+import type { Meeting, FollowUpItem } from "@/lib/types";
+
+interface ResolvedFollowUp {
+  id: string;
+  status: "in_progress" | "resolved";
+  resolution: string;
+}
 
 const PAGE_SIZE = 10;
 
@@ -37,8 +43,20 @@ function MeetingsContent() {
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  function handleAccept(meeting: Meeting) {
+  function handleAccept(meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) {
     addMeeting(meeting);
+
+    // Apply accepted follow-up resolutions to localStorage
+    if (acceptedResolutions.length > 0) {
+      try {
+        const existing = JSON.parse(localStorage.getItem("tc-followup-status") || "{}");
+        for (const r of acceptedResolutions) {
+          existing[r.id] = r.status;
+        }
+        localStorage.setItem("tc-followup-status", JSON.stringify(existing));
+      } catch { /* ignore */ }
+    }
+
     setShowIntake(false);
   }
 

@@ -7,6 +7,7 @@ import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS, ELECTION_INFO } from "@/lib/
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import FilterBar from "@/components/FilterBar";
+import type { FollowUpItem } from "@/lib/types";
 
 function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
   let topicCount = 0;
@@ -49,6 +50,116 @@ function getTotalActions(meetings: ReturnType<typeof useMeetings>["meetings"]) {
     }
   }
   return total;
+}
+
+function getOwnerDisplayName(owner: string) {
+  const commissioner = COMMISSIONERS.find((c) => c.id === owner);
+  if (commissioner) return commissioner.name;
+  if (owner === "staff") return "County Staff";
+  return owner;
+}
+
+function daysSince(dateStr: string) {
+  const raised = new Date(dateStr + "T12:00:00");
+  const now = new Date();
+  return Math.floor((now.getTime() - raised.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+function getDaysColor(days: number) {
+  if (days > 120) return "text-error";
+  if (days >= 60) return "text-amber-600";
+  return "text-on-surface-variant";
+}
+
+function OpenItemsSummary({ meetings }: { meetings: ReturnType<typeof useMeetings>["meetings"] }) {
+  const allFollowUps: FollowUpItem[] = [];
+  for (const m of meetings) {
+    if (m.followUps) {
+      allFollowUps.push(...m.followUps);
+    }
+  }
+
+  // Apply localStorage overrides
+  let statusOverrides: Record<string, string> = {};
+  if (typeof window !== "undefined") {
+    try {
+      statusOverrides = JSON.parse(localStorage.getItem("tc-followup-status") || "{}");
+    } catch { /* ignore */ }
+  }
+
+  const getStatus = (item: FollowUpItem) => statusOverrides[item.id] || item.status;
+  const openItems = allFollowUps.filter((f) => {
+    const s = getStatus(f);
+    return s === "open" || s === "in_progress";
+  });
+  const resolvedCount = allFollowUps.length - openItems.length;
+
+  if (openItems.length === 0) return null;
+
+  // Sort by days open descending, take top 5
+  const topItems = [...openItems]
+    .sort((a, b) => a.dateRaised.localeCompare(b.dateRaised))
+    .slice(0, 5);
+
+  return (
+    <section>
+      <div className="flex items-end justify-between border-b border-outline-variant/30 pb-4 mb-8">
+        <div className="flex items-center gap-3">
+          <span className="material-symbols-outlined text-error">pending_actions</span>
+          <h2 className="font-headline text-3xl">Accountability Tracker</h2>
+        </div>
+        <span className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
+          {openItems.length} open · {resolvedCount} resolved
+        </span>
+      </div>
+      <div className="space-y-2">
+        {topItems.map((item) => {
+          const days = daysSince(item.dateRaised);
+          const daysColor = getDaysColor(days);
+          return (
+            <Link
+              key={item.id}
+              href="/follow-ups"
+              className="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant/20 p-4 rounded-lg hover:bg-surface-container-low transition-colors"
+            >
+              <span className={`text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${daysColor}`}>
+                {days}d
+              </span>
+              <p className="text-sm text-on-surface font-medium truncate flex-1">{item.description}</p>
+              <span className="text-xs text-on-surface-variant font-bold whitespace-nowrap shrink-0">
+                {getOwnerDisplayName(item.owner)}
+              </span>
+              <div className="flex gap-1 shrink-0">
+                {item.categories.slice(0, 2).map((catId) => {
+                  const cat = CATEGORIES.find((c) => c.id === catId);
+                  const icon = CATEGORY_ICONS[catId];
+                  if (!cat) return null;
+                  return (
+                    <span
+                      key={catId}
+                      className="inline-flex items-center gap-1 bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase"
+                    >
+                      {icon && <span className="material-symbols-outlined text-[12px]">{icon}</span>}
+                      {cat.label}
+                    </span>
+                  );
+                })}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="mt-4">
+        <Link
+          href="/follow-ups"
+          className="text-xs font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity flex items-center gap-1"
+        >
+          View all open items
+          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+        </Link>
+      </div>
+    </section>
+  );
 }
 
 function DashboardContent() {
@@ -254,6 +365,9 @@ function DashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* Accountability Tracker — Open Items */}
+      <OpenItemsSummary meetings={meetings} />
 
       {/* Recent Meetings */}
       <section>

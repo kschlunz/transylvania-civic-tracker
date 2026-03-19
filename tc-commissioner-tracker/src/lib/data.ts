@@ -1,4 +1,4 @@
-import type { Meeting } from "./types";
+import type { Meeting, FollowUpItem } from "./types";
 
 // Import all meeting JSON files
 // Each file in src/data/meetings/ is a single Meeting object
@@ -24,4 +24,15 @@ export function getMeetings(): Meeting[] {
 /** Returns a single meeting by ID, or undefined */
 export function getMeeting(id: string): Meeting | undefined {
   return COMMITTED_MEETINGS.find((m) => m.id === id);
+}
+
+/** Returns all follow-up items from all committed meetings, sorted by date descending */
+export function getFollowUps(): FollowUpItem[] {
+  const items: FollowUpItem[] = [];
+  for (const m of COMMITTED_MEETINGS) {
+    if (m.followUps) {
+      items.push(...m.followUps);
+    }
+  }
+  return items.sort((a, b) => b.dateRaised.localeCompare(a.dateRaised));
 }

@@ -74,6 +74,10 @@ export default function RootLayout({
             <span className="material-symbols-outlined">topic</span>
             <span className="text-[10px] font-bold uppercase">Topics</span>
           </Link>
+          <Link href="/follow-ups" className="flex flex-col items-center text-secondary">
+            <span className="material-symbols-outlined">checklist</span>
+            <span className="text-[10px] font-bold uppercase">Follow-ups</span>
+          </Link>
           <Link href="/meetings" className="flex flex-col items-center text-secondary">
             <span className="material-symbols-outlined">event</span>
             <span className="text-[10px] font-bold uppercase">Meetings</span>

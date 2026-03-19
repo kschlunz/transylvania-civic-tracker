@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
+import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filtersToSearchParams, hasActiveFilters, type FilterParams } from "@/lib/filters";
 
 interface FilterBarProps {
@@ -11,6 +12,7 @@ interface FilterBarProps {
 }
 
 export default function FilterBar({ dateOnly = false }: FilterBarProps) {
+  const { meetings } = useMeetings();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -54,11 +56,18 @@ export default function FilterBar({ dateOnly = false }: FilterBarProps) {
     [filters.commissioners, updateFilters],
   );
 
+  const yearOptions = useMemo(() => {
+    const years = new Set<string>();
+    for (const m of meetings) {
+      years.add(m.date.slice(0, 4));
+    }
+    return Array.from(years).sort((a, b) => b.localeCompare(a));
+  }, [meetings]);
+
   const dateRangeOptions = [
     { value: "all", label: "All Time" },
     { value: "6months", label: "Last 6 Months" },
-    { value: "2026", label: "2026" },
-    { value: "2025", label: "2025" },
+    ...yearOptions.map((y) => ({ value: y, label: y })),
     { value: "custom", label: "Custom" },
   ];
 
