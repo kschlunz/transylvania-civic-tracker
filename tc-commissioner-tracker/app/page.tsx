@@ -1,65 +1,317 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Suspense } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS, ELECTION_INFO } from "@/lib/constants";
+import { useMeetings } from "@/lib/meetings-context";
+import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
+import FilterBar from "@/components/FilterBar";
+
+function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
+  let topicCount = 0;
+  let motionsMade = 0;
+  let motionsSeconded = 0;
+  let meetingsPresent = 0;
+
+  for (const meeting of meetings) {
+    if (!meeting.attendees.includes(commissionerId)) continue;
+    meetingsPresent++;
+    const activity = meeting.commissionerActivity[commissionerId];
+    if (!activity) continue;
+    topicCount += activity.topics.length;
+    motionsMade += activity.motionsMade;
+    motionsSeconded += activity.motionsSeconded;
+  }
+
+  return { meetingsPresent, topicCount, motionsMade, motionsSeconded };
+}
+
+function getTopicCounts(meetings: ReturnType<typeof useMeetings>["meetings"]) {
+  const counts: Record<string, number> = {};
+  for (const meeting of meetings) {
+    for (const activity of Object.values(meeting.commissionerActivity)) {
+      for (const topic of activity.topics) {
+        for (const cat of topic.categories) {
+          counts[cat] = (counts[cat] || 0) + 1;
+        }
+      }
+    }
+  }
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+}
+
+function getTotalActions(meetings: ReturnType<typeof useMeetings>["meetings"]) {
+  let total = 0;
+  for (const meeting of meetings) {
+    for (const activity of Object.values(meeting.commissionerActivity)) {
+      total += activity.topics.length;
+    }
+  }
+  return total;
+}
+
+function DashboardContent() {
+  const { meetings: allMeetings } = useMeetings();
+  const searchParams = useSearchParams();
+  const filters = parseFiltersFromParams(searchParams);
+  const meetings = filterMeetings(allMeetings, filters);
+
+  const topicCounts = getTopicCounts(meetings);
+  const maxTopicCount = topicCounts[0]?.[1] || 1;
+  const totalActions = getTotalActions(meetings);
+
+  const topTopics = topicCounts.slice(0, 6);
+  const remainingTopics = topicCounts.slice(6);
+
+  const stats = [
+    { label: "Activity Monitor", sublabel: "Meetings Tracked", value: meetings.length, barWidth: `${Math.min(100, (meetings.length / Math.max(allMeetings.length, 1)) * 100)}%` },
+    { label: "Legislative Body", sublabel: "Commissioners", value: COMMISSIONERS.length, barWidth: "100%" },
+    { label: "Data Taxonomy", sublabel: "Topic Categories", value: CATEGORIES.length, barWidth: "75%" },
+    { label: "History Log", sublabel: "Actions Logged", value: totalActions, barWidth: "50%" },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="px-8 lg:px-12 py-12 space-y-16">
+      {/* Hero Banner */}
+      <section className="border-b border-outline-variant/30 pb-12">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
+          <div className="flex-1 space-y-8">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
+                <span className="w-2 h-2 bg-primary rounded-full pulse" />
+                <span className="font-label text-[10px] font-bold uppercase tracking-widest text-primary">Live Ledger</span>
+              </div>
+              <span className="text-[10px] font-label font-bold text-on-surface-variant/60 uppercase tracking-widest">
+                Last Updated: {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              </span>
+            </div>
+            <div className="inline-flex items-center gap-3">
+              <div className="h-px w-8 bg-primary/30" />
+              <span className="font-label text-xs uppercase tracking-[0.3em] text-primary font-bold">Curated Intelligence</span>
+            </div>
+            <div className="max-w-4xl">
+              <h1 className="font-headline text-6xl md:text-7xl lg:text-8xl text-primary leading-[0.95] font-bold -tracking-wider">
+                The State of <br />
+                <span className="serif-italic font-normal italic pr-2">Civic Governance.</span>
+              </h1>
+              <p className="font-body text-xl text-on-surface-variant mt-8 max-w-2xl leading-relaxed opacity-90">
+                A real-time ledger of commissioner engagement, legislative activity, and public accountability within Transylvania County.
+              </p>
+            </div>
+          </div>
+
+          {/* Election Card */}
+          <div className="w-full lg:w-[340px] shrink-0 bg-primary-container text-on-primary-container p-8 rounded-xl border border-primary/20 shadow-xl relative overflow-hidden group">
+            <div className="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">Priority Brief</span>
+                <h3 className="font-headline text-3xl font-bold leading-tight text-white mb-4">
+                  {ELECTION_INFO.nextElection} — {ELECTION_INFO.openSeats} Open Seats
+                </h3>
+                <p className="text-sm font-body text-primary-fixed-dim leading-relaxed mb-4">
+                  {ELECTION_INFO.note}
+                </p>
+                <div className="space-y-2 text-sm text-primary-fixed-dim mb-8">
+                  <p><span className="font-bold text-primary-fixed">GOP:</span> {ELECTION_INFO.gopNominees.join(", ")}</p>
+                  <p><span className="font-bold text-primary-fixed">Dem:</span> {ELECTION_INFO.demNominees.join(", ")}</p>
+                </div>
+              </div>
+              <Link
+                href="/commissioners"
+                className="text-primary-fixed font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all underline decoration-primary-fixed/30 underline-offset-8"
+              >
+                Review Candidates
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </Link>
+            </div>
+            <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Filter Bar */}
+      <FilterBar />
+
+      {/* Stats Grid */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat) => (
+          <div key={stat.label} className="bg-surface-container-low p-6 rounded-lg transition-all hover:bg-surface-container-high">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
+            <div className="flex items-baseline gap-2">
+              <h3 className="font-headline text-4xl">{stat.value}</h3>
+              <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
+            </div>
+            <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
+              <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Commissioners + Topics two-column layout */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
+        <div className="xl:col-span-7 space-y-8">
+          <div className="flex justify-between items-end border-b border-outline-variant/30 pb-4">
+            <h2 className="font-headline text-3xl">Commissioners Overview</h2>
+            <Link href="/commissioners" className="text-[10px] font-bold uppercase tracking-widest text-primary border-b border-primary hover:opacity-70 transition-opacity">
+              View Full Dossiers
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {COMMISSIONERS.map((commissioner, i) => {
+              const cStats = getCommissionerStats(commissioner.id, meetings);
+              const notRunning = commissioner.id === "dalton" || commissioner.id === "mckelvey";
+              const isLast = i === COMMISSIONERS.length - 1 && COMMISSIONERS.length % 2 !== 0;
+              return (
+                <Link
+                  key={commissioner.id}
+                  href={`/commissioners/${commissioner.id}`}
+                  className={`bg-surface-container-lowest p-5 rounded relative overflow-hidden flex flex-col justify-between group ${isLast ? "md:col-span-2" : ""}`}
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: commissioner.color }} />
+                  <div className={isLast ? "flex flex-col md:flex-row md:items-center justify-between" : ""}>
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <h4 className="font-headline text-xl">{commissioner.name}</h4>
+                        {notRunning && (
+                          <span className="bg-error/10 text-error text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">
+                            Not running &apos;26
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant mb-4">
+                        {commissioner.role === "Chair" ? "Board Chair" : commissioner.role}
+                      </p>
+                    </div>
+                    <div className={`grid ${isLast ? "grid-cols-3 gap-12" : "grid-cols-3 gap-2"} py-2`}>
+                      <div className="text-center">
+                        <p className={`font-headline ${isLast ? "text-2xl" : "text-xl"}`}>{cStats.meetingsPresent}</p>
+                        <p className="text-[8px] uppercase font-bold text-secondary">Meetings</p>
+                      </div>
+                      <div className="text-center">
+                        <p className={`font-headline ${isLast ? "text-2xl" : "text-xl"}`}>{cStats.topicCount}</p>
+                        <p className="text-[8px] uppercase font-bold text-secondary">Topics</p>
+                      </div>
+                      <div className="text-center">
+                        <p className={`font-headline ${isLast ? "text-2xl" : "text-xl"}`}>{cStats.motionsMade + cStats.motionsSeconded}</p>
+                        <p className="text-[8px] uppercase font-bold text-secondary">Motions</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </main>
+
+        {/* Most Active Topics */}
+        <div className="xl:col-span-5 space-y-8">
+          <div className="flex items-end border-b border-outline-variant/30 pb-4">
+            <h2 className="font-headline text-3xl">Most Active Topics</h2>
+          </div>
+          <div className="space-y-4">
+            {topTopics.map(([catId, count]) => {
+              const materialIcon = CATEGORY_ICONS[catId];
+              const category = CATEGORIES.find((c) => c.id === catId);
+              if (!category) return null;
+              const pct = Math.round((count / maxTopicCount) * 100);
+              return (
+                <Link key={catId} href={`/topics/${catId}`} className="block space-y-1 group">
+                  <div className="flex justify-between items-center text-[11px] font-bold uppercase tracking-tight">
+                    <span className="flex items-center gap-2 group-hover:text-primary transition-colors">
+                      {materialIcon && <span className="material-symbols-outlined text-[14px]">{materialIcon}</span>}
+                      {category.label}
+                    </span>
+                    <span>{count}</span>
+                  </div>
+                  <div className="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all"
+                      style={{ width: `${pct}%`, opacity: 0.4 + (pct / 100) * 0.6 }}
+                    />
+                  </div>
+                </Link>
+              );
+            })}
+            {remainingTopics.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-4">
+                {remainingTopics.map(([catId, count]) => {
+                  const category = CATEGORIES.find((c) => c.id === catId);
+                  if (!category) return null;
+                  return (
+                    <Link
+                      key={catId}
+                      href={`/topics/${catId}`}
+                      className="rounded-full px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase hover:opacity-80 transition-opacity"
+                    >
+                      {category.label} ({count})
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Meetings */}
+      <section>
+        <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
+          <h2 className="font-headline text-3xl">Recent Meetings</h2>
+        </div>
+        <div className="space-y-6">
+          {meetings
+            .sort((a, b) => b.date.localeCompare(a.date))
+            .slice(0, 5)
+            .map((meeting) => (
+              <Link
+                key={meeting.id}
+                href={`/meetings/${meeting.id}`}
+                className="block bg-surface-container-low p-8 rounded relative border-l-4 border-primary hover:bg-surface-container transition-colors"
+              >
+                <div className="flex flex-col md:flex-row gap-8">
+                  <div className="md:w-1/4">
+                    <p className="font-headline text-2xl text-primary">
+                      {new Date(meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                    </p>
+                    <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant mt-2 capitalize">
+                      {meeting.type} Meeting
+                    </p>
+                    <div className="mt-4 flex items-center gap-2 text-primary font-bold">
+                      <span className="material-symbols-outlined text-[18px]">timer</span>
+                      <span className="text-sm">{meeting.duration}</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-3">
+                    <h3 className="font-headline text-xl italic">
+                      Board of Commissioners {meeting.type.charAt(0).toUpperCase() + meeting.type.slice(1)} Meeting
+                    </h3>
+                    <p className="font-body text-sm leading-relaxed text-on-surface-variant line-clamp-3">
+                      {meeting.tldr}
+                    </p>
+                    <div className="flex items-center gap-2 pt-2">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">
+                        {meeting.attendees.length} commissioners · ~{meeting.audienceSize} audience · {meeting.keyVotes.length} votes
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          {meetings.length === 0 && (
+            <p className="text-on-surface-variant text-sm italic py-8 text-center">No meetings match the current filters.</p>
+          )}
+        </div>
+      </section>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense>
+      <DashboardContent />
+    </Suspense>
   );
 }

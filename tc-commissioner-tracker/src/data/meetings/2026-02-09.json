@@ -1,0 +1,127 @@
+{
+  "id": "2026-02-09",
+  "date": "2026-02-09",
+  "type": "regular",
+  "time": "4:00 PM",
+  "attendees": ["mccall", "chapman", "chappell", "dalton", "mckelvey"],
+  "audienceSize": 30,
+  "duration": "3.5 hours",
+  "tldr": "Massive capital project update (~$200M in development), FY27 budget strategy session emphasizing no tax increase, Hurricane Helene recovery update, bookmobile generator funding, AV system upgrade, and cybersecurity pilot program. Owen Carson announced candidacy for commission and pushed for County Planner hire. Board recognized Clerk Trisha Hogan's Master Municipal Clerk designation.",
+  "keyVotes": [
+    {
+      "description": "Letter to GA for additional virtual school days",
+      "result": "unanimous",
+      "mover": "chappell",
+      "seconder": "mckelvey"
+    },
+    {
+      "description": "$10,000 from contingency for bookmobile generator",
+      "result": "unanimous",
+      "mover": "chappell",
+      "seconder": "chapman"
+    },
+    {
+      "description": "Encore AV system contract $183,377",
+      "result": "unanimous",
+      "mover": "chappell",
+      "seconder": "dalton"
+    },
+    {
+      "description": "SecureNC cybersecurity pilot MOU",
+      "result": "unanimous",
+      "mover": "chappell",
+      "seconder": "dalton"
+    },
+    {
+      "description": "Nonprofit grant funding process changes",
+      "result": "unanimous",
+      "mover": "chappell",
+      "seconder": "mckelvey"
+    },
+    {
+      "description": "GovDeals contract for foreclosed property auction",
+      "result": "unanimous",
+      "mover": "consent agenda",
+      "seconder": "consent agenda"
+    }
+  ],
+  "commissionerActivity": {
+    "mccall": {
+      "topics": [
+        { "text": "Pushed for ¼-cent sales tax referendum timing discussion", "categories": ["fiscal"] },
+        { "text": "Asked about bookmobile lifespan and original funding; encouraged grant exploration for replacement", "categories": ["community"] },
+        { "text": "Confirmed vacant County Planner position will be filled", "categories": ["governance", "housing"] },
+        { "text": "Supported organizing capital advocacy requests by category", "categories": ["fiscal", "infrastructure"] },
+        { "text": "Shared condolences for retired educator Kathy Haehnel", "categories": ["community"] },
+        { "text": "Asked whether Rosman old gym issues affect retaining wall project", "categories": ["schools"] }
+      ],
+      "motionsMade": 0,
+      "motionsSeconded": 0,
+      "externalRoles": ["NCACC Tax & Finance Subcommittee"]
+    },
+    "chapman": {
+      "topics": [
+        { "text": "Raised concerns about committing to $36M courthouse estimate before final design/bidding", "categories": ["fiscal", "infrastructure"] },
+        { "text": "Noted property tax reform is growing national topic, cited NCACC meeting with Florida reps", "categories": ["fiscal"] },
+        { "text": "Asked about NCDPI review timelines for school capital projects", "categories": ["schools"] },
+        { "text": "Asked if AV system could relocate to historic courthouse", "categories": ["infrastructure", "governance"] },
+        { "text": "Asked whether cybersecurity staffing is sufficient for SecureNC pilot", "categories": ["safety"] },
+        { "text": "Promoted Veterans History Museum info and Rising Above Helene documentary screening", "categories": ["community", "recovery"] }
+      ],
+      "motionsMade": 1,
+      "motionsSeconded": 1,
+      "externalRoles": ["NCACC District Directors"]
+    },
+    "chappell": {
+      "topics": [
+        { "text": "Drove letter to GA advocating more virtual school days for weather-affected WNC districts", "categories": ["schools", "governance"] },
+        { "text": "Supported SMART goals in nonprofit grant funding for outcome tracking", "categories": ["governance"] },
+        { "text": "Suggested adding Starlink to bookmobile for emergency connectivity", "categories": ["community", "recovery"] },
+        { "text": "Cautioned public about social media misinformation re: county vs NCDOT responsibilities", "categories": ["governance"] },
+        { "text": "Credited long-term legislative relationships for county's grant success", "categories": ["fiscal"] },
+        { "text": "Recommended prioritizing capital advocacy: courthouse first, then BRCC campus", "categories": ["infrastructure"] },
+        { "text": "Thanked staff for improved capital project reporting transparency", "categories": ["governance", "schools"] }
+      ],
+      "motionsMade": 4,
+      "motionsSeconded": 0,
+      "externalRoles": []
+    },
+    "dalton": {
+      "topics": [
+        { "text": "Advocated differentiated tax rate on vacation/second homes like VA, TN, SC", "categories": ["fiscal", "housing"] },
+        { "text": "Pushed for increased federal PILT funding — 2/3 of county land doesn't generate property tax", "categories": ["fiscal", "environment"] },
+        { "text": "Supported parcel fee model for solid waste (like SC) as alternative to tipping fees", "categories": ["fiscal", "environment"] },
+        { "text": "Asked about Solid Waste Study timeline", "categories": ["environment"] },
+        { "text": "Asked about structural cause of Rosman old gym issues — drainage + corrosion", "categories": ["schools"] },
+        { "text": "Supported including max projects in capital advocacy letter", "categories": ["infrastructure"] },
+        { "text": "Congratulated 911 Center on full staffing after years of shortages", "categories": ["safety"] },
+        { "text": "Credited county advocacy in Raleigh for $7M landfill grant", "categories": ["fiscal", "environment"] },
+        { "text": "Supported satellite Fire/EMS facility and Quebec EMS station in advocacy", "categories": ["safety"] }
+      ],
+      "motionsMade": 0,
+      "motionsSeconded": 4,
+      "externalRoles": ["NCACC Tax & Finance Subcommittee"]
+    },
+    "mckelvey": {
+      "topics": [
+        { "text": "Asked about putting ¼-cent sales tax back on 2026 ballot", "categories": ["fiscal"] },
+        { "text": "Floated that sales tax + fee-based solid waste could cut property taxes ~3 cents", "categories": ["fiscal"] },
+        { "text": "Asked if solid waste rate study would support full cost recovery through fees", "categories": ["fiscal", "environment"] },
+        { "text": "Expressed appreciation for improved capital project reporting detail", "categories": ["governance", "schools"] }
+      ],
+      "motionsMade": 0,
+      "motionsSeconded": 2,
+      "externalRoles": []
+    }
+  },
+  "publicComments": [
+    {
+      "speaker": "Owen Carson",
+      "summary": "Asked about County Planner position status; pushed for hire to implement Housing Plan; requested advisory board minutes be posted online; announced candidacy for Commission"
+    },
+    {
+      "speaker": "Doug Powell",
+      "summary": "Shared Black History Month remarks on African American contributions during the Revolutionary era"
+    }
+  ]
+}
