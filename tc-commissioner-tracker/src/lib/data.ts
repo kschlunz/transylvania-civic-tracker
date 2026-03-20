@@ -331,25 +331,35 @@ export async function getThreadAsync(id: string): Promise<TopicThread | undefine
   return undefined;
 }
 
-/** Upsert a topic thread into Supabase */
+/** Upsert a topic thread into Supabase. Throws on failure. */
 export async function upsertThread(thread: TopicThread): Promise<void> {
-  if (!isSupabaseEnabled() || !supabase) return;
+  if (!isSupabaseEnabled() || !supabase) {
+    console.warn("upsertThread: Supabase not enabled, skipping");
+    return;
+  }
+
+  const row = {
+    id: thread.id,
+    title: thread.title,
+    categories: thread.categories,
+    first_mentioned_date: thread.firstMentionedDate,
+    first_mentioned_meeting_id: thread.firstMentionedMeetingId,
+    status: thread.status,
+    mentions: thread.mentions,
+  };
+
+  console.log(`[upsertThread] Upserting thread "${thread.id}":`, JSON.stringify(row, null, 2));
 
   const { error } = await supabase
     .from("topic_threads")
-    .upsert({
-      id: thread.id,
-      title: thread.title,
-      categories: thread.categories,
-      first_mentioned_date: thread.firstMentionedDate,
-      first_mentioned_meeting_id: thread.firstMentionedMeetingId,
-      status: thread.status,
-      mentions: thread.mentions,
-    });
+    .upsert(row);
 
   if (error) {
-    console.error("Failed to upsert thread:", error);
+    console.error(`[upsertThread] Failed to upsert thread "${thread.id}":`, error);
+    throw new Error(`Failed to save thread "${thread.title}": ${error.message}`);
   }
+
+  console.log(`[upsertThread] Successfully saved thread "${thread.id}"`);
 }
 
 function getLocalPublicStatements(): Record<string, PublicStatement[]> {

@@ -171,38 +171,88 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
 
     setSaving(true);
     setConfirmOverwrite(false);
+    const threadErrors: string[] = [];
     try {
       // Save new threads
+      console.log(`[handleAccept] Saving ${result.newThreads.length} new thread(s)...`);
       for (const nt of result.newThreads) {
-        await upsertThread({
-          id: nt.id,
-          title: nt.title,
-          categories: nt.categories,
-          firstMentionedDate: result.meeting.date,
-          firstMentionedMeetingId: result.meeting.id,
-          status: "active",
-          mentions: [{ meetingId: result.meeting.id, date: result.meeting.date, summary: nt.summary }],
-        });
+        console.log(`[handleAccept] Creating new thread: "${nt.title}" (${nt.id})`);
+        try {
+          await upsertThread({
+            id: nt.id,
+            title: nt.title,
+            categories: nt.categories,
+            firstMentionedDate: result.meeting.date,
+            firstMentionedMeetingId: result.meeting.id,
+            status: "active",
+            mentions: [{ meetingId: result.meeting.id, date: result.meeting.date, summary: nt.summary }],
+          });
+        } catch (err) {
+          const msg = `New thread "${nt.title}": ${err instanceof Error ? err.message : "unknown error"}`;
+          console.error(`[handleAccept] ${msg}`);
+          threadErrors.push(msg);
+        }
       }
 
       // Update existing threads with new mentions
-      for (const tu of result.threadUpdates) {
+      console.log(`[handleAccept] Updating ${result.threadUpdates.length} existing thread(s)...`);
+      if (result.threadUpdates.length > 0) {
+        // Fetch all threads once, not per-update
+        let existingThreads: import("@/lib/types").TopicThread[] = [];
         try {
-          const threads = await getThreadsAsync();
-          const existing = threads.find((t) => t.id === tu.id);
-          if (existing) {
-            const alreadyMentioned = existing.mentions.some((m) => m.meetingId === result.meeting.id);
-            if (!alreadyMentioned) {
-              existing.mentions.push({ meetingId: result.meeting.id, date: result.meeting.date, summary: tu.summary });
-              existing.mentions.sort((a, b) => a.date.localeCompare(b.date));
+          existingThreads = await getThreadsAsync();
+          console.log(`[handleAccept] Fetched ${existingThreads.length} existing threads from Supabase`);
+        } catch (err) {
+          console.error("[handleAccept] Failed to fetch existing threads:", err);
+        }
+
+        for (const tu of result.threadUpdates) {
+          console.log(`[handleAccept] Updating thread: "${tu.id}" with summary: "${tu.summary.slice(0, 80)}..."`);
+          const existing = existingThreads.find((t) => t.id === tu.id);
+          if (!existing) {
+            console.warn(`[handleAccept] Thread "${tu.id}" not found in Supabase — creating as new`);
+            try {
+              await upsertThread({
+                id: tu.id,
+                title: tu.id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+                categories: [],
+                firstMentionedDate: result.meeting.date,
+                firstMentionedMeetingId: result.meeting.id,
+                status: "active",
+                mentions: [{ meetingId: result.meeting.id, date: result.meeting.date, summary: tu.summary }],
+              });
+            } catch (err) {
+              const msg = `Thread update "${tu.id}" (created as new): ${err instanceof Error ? err.message : "unknown error"}`;
+              console.error(`[handleAccept] ${msg}`);
+              threadErrors.push(msg);
             }
-            await upsertThread(existing);
+            continue;
           }
-        } catch { /* thread may not exist yet */ }
+
+          const alreadyMentioned = existing.mentions.some((m) => m.meetingId === result.meeting.id);
+          if (!alreadyMentioned) {
+            existing.mentions.push({ meetingId: result.meeting.id, date: result.meeting.date, summary: tu.summary });
+            existing.mentions.sort((a, b) => a.date.localeCompare(b.date));
+          }
+          try {
+            await upsertThread(existing);
+          } catch (err) {
+            const msg = `Thread update "${tu.id}": ${err instanceof Error ? err.message : "unknown error"}`;
+            console.error(`[handleAccept] ${msg}`);
+            threadErrors.push(msg);
+          }
+        }
       }
 
+      // Save meeting and follow-ups
       await onAccept(result.meeting, acceptedResolutions);
-      setToast("Meeting saved to database successfully.");
+
+      if (threadErrors.length > 0) {
+        setToast(`Meeting saved but ${threadErrors.length} thread error(s): ${threadErrors[0]}`);
+      } else {
+        const threadCount = result.newThreads.length + result.threadUpdates.length;
+        setToast(`Meeting saved successfully.${threadCount > 0 ? ` ${threadCount} thread(s) updated.` : ""}`);
+      }
     } catch (err) {
       setToast(`Error saving: ${err instanceof Error ? err.message : "Unknown error"}`);
       setSaving(false);
