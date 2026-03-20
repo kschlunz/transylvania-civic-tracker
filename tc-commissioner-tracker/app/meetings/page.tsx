@@ -7,7 +7,7 @@ import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import MeetingIntakeForm from "@/components/MeetingIntakeForm";
 import FilterBar from "@/components/FilterBar";
-import type { Meeting, FollowUpItem } from "@/lib/types";
+import type { Meeting } from "@/lib/types";
 
 interface ResolvedFollowUp {
   id: string;
@@ -18,7 +18,7 @@ interface ResolvedFollowUp {
 const PAGE_SIZE = 10;
 
 function MeetingsContent() {
-  const { meetings: allMeetings, draftIds, addMeeting } = useMeetings();
+  const { meetings: allMeetings, addMeeting } = useMeetings();
   const [showIntake, setShowIntake] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -43,18 +43,23 @@ function MeetingsContent() {
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  function handleAccept(meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) {
-    addMeeting(meeting);
+  async function handleAccept(meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) {
+    await addMeeting(meeting);
 
-    // Apply accepted follow-up resolutions to localStorage
+    // Apply accepted follow-up resolutions to Supabase
     if (acceptedResolutions.length > 0) {
-      try {
-        const existing = JSON.parse(localStorage.getItem("tc-followup-status") || "{}");
+      const { supabase } = await import("@/lib/supabase");
+      if (supabase) {
         for (const r of acceptedResolutions) {
-          existing[r.id] = r.status;
+          const { error } = await supabase
+            .from("follow_ups")
+            .update({ status: r.status, resolution: r.resolution })
+            .eq("id", r.id);
+          if (error) {
+            console.error(`Failed to update follow-up ${r.id}:`, error);
+          }
         }
-        localStorage.setItem("tc-followup-status", JSON.stringify(existing));
-      } catch { /* ignore */ }
+      }
     }
 
     setShowIntake(false);
@@ -160,17 +165,9 @@ function MeetingsContent() {
                   <h3 className="font-headline text-2xl text-primary mb-2">
                     Board of Commissioners
                   </h3>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-[10px] font-bold uppercase tracking-tighter capitalize">
-                      {meeting.type}
-                    </span>
-                    {draftIds.has(meeting.id) && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold uppercase tracking-tighter">
-                        <span className="material-symbols-outlined text-[12px]">edit_note</span>
-                        Draft — not yet committed
-                      </span>
-                    )}
-                  </div>
+                  <span className="inline-flex items-center px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-[10px] font-bold uppercase tracking-tighter capitalize">
+                    {meeting.type}
+                  </span>
                 </div>
                 <div className="md:col-span-5">
                   <p className="text-on-surface-variant font-body text-sm leading-relaxed line-clamp-3">

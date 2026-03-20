@@ -26,7 +26,7 @@ interface ProcessedResult {
 }
 
 interface MeetingIntakeFormProps {
-  onAccept: (meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) => void;
+  onAccept: (meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) => Promise<void>;
   onClose: () => void;
 }
 
@@ -127,6 +127,8 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
     });
   }
 
+  const [saving, setSaving] = useState(false);
+
   async function handleAccept() {
     if (!result) return;
 
@@ -134,17 +136,16 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
       (r) => !rejectedResolutions.has(r.id)
     );
 
-    // Copy formatted JSON to clipboard
-    const json = JSON.stringify(result.meeting, null, 2);
-    const filename = `${result.meeting.date}.json`;
+    setSaving(true);
     try {
-      await navigator.clipboard.writeText(json);
-      setToast(`Meeting JSON copied — paste into src/data/meetings/${filename} and commit`);
-    } catch {
-      setToast(`Could not copy to clipboard. Save the JSON manually as src/data/meetings/${filename}`);
+      await onAccept(result.meeting, acceptedResolutions);
+      setToast("Meeting saved to database successfully.");
+    } catch (err) {
+      setToast(`Error saving: ${err instanceof Error ? err.message : "Unknown error"}`);
+      setSaving(false);
+      return;
     }
-
-    onAccept(result.meeting, acceptedResolutions);
+    setSaving(false);
   }
 
   const meeting = result?.meeting ?? null;
@@ -339,10 +340,11 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
               </button>
               <button
                 onClick={handleAccept}
-                className="bg-primary text-on-primary px-8 py-3 rounded shadow-lg hover:bg-primary-container transition-all flex items-center gap-2"
+                disabled={saving}
+                className="bg-primary text-on-primary px-8 py-3 rounded shadow-lg hover:bg-primary-container transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="material-symbols-outlined text-sm">content_copy</span>
-                <span className="font-label text-sm font-bold">Copy JSON &amp; Save Draft</span>
+                <span className="material-symbols-outlined text-sm">{saving ? "hourglass_empty" : "save"}</span>
+                <span className="font-label text-sm font-bold">{saving ? "Saving..." : "Accept &amp; Save"}</span>
               </button>
             </>
           )}

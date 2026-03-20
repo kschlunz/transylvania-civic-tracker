@@ -3,85 +3,116 @@
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import type { Meeting } from "./types";
 import { getMeetings, getMeetingsAsync } from "./data";
-import { isSupabaseEnabled } from "./supabase";
+import { supabase, isSupabaseEnabled } from "./supabase";
 
 const LOCAL_MEETINGS = getMeetings();
-const STORAGE_KEY = "tc-tracker-meetings";
-
-function loadFromStorage(): Meeting[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as Meeting[];
-  } catch {
-    return [];
-  }
-}
-
-function saveToStorage(meetings: Meeting[]) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(meetings));
-  } catch {
-    // storage full or unavailable
-  }
-}
 
 interface MeetingsContextValue {
-  /** All meetings: Supabase/JSON + localStorage drafts */
+  /** All meetings from Supabase (or local JSON fallback) */
   meetings: Meeting[];
-  /** Set of meeting IDs that are drafts (localStorage only, not yet committed) */
-  draftIds: Set<string>;
-  /** Add a meeting as a draft (saves to localStorage) */
-  addMeeting: (meeting: Meeting) => void;
+  /** Add a meeting — inserts into Supabase, then refreshes local state */
+  addMeeting: (meeting: Meeting) => Promise<void>;
+  /** Whether data has loaded */
+  ready: boolean;
 }
 
 const MeetingsContext = createContext<MeetingsContextValue | null>(null);
 
+/** Convert a Meeting object to Supabase row format */
+function meetingToRow(meeting: Meeting) {
+  return {
+    id: meeting.id,
+    date: meeting.date,
+    type: meeting.type,
+    time: meeting.time,
+    attendees: meeting.attendees,
+    audience_size: meeting.audienceSize,
+    duration: meeting.duration,
+    tldr: meeting.tldr,
+    key_votes: meeting.keyVotes,
+    commissioner_activity: meeting.commissionerActivity,
+    public_comments: meeting.publicComments,
+    follow_ups: meeting.followUps || [],
+    source_url: meeting.sourceUrl || null,
+    agenda_url: meeting.agendaUrl || null,
+  };
+}
+
 export function MeetingsProvider({ children }: { children: React.ReactNode }) {
-  const [committed, setCommitted] = useState<Meeting[]>(LOCAL_MEETINGS);
-  const [drafts, setDrafts] = useState<Meeting[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const [meetings, setMeetings] = useState<Meeting[]>(LOCAL_MEETINGS);
+  const [ready, setReady] = useState(false);
 
+  // Load from Supabase on mount
   useEffect(() => {
-    setDrafts(loadFromStorage());
-    setHydrated(true);
-
-    // If Supabase is configured, fetch from it and replace local data
     if (isSupabaseEnabled()) {
-      getMeetingsAsync().then((sbMeetings) => {
-        if (sbMeetings.length > 0) {
-          setCommitted(sbMeetings);
+      getMeetingsAsync()
+        .then((sbMeetings) => {
+          if (sbMeetings.length > 0) {
+            setMeetings(sbMeetings);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch from Supabase, using local data:", err);
+        })
+        .finally(() => setReady(true));
+    } else {
+      setReady(true);
+    }
+  }, []);
+
+  const addMeeting = useCallback(async (meeting: Meeting) => {
+    if (isSupabaseEnabled() && supabase) {
+      // Insert meeting into Supabase
+      const { error: meetingError } = await supabase
+        .from("meetings")
+        .upsert(meetingToRow(meeting));
+
+      if (meetingError) {
+        console.error("Failed to insert meeting into Supabase:", meetingError);
+        throw new Error(`Failed to save meeting: ${meetingError.message}`);
+      }
+
+      // Insert follow-ups into Supabase
+      if (meeting.followUps && meeting.followUps.length > 0) {
+        for (const fu of meeting.followUps) {
+          const { error: fuError } = await supabase
+            .from("follow_ups")
+            .upsert({
+              id: fu.id,
+              date_raised: fu.dateRaised,
+              owner: fu.owner || "staff",
+              description: fu.description,
+              status: fu.status || "open",
+              categories: fu.categories || [],
+              related_meeting_id: fu.relatedMeetingId || meeting.id,
+              resolved_date: fu.resolvedDate || null,
+              resolved_meeting_id: fu.resolvedMeetingId || null,
+              resolution: fu.resolution || null,
+              last_referenced_meeting_id: fu.lastReferencedMeetingId || null,
+            });
+
+          if (fuError) {
+            console.error(`Failed to insert follow-up ${fu.id}:`, fuError);
+          }
         }
-      }).catch((err) => {
-        console.error("Failed to fetch from Supabase, using local data:", err);
+      }
+
+      // Refresh meetings from Supabase
+      const refreshed = await getMeetingsAsync();
+      if (refreshed.length > 0) {
+        setMeetings(refreshed);
+      }
+    } else {
+      // Fallback: add to local state only (no persistence)
+      setMeetings((prev) => {
+        const filtered = prev.filter((m) => m.id !== meeting.id);
+        return [meeting, ...filtered];
       });
     }
   }, []);
 
-  const addMeeting = useCallback((meeting: Meeting) => {
-    setDrafts((prev) => {
-      const next = [meeting, ...prev.filter((m) => m.id !== meeting.id)];
-      saveToStorage(next);
-      return next;
-    });
-  }, []);
-
-  // Committed IDs for deduplication
-  const committedIds = new Set(committed.map((m) => m.id));
-
-  // Only drafts that haven't been committed yet
-  const activeDrafts = drafts.filter((m) => !committedIds.has(m.id));
-  const draftIds = new Set(activeDrafts.map((m) => m.id));
-
-  // Merge: drafts first, then committed
-  const meetings = [...activeDrafts, ...committed];
-
-  const stableMeetings = hydrated ? meetings : LOCAL_MEETINGS;
-  const stableDraftIds = hydrated ? draftIds : new Set<string>();
-
   return (
-    <MeetingsContext.Provider value={{ meetings: stableMeetings, draftIds: stableDraftIds, addMeeting }}>
+    <MeetingsContext.Provider value={{ meetings, addMeeting, ready }}>
       {children}
     </MeetingsContext.Provider>
   );
