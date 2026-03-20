@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
@@ -17,6 +17,137 @@ import type { FollowUpItem } from "@/lib/types";
 
 const BORDER_COLORS = ["border-primary", "border-secondary", "border-primary-container", "border-tertiary"];
 const DOT_COLORS = ["bg-primary", "bg-secondary", "bg-tertiary-container", "bg-outline", "bg-on-primary-container", "bg-error"];
+
+interface ExpandableStatsProps {
+  meetings: import("@/lib/types").Meeting[];
+  commissionerId: string;
+  metricCards: { label: string; value: number }[];
+  meetingActivities: { meetingId: string; date: string; activity: import("@/lib/types").CommissionerActivity }[];
+}
+
+function ExpandableStats({ meetings, commissionerId, metricCards, meetingActivities }: ExpandableStatsProps) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  // Gather detail data for each stat
+  const meetingDates = meetings
+    .filter((m) => m.attendees.includes(commissionerId))
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const allTopics: { text: string; categories: string[]; date: string }[] = [];
+  for (const ma of meetingActivities) {
+    for (const t of ma.activity.topics) {
+      allTopics.push({ text: t.text, categories: t.categories, date: ma.date });
+    }
+  }
+
+  const motionsMade: { description: string; result: string; date: string }[] = [];
+  const motionsSeconded: { description: string; result: string; date: string }[] = [];
+  for (const m of meetings) {
+    for (const vote of m.keyVotes) {
+      if (vote.mover === commissionerId) motionsMade.push({ description: vote.description, result: vote.result, date: m.date });
+      if (vote.seconder === commissionerId) motionsSeconded.push({ description: vote.description, result: vote.result, date: m.date });
+    }
+  }
+
+  const detailKeys = ["Meetings Present", "Topics Raised", "Motions Made", "Motions Seconded"];
+
+  function renderDetail(label: string) {
+    switch (label) {
+      case "Meetings Present":
+        return (
+          <div className="space-y-2">
+            {meetingDates.map((m) => (
+              <Link key={m.id} href={`/meetings/${m.id}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
+                <span className="material-symbols-outlined text-sm text-secondary">event</span>
+                <span className="text-sm font-bold text-primary">
+                  {new Date(m.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </span>
+                <span className="text-[10px] text-on-surface-variant uppercase capitalize">{m.type}</span>
+              </Link>
+            ))}
+          </div>
+        );
+      case "Topics Raised":
+        return (
+          <div className="space-y-3">
+            {allTopics.map((t, i) => (
+              <div key={i} className="text-sm">
+                <p className="text-on-surface">{t.text}</p>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {t.categories.map((catId) => {
+                    const cat = CATEGORIES.find((c) => c.id === catId);
+                    if (!cat) return null;
+                    return (
+                      <Link key={catId} href={`/topics/${catId}`} className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase hover:opacity-80">
+                        {cat.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      case "Motions Made":
+        return motionsMade.length === 0 ? (
+          <p className="text-sm text-on-surface-variant italic">No motions made in this period.</p>
+        ) : (
+          <div className="space-y-2">
+            {motionsMade.map((m, i) => (
+              <div key={i} className="flex items-start gap-3 text-sm py-1">
+                <span className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase shrink-0 mt-0.5">{m.result}</span>
+                <span className="text-on-surface">{m.description}</span>
+              </div>
+            ))}
+          </div>
+        );
+      case "Motions Seconded":
+        return motionsSeconded.length === 0 ? (
+          <p className="text-sm text-on-surface-variant italic">No motions seconded in this period.</p>
+        ) : (
+          <div className="space-y-2">
+            {motionsSeconded.map((m, i) => (
+              <div key={i} className="flex items-start gap-3 text-sm py-1">
+                <span className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase shrink-0 mt-0.5">{m.result}</span>
+                <span className="text-on-surface">{m.description}</span>
+              </div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
+  return (
+    <div className="mb-10 md:mb-16 space-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        {metricCards.map((stat, i) => (
+          <button
+            key={stat.label}
+            onClick={() => setExpanded(expanded === stat.label ? null : stat.label)}
+            className={`bg-surface-container-lowest p-4 md:p-8 ${BORDER_COLORS[i % BORDER_COLORS.length]} border-l-4 text-left transition-all hover:shadow-md cursor-pointer ${expanded === stat.label ? "ring-2 ring-primary/20" : ""}`}
+          >
+            <p className="text-on-surface-variant text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">{stat.label}</p>
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-2xl md:text-4xl font-headline text-primary">{stat.value}</h3>
+              <span className="material-symbols-outlined text-on-surface-variant text-sm transition-transform" style={{ transform: expanded === stat.label ? "rotate(180deg)" : "rotate(0deg)" }}>
+                expand_more
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {expanded && detailKeys.includes(expanded) && (
+        <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-5 md:p-6">
+          <h4 className="font-headline text-lg font-bold text-primary mb-4">{expanded}</h4>
+          {renderDetail(expanded)}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function CommissionerContent() {
   const { id } = useParams<{ id: string }>();
@@ -108,15 +239,13 @@ function CommissionerContent() {
         <FilterBar dateOnly />
       </div>
 
-      {/* Metrics Bento Grid */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-10 md:mb-16">
-        {metricCards.map((stat, i) => (
-          <div key={stat.label} className={`bg-surface-container-lowest p-4 md:p-8 ${BORDER_COLORS[i % BORDER_COLORS.length]} border-l-4`}>
-            <p className="text-on-surface-variant text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">{stat.label}</p>
-            <h3 className="text-2xl md:text-4xl font-headline text-primary">{stat.value}</h3>
-          </div>
-        ))}
-      </section>
+      {/* Metrics Bento Grid — Expandable */}
+      <ExpandableStats
+        meetings={meetings}
+        commissionerId={id}
+        metricCards={metricCards}
+        meetingActivities={meetingActivities}
+      />
 
       {/* Data Visualizations */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-16">

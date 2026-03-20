@@ -1,13 +1,13 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS, ELECTION_INFO } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import FilterBar from "@/components/FilterBar";
-import type { FollowUpItem } from "@/lib/types";
+import type { FollowUpItem, Meeting } from "@/lib/types";
 
 function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
   let topicCount = 0;
@@ -106,7 +106,7 @@ function OpenItemsSummary({ meetings }: { meetings: ReturnType<typeof useMeeting
       <div className="flex items-end justify-between border-b border-outline-variant/30 pb-4 mb-8">
         <div className="flex items-center gap-3">
           <span className="material-symbols-outlined text-error">pending_actions</span>
-          <h2 className="font-headline text-3xl">Accountability Tracker</h2>
+          <Link href="/follow-ups" className="font-headline text-3xl hover:text-primary/80 transition-colors">Accountability Tracker</Link>
         </div>
         <span className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
           {openItems.length} open · {resolvedCount} resolved
@@ -157,6 +157,213 @@ function OpenItemsSummary({ meetings }: { meetings: ReturnType<typeof useMeeting
           View all open items
           <span className="material-symbols-outlined text-sm">arrow_forward</span>
         </Link>
+      </div>
+    </section>
+  );
+}
+
+function DashboardStats({ meetings, stats, topicCounts }: {
+  meetings: Meeting[];
+  stats: { label: string; sublabel: string; value: number; barWidth: string }[];
+  topicCounts: [string, number][];
+}) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  const sortedMeetings = [...meetings].sort((a, b) => b.date.localeCompare(a.date));
+
+  function renderDetail(label: string) {
+    switch (label) {
+      case "Activity Monitor":
+        return (
+          <div className="space-y-2">
+            {sortedMeetings.map((m) => (
+              <Link key={m.id} href={`/meetings/${m.id}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
+                <span className="material-symbols-outlined text-sm text-secondary">event</span>
+                <span className="text-sm font-bold text-primary">
+                  {new Date(m.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </span>
+                <span className="text-[10px] text-on-surface-variant uppercase capitalize">{m.type}</span>
+                <span className="text-[10px] text-on-surface-variant ml-auto">{m.keyVotes.length} votes</span>
+              </Link>
+            ))}
+          </div>
+        );
+      case "Legislative Body":
+        return (
+          <div className="space-y-2">
+            {COMMISSIONERS.map((c) => (
+              <Link key={c.id} href={`/commissioners/${c.id}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
+                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
+                <span className="text-sm font-bold text-primary">{c.name}</span>
+                <span className="text-[10px] text-on-surface-variant uppercase">
+                  {c.role === "Chair" ? "Board Chair" : c.role}
+                </span>
+              </Link>
+            ))}
+          </div>
+        );
+      case "Data Taxonomy":
+        return (
+          <div className="space-y-2">
+            {topicCounts.map(([catId, count]) => {
+              const cat = CATEGORIES.find((c) => c.id === catId);
+              const icon = CATEGORY_ICONS[catId];
+              if (!cat) return null;
+              return (
+                <Link key={catId} href={`/topics/${catId}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
+                  {icon && <span className="material-symbols-outlined text-sm text-secondary">{icon}</span>}
+                  <span className="text-sm font-bold text-primary">{cat.label}</span>
+                  <span className="text-[10px] text-on-surface-variant ml-auto">{count} actions</span>
+                </Link>
+              );
+            })}
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
+  const expandableLabels = ["Activity Monitor", "Legislative Body", "Data Taxonomy"];
+
+  return (
+    <div className="space-y-3">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        {stats.map((stat) => {
+          const isExpandable = expandableLabels.includes(stat.label);
+          const isExpanded = expanded === stat.label;
+
+          if (!isExpandable) {
+            return (
+              <div key={stat.label} className="bg-surface-container-low p-6 rounded-lg">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
+                <div className="flex items-baseline gap-2">
+                  <h3 className="font-headline text-4xl">{stat.value}</h3>
+                  <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
+                </div>
+                <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <button
+              key={stat.label}
+              onClick={() => setExpanded(isExpanded ? null : stat.label)}
+              className={`bg-surface-container-low p-6 rounded-lg transition-all hover:bg-surface-container-high text-left cursor-pointer ${isExpanded ? "ring-2 ring-primary/20" : ""}`}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
+              <div className="flex items-baseline justify-between gap-2">
+                <div className="flex items-baseline gap-2">
+                  <h3 className="font-headline text-4xl">{stat.value}</h3>
+                  <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
+                </div>
+                <span className="material-symbols-outlined text-on-surface-variant text-sm transition-transform" style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  expand_more
+                </span>
+              </div>
+              <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
+                <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
+              </div>
+            </button>
+          );
+        })}
+      </section>
+
+      {expanded && expandableLabels.includes(expanded) && (
+        <div className="bg-surface-container-low rounded-lg p-5 md:p-6">
+          <h4 className="font-headline text-lg font-bold text-primary mb-4">{expanded}</h4>
+          {renderDetail(expanded)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const sorted = [...meetings].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+
+  if (sorted.length === 0) {
+    return (
+      <section>
+        <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
+          <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Deliberations</Link>
+        </div>
+        <p className="text-on-surface-variant text-sm italic py-8 text-center">No meetings match the current filters.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section>
+      <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
+        <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Deliberations</Link>
+      </div>
+      <div className="space-y-3">
+        {sorted.map((meeting) => {
+          const isExpanded = expandedId === meeting.id;
+          return (
+            <div key={meeting.id} className="bg-surface-container-low rounded-lg relative border-l-4 border-primary overflow-hidden">
+              <button
+                onClick={() => setExpandedId(isExpanded ? null : meeting.id)}
+                className="w-full text-left p-5 md:p-6 flex items-center gap-4 hover:bg-surface-container transition-colors min-h-[44px]"
+              >
+                <div className="flex-1 flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+                  <p className="font-headline text-lg md:text-xl text-primary font-bold whitespace-nowrap">
+                    {new Date(meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </p>
+                  <div className="flex items-center gap-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">
+                    <span className="capitalize">{meeting.type}</span>
+                    <span>·</span>
+                    <span>{meeting.duration}</span>
+                    <span>·</span>
+                    <span>{meeting.keyVotes.length} votes</span>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined text-on-surface-variant shrink-0 transition-transform" style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  expand_more
+                </span>
+              </button>
+
+              {isExpanded && (
+                <div className="px-5 md:px-6 pb-6 space-y-6 border-t border-outline-variant/10 pt-4">
+                  {/* TLDR */}
+                  <p className="font-headline italic text-on-surface-variant leading-relaxed">
+                    {meeting.tldr}
+                  </p>
+
+                  {/* Key Votes */}
+                  {meeting.keyVotes.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-widest text-secondary mb-3">Key Votes</h4>
+                      <div className="space-y-2">
+                        {meeting.keyVotes.map((vote, i) => (
+                          <div key={i} className="flex items-start gap-3 text-sm">
+                            <span className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase shrink-0 mt-0.5">
+                              {vote.result}
+                            </span>
+                            <span className="text-on-surface">{vote.description}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Link
+                    href={`/meetings/${meeting.id}`}
+                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity"
+                  >
+                    View full meeting
+                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -244,27 +451,20 @@ function DashboardContent() {
       {/* Filter Bar */}
       <FilterBar />
 
-      {/* Stats Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat) => (
-          <div key={stat.label} className="bg-surface-container-low p-6 rounded-lg transition-all hover:bg-surface-container-high">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
-            <div className="flex items-baseline gap-2">
-              <h3 className="font-headline text-4xl">{stat.value}</h3>
-              <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
-            </div>
-            <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
-              <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
-            </div>
-          </div>
-        ))}
-      </section>
+      {/* Stats Grid — Expandable */}
+      <DashboardStats meetings={meetings} stats={stats} topicCounts={topicCounts} />
+
+      {/* Recent Deliberations — PRIMARY CONTENT */}
+      <RecentDeliberations meetings={meetings} />
+
+      {/* Accountability Tracker — Open Items */}
+      <OpenItemsSummary meetings={meetings} />
 
       {/* Commissioners + Topics two-column layout */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
         <div className="xl:col-span-7 space-y-8">
           <div className="flex justify-between items-end border-b border-outline-variant/30 pb-4">
-            <h2 className="font-headline text-3xl">Commissioners Overview</h2>
+            <Link href="/commissioners" className="font-headline text-3xl hover:text-primary/80 transition-colors">Commissioners Overview</Link>
             <Link href="/commissioners" className="text-[10px] font-bold uppercase tracking-widest text-primary border-b border-primary hover:opacity-70 transition-opacity">
               View Full Dossiers
             </Link>
@@ -319,7 +519,7 @@ function DashboardContent() {
         {/* Most Active Topics */}
         <div className="xl:col-span-5 space-y-8">
           <div className="flex items-end border-b border-outline-variant/30 pb-4">
-            <h2 className="font-headline text-3xl">Most Active Topics</h2>
+            <Link href="/topics/fiscal" className="font-headline text-3xl hover:text-primary/80 transition-colors">Most Active Topics</Link>
           </div>
           <div className="space-y-4">
             {topTopics.map(([catId, count]) => {
@@ -366,58 +566,7 @@ function DashboardContent() {
         </div>
       </div>
 
-      {/* Accountability Tracker — Open Items */}
-      <OpenItemsSummary meetings={meetings} />
-
-      {/* Recent Meetings */}
-      <section>
-        <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
-          <h2 className="font-headline text-3xl">Recent Meetings</h2>
-        </div>
-        <div className="space-y-6">
-          {meetings
-            .sort((a, b) => b.date.localeCompare(a.date))
-            .slice(0, 5)
-            .map((meeting) => (
-              <Link
-                key={meeting.id}
-                href={`/meetings/${meeting.id}`}
-                className="block bg-surface-container-low p-8 rounded relative border-l-4 border-primary hover:bg-surface-container transition-colors"
-              >
-                <div className="flex flex-col md:flex-row gap-8">
-                  <div className="md:w-1/4">
-                    <p className="font-headline text-2xl text-primary">
-                      {new Date(meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                    </p>
-                    <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant mt-2 capitalize">
-                      {meeting.type} Meeting
-                    </p>
-                    <div className="mt-4 flex items-center gap-2 text-primary font-bold">
-                      <span className="material-symbols-outlined text-[18px]">timer</span>
-                      <span className="text-sm">{meeting.duration}</span>
-                    </div>
-                  </div>
-                  <div className="flex-1 space-y-3">
-                    <h3 className="font-headline text-xl italic">
-                      Board of Commissioners {meeting.type.charAt(0).toUpperCase() + meeting.type.slice(1)} Meeting
-                    </h3>
-                    <p className="font-body text-sm leading-relaxed text-on-surface-variant line-clamp-3">
-                      {meeting.tldr}
-                    </p>
-                    <div className="flex items-center gap-2 pt-2">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">
-                        {meeting.attendees.length} commissioners · ~{meeting.audienceSize} audience · {meeting.keyVotes.length} votes
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          {meetings.length === 0 && (
-            <p className="text-on-surface-variant text-sm italic py-8 text-center">No meetings match the current filters.</p>
-          )}
-        </div>
-      </section>
+      {/* Old open items + meetings moved above commissioners */}
     </div>
   );
 }

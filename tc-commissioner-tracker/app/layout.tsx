@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MeetingsProvider } from "@/lib/meetings-context";
 import NavLinks from "@/components/NavLinks";
 import MobileMenu from "@/components/MobileMenu";
+import EmailSignup from "@/components/EmailSignup";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -62,9 +63,13 @@ export default function RootLayout({
           </main>
         </MeetingsProvider>
 
-        {/* Disclaimer Footer */}
+        {/* Footer */}
         <footer className="border-t border-outline-variant/20 py-6 md:py-8 px-4 md:px-6 lg:px-12">
-          <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-screen-2xl mx-auto space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <p className="text-sm font-label font-bold text-on-surface-variant">Subscribe for meeting updates</p>
+              <EmailSignup />
+            </div>
             <p className="text-[10px] md:text-[11px] text-on-surface-variant/60 leading-relaxed max-w-3xl">
               Meeting data is extracted from official Transylvania County meeting minutes using AI-assisted processing and reviewed by volunteers.
               For the official record, refer to the county&apos;s published minutes at{" "}
