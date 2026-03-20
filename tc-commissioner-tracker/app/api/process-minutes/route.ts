@@ -58,6 +58,10 @@ Only include resolvedFollowUps entries for items you are confident are addressed
 
 Use the meeting date as the id field (e.g., "2026-02-09").
 
+Generate a sourceUrl for the official minutes PDF using this pattern:
+https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/YYYY-MM-DD%20reg%20mtg.pdf
+Replace YYYY-MM-DD with the meeting date. Use "reg%20mtg" for regular meetings and "special%20mtg" for special meetings.
+
 Return ONLY raw JSON. No markdown fences. No preamble. No explanation. Start with { and end with }
 
 The JSON must match this TypeScript interface:
@@ -67,6 +71,7 @@ The JSON must match this TypeScript interface:
   date: string;
   type: string;
   time: string;
+  sourceUrl: string;
   attendees: string[];
   audienceSize: number;
   duration: string;

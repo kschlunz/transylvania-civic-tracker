@@ -61,12 +61,12 @@ function MeetingsContent() {
   }
 
   return (
-    <div className="px-8 lg:px-12 py-16 max-w-screen-2xl mx-auto">
+    <div className="px-4 md:px-8 lg:px-12 py-8 md:py-16 max-w-screen-2xl mx-auto">
       {/* Hero Section */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-12 md:mb-20">
         <div className="max-w-2xl">
           <span className="text-secondary font-label font-bold tracking-widest text-xs uppercase mb-4 block">Official Record</span>
-          <h1 className="font-headline text-6xl font-extrabold text-primary tracking-tight leading-none mb-6">
+          <h1 className="font-headline text-3xl md:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight leading-none mb-4 md:mb-6">
             Meetings &amp; Deliberations
           </h1>
           <p className="text-on-surface-variant text-lg leading-relaxed font-body">
@@ -82,9 +82,9 @@ function MeetingsContent() {
       </header>
 
       {/* Add Meeting Notes Section */}
-      <section className="mb-24">
+      <section className="mb-12 md:mb-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
-          <div className="md:col-span-8 bg-surface-container-low p-12 rounded-l-xl flex flex-col justify-center">
+          <div className="md:col-span-8 bg-surface-container-low p-6 md:p-12 rounded-t-xl md:rounded-l-xl md:rounded-tr-none flex flex-col justify-center">
             <h2 className="font-headline text-3xl text-primary mb-4">Analyze New Deliberations</h2>
             <p className="text-on-surface-variant font-body mb-8 max-w-lg">
               Paste meeting transcripts or AI-generated summaries here. Our system will parse key decisions, voting records, and thematic shifts to update the ledger.
@@ -97,7 +97,7 @@ function MeetingsContent() {
               <span className="font-label text-sm font-bold">Process Meeting Notes</span>
             </button>
           </div>
-          <div className="md:col-span-4 bg-primary-container p-12 flex flex-col justify-between text-on-primary rounded-r-xl">
+          <div className="md:col-span-4 bg-primary-container p-6 md:p-12 flex flex-col justify-between text-on-primary rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
             <div>
               <span className="material-symbols-outlined text-4xl mb-6 opacity-40">data_object</span>
               <h3 className="font-headline text-2xl mb-4 text-primary-fixed">AI-Powered Extraction</h3>
@@ -145,7 +145,7 @@ function MeetingsContent() {
               {i > 0 && <div className="h-px bg-outline-variant/10" />}
               <Link
                 href={`/meetings/${meeting.id}`}
-                className="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-start hover:bg-surface-container-low/30 p-8 -mx-8 transition-all rounded-xl"
+                className="group relative flex flex-col md:grid md:grid-cols-12 gap-3 md:gap-8 items-start hover:bg-surface-container-low/30 p-4 md:p-8 -mx-4 md:-mx-8 transition-all rounded-xl min-h-[44px]"
               >
                 <div className="md:col-span-2">
                   <span className="text-xs font-label font-bold text-secondary uppercase tracking-widest block mb-1">
@@ -182,7 +182,7 @@ function MeetingsContent() {
                     <span>{meeting.keyVotes.length} votes</span>
                   </div>
                 </div>
-                <div className="md:col-span-2 flex justify-end">
+                <div className="hidden md:flex md:col-span-2 justify-end">
                   <span className="p-3 rounded-full group-hover:bg-surface-container-high transition-colors text-primary inline-flex">
                     <span className="material-symbols-outlined">chevron_right</span>
                   </span>

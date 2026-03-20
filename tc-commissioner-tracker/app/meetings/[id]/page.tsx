@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import VoteDetailModal from "@/components/VoteDetailModal";
-import type { KeyVote } from "@/lib/types";
+import { type KeyVote, getSourceUrl } from "@/lib/types";
 
 function getCommissionerName(id: string) {
   return COMMISSIONERS.find((c) => c.id === id)?.name ?? id;
@@ -29,39 +29,48 @@ export default function MeetingDetail() {
   const passedVotes = meeting.keyVotes.length;
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-8 lg:px-12 py-16">
+    <div className="max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-16">
       {/* Meeting Header */}
-      <header className="mb-20 grid md:grid-cols-2 gap-12 items-end">
+      <header className="mb-12 md:mb-20 grid md:grid-cols-2 gap-6 md:gap-12 items-end">
         <div>
-          <nav className="flex gap-2 text-on-surface-variant text-sm mb-6 uppercase tracking-widest font-bold">
+          <nav className="flex gap-2 text-on-surface-variant text-xs md:text-sm mb-4 md:mb-6 uppercase tracking-widest font-bold">
             <Link href="/meetings" className="hover:text-primary transition-colors">Session Record</Link>
             <span>/</span>
             <span className="text-primary capitalize">{meeting.type} Board Meeting</span>
           </nav>
-          <h1 className="font-headline text-7xl font-bold leading-tight text-primary">{dateStr}</h1>
+          <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-primary">{dateStr}</h1>
+          <a
+            href={meeting.sourceUrl || getSourceUrl(meeting.date, meeting.type)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 mt-4 text-xs font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity"
+          >
+            <span className="material-symbols-outlined text-sm">description</span>
+            View official minutes (PDF) →
+          </a>
         </div>
-        <div className="flex flex-wrap gap-x-12 gap-y-6 md:justify-end pb-2">
+        <div className="flex flex-wrap gap-x-6 md:gap-x-12 gap-y-4 md:gap-y-6 md:justify-end pb-2">
           <div className="flex flex-col">
-            <span className="text-on-surface-variant text-xs uppercase tracking-tighter mb-1 font-bold">Time commenced</span>
-            <span className="text-2xl font-headline">{meeting.time}</span>
+            <span className="text-on-surface-variant text-[10px] md:text-xs uppercase tracking-tighter mb-1 font-bold">Time commenced</span>
+            <span className="text-lg md:text-2xl font-headline">{meeting.time}</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-on-surface-variant text-xs uppercase tracking-tighter mb-1 font-bold">Total duration</span>
-            <span className="text-2xl font-headline">{meeting.duration}</span>
+            <span className="text-on-surface-variant text-[10px] md:text-xs uppercase tracking-tighter mb-1 font-bold">Total duration</span>
+            <span className="text-lg md:text-2xl font-headline">{meeting.duration}</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-on-surface-variant text-xs uppercase tracking-tighter mb-1 font-bold">Public Attendance</span>
-            <span className="text-2xl font-headline">~{meeting.audienceSize} Audience</span>
+            <span className="text-on-surface-variant text-[10px] md:text-xs uppercase tracking-tighter mb-1 font-bold">Public Attendance</span>
+            <span className="text-lg md:text-2xl font-headline">~{meeting.audienceSize} Audience</span>
           </div>
         </div>
       </header>
 
       {/* Executive Summary */}
-      <section className="mb-24">
-        <div className="bg-surface-container-low p-12 md:p-16 relative overflow-hidden">
-          <div className="relative z-10 grid md:grid-cols-12 gap-12">
+      <section className="mb-12 md:mb-24">
+        <div className="bg-surface-container-low p-6 md:p-12 lg:p-16 relative overflow-hidden">
+          <div className="relative z-10 grid md:grid-cols-12 gap-6 md:gap-12">
             <div className="md:col-span-4">
-              <h2 className="font-headline text-4xl font-bold text-primary mb-4 leading-none">Executive<br />Summary</h2>
+              <h2 className="font-headline text-2xl md:text-4xl font-bold text-primary mb-3 md:mb-4 leading-none">Executive<br />Summary</h2>
               <div className="h-1 w-12 bg-primary mt-6" />
             </div>
             <div className="md:col-span-8">
@@ -76,7 +85,7 @@ export default function MeetingDetail() {
         </div>
       </section>
 
-      <div className="grid lg:grid-cols-3 gap-16">
+      <div className="grid lg:grid-cols-3 gap-10 md:gap-16">
         {/* Key Votes + Public Comments */}
         <div className="lg:col-span-2 space-y-12">
           {/* Key Votes */}
@@ -86,9 +95,9 @@ export default function MeetingDetail() {
               {passedVotes} Passed | 0 Failed
             </span>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {meeting.keyVotes.map((vote, i) => (
-              <button key={i} onClick={() => setSelectedVote(vote)} className="bg-surface-container-lowest p-8 border-l-4 border-primary transition-all hover:shadow-xl text-left cursor-pointer">
+              <button key={i} onClick={() => setSelectedVote(vote)} className="bg-surface-container-lowest p-5 md:p-8 border-l-4 border-primary transition-all hover:shadow-xl text-left cursor-pointer min-h-[44px]">
                 <div className="flex justify-between items-start mb-6">
                   {vote.result.toLowerCase() === "unanimous" ? (
                     <span className="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">

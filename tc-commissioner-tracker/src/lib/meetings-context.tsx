@@ -2,9 +2,10 @@
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import type { Meeting } from "./types";
-import { getMeetings } from "./data";
+import { getMeetings, getMeetingsAsync } from "./data";
+import { isSupabaseEnabled } from "./supabase";
 
-const COMMITTED_MEETINGS = getMeetings();
+const LOCAL_MEETINGS = getMeetings();
 const STORAGE_KEY = "tc-tracker-meetings";
 
 function loadFromStorage(): Meeting[] {
@@ -27,7 +28,7 @@ function saveToStorage(meetings: Meeting[]) {
 }
 
 interface MeetingsContextValue {
-  /** All meetings: committed JSON files + localStorage drafts */
+  /** All meetings: Supabase/JSON + localStorage drafts */
   meetings: Meeting[];
   /** Set of meeting IDs that are drafts (localStorage only, not yet committed) */
   draftIds: Set<string>;
@@ -38,12 +39,24 @@ interface MeetingsContextValue {
 const MeetingsContext = createContext<MeetingsContextValue | null>(null);
 
 export function MeetingsProvider({ children }: { children: React.ReactNode }) {
+  const [committed, setCommitted] = useState<Meeting[]>(LOCAL_MEETINGS);
   const [drafts, setDrafts] = useState<Meeting[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setDrafts(loadFromStorage());
     setHydrated(true);
+
+    // If Supabase is configured, fetch from it and replace local data
+    if (isSupabaseEnabled()) {
+      getMeetingsAsync().then((sbMeetings) => {
+        if (sbMeetings.length > 0) {
+          setCommitted(sbMeetings);
+        }
+      }).catch((err) => {
+        console.error("Failed to fetch from Supabase, using local data:", err);
+      });
+    }
   }, []);
 
   const addMeeting = useCallback((meeting: Meeting) => {
@@ -55,16 +68,16 @@ export function MeetingsProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Committed IDs for deduplication
-  const committedIds = new Set(COMMITTED_MEETINGS.map((m) => m.id));
+  const committedIds = new Set(committed.map((m) => m.id));
 
   // Only drafts that haven't been committed yet
   const activeDrafts = drafts.filter((m) => !committedIds.has(m.id));
   const draftIds = new Set(activeDrafts.map((m) => m.id));
 
   // Merge: drafts first, then committed
-  const meetings = [...activeDrafts, ...COMMITTED_MEETINGS];
+  const meetings = [...activeDrafts, ...committed];
 
-  const stableMeetings = hydrated ? meetings : COMMITTED_MEETINGS;
+  const stableMeetings = hydrated ? meetings : LOCAL_MEETINGS;
   const stableDraftIds = hydrated ? draftIds : new Set<string>();
 
   return (

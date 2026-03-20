@@ -126,11 +126,11 @@ function OpenItemsSummary({ meetings }: { meetings: ReturnType<typeof useMeeting
                 {days}d
               </span>
               <p className="text-sm text-on-surface font-medium truncate flex-1">{item.description}</p>
-              <span className="text-xs text-on-surface-variant font-bold whitespace-nowrap shrink-0">
+              <span className="text-xs text-on-surface-variant font-bold whitespace-nowrap shrink-0 hidden md:inline">
                 {getOwnerDisplayName(item.owner)}
               </span>
               <div className="flex gap-1 shrink-0">
-                {item.categories.slice(0, 2).map((catId) => {
+                {item.categories.slice(0, 1).map((catId) => {
                   const cat = CATEGORIES.find((c) => c.id === catId);
                   const icon = CATEGORY_ICONS[catId];
                   if (!cat) return null;
@@ -183,7 +183,7 @@ function DashboardContent() {
   ];
 
   return (
-    <div className="px-8 lg:px-12 py-12 space-y-16">
+    <div className="px-4 md:px-8 lg:px-12 py-8 md:py-12 space-y-10 md:space-y-16">
       {/* Hero Banner */}
       <section className="border-b border-outline-variant/30 pb-12">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
@@ -202,7 +202,7 @@ function DashboardContent() {
               <span className="font-label text-xs uppercase tracking-[0.3em] text-primary font-bold">Curated Intelligence</span>
             </div>
             <div className="max-w-4xl">
-              <h1 className="font-headline text-6xl md:text-7xl lg:text-8xl text-primary leading-[0.95] font-bold -tracking-wider">
+              <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-primary leading-[0.95] font-bold -tracking-wider">
                 The State of <br />
                 <span className="serif-italic font-normal italic pr-2">Civic Governance.</span>
               </h1>

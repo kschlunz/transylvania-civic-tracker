@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
-import type { FollowUpItem } from "@/lib/types";
+import { type FollowUpItem, getSourceUrl } from "@/lib/types";
 
 const STATUS_CONFIG: Record<FollowUpItem["status"], { label: string; bg: string; text: string; icon: string }> = {
   open: { label: "Open", bg: "bg-error/10", text: "text-error", icon: "radio_button_unchecked" },
@@ -56,6 +56,13 @@ function FollowUpsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const isAdmin = useIsAdmin();
+
+  function getMeetingSourceUrl(meetingId: string): string {
+    const m = meetings.find((mtg) => mtg.id === meetingId);
+    if (m?.sourceUrl) return m.sourceUrl;
+    if (m) return getSourceUrl(m.date, m.type);
+    return getSourceUrl(meetingId, "regular");
+  }
 
   // Gather all follow-ups and build a "last referenced" lookup
   const { allFollowUps, lastReferenced } = useMemo(() => {
@@ -163,11 +170,11 @@ function FollowUpsContent() {
   }, [allFollowUps]);
 
   return (
-    <div className="px-8 lg:px-12 py-16 max-w-screen-2xl mx-auto">
+    <div className="px-4 md:px-8 lg:px-12 py-8 md:py-16 max-w-screen-2xl mx-auto">
       {/* Header */}
-      <header className="mb-16">
+      <header className="mb-10 md:mb-16">
         <span className="text-secondary font-label font-bold tracking-widest text-xs uppercase mb-4 block">Accountability Tracker</span>
-        <h1 className="font-headline text-5xl md:text-6xl font-extrabold text-primary tracking-tight leading-none mb-6">
+        <h1 className="font-headline text-3xl md:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight leading-none mb-4 md:mb-6">
           Follow-Through Ledger
         </h1>
         <p className="text-on-surface-variant text-lg leading-relaxed font-body max-w-2xl">
@@ -234,9 +241,9 @@ function FollowUpsContent() {
               const ref = lastReferenced[item.id];
 
               return (
-                <div key={item.id} className="bg-surface-container-lowest border border-outline-variant/20 p-6 rounded-lg flex flex-col md:flex-row md:items-start gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
+                <div key={item.id} className="bg-surface-container-lowest border border-outline-variant/20 p-4 md:p-6 rounded-lg flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 md:gap-3 mb-2 flex-wrap">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${config.bg} ${config.text}`}>
                         <span className="material-symbols-outlined text-[14px]">{config.icon}</span>
                         {config.label}
@@ -255,9 +262,14 @@ function FollowUpsContent() {
                         <span className="font-bold">{getOwnerDisplayName(item.owner)}</span>
                       )}
                       <span>·</span>
-                      <Link href={`/meetings/${item.relatedMeetingId}`} className="hover:underline">
-                        {new Date(item.dateRaised + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                      </Link>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Link href={`/meetings/${item.relatedMeetingId}`} className="hover:underline">
+                          {new Date(item.dateRaised + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                        </Link>
+                        <a href={getMeetingSourceUrl(item.relatedMeetingId)} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" title="View official minutes (PDF)">
+                          <span className="material-symbols-outlined text-[14px]">description</span>
+                        </a>
+                      </span>
                       {ref && ref.meetingId !== item.relatedMeetingId && (
                         <>
                           <span>·</span>
@@ -350,9 +362,14 @@ function FollowUpsContent() {
                         <span className="font-bold">{getOwnerDisplayName(item.owner)}</span>
                       )}
                       <span>·</span>
-                      <Link href={`/meetings/${item.relatedMeetingId}`} className="hover:underline">
-                        {new Date(item.dateRaised + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                      </Link>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Link href={`/meetings/${item.relatedMeetingId}`} className="hover:underline">
+                          {new Date(item.dateRaised + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                        </Link>
+                        <a href={getMeetingSourceUrl(item.relatedMeetingId)} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" title="View official minutes (PDF)">
+                          <span className="material-symbols-outlined text-[14px]">description</span>
+                        </a>
+                      </span>
                       {ref && ref.meetingId !== item.relatedMeetingId && (
                         <>
                           <span>·</span>

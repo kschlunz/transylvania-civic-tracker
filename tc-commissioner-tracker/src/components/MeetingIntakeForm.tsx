@@ -150,13 +150,13 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
   const meeting = result?.meeting ?? null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6">
       <div className="absolute inset-0 bg-primary/20 backdrop-blur-md" onClick={onClose} />
 
-      <div className="relative w-full max-w-4xl bg-surface-bright shadow-2xl rounded-xl overflow-hidden border border-outline-variant/30 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-4xl bg-surface-bright shadow-2xl rounded-t-xl md:rounded-xl overflow-hidden border border-outline-variant/30 flex flex-col max-h-[95vh] md:max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-8 py-6 border-b border-outline-variant/10">
-          <h2 className="font-headline text-3xl font-extrabold text-primary tracking-tight">
+        <div className="flex items-center justify-between px-4 md:px-8 py-4 md:py-6 border-b border-outline-variant/10">
+          <h2 className="font-headline text-xl md:text-3xl font-extrabold text-primary tracking-tight">
             Add New Deliberations
           </h2>
           <button
@@ -168,7 +168,7 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
         </div>
 
         {/* Body */}
-        <div className="p-8 overflow-y-auto flex-1">
+        <div className="p-4 md:p-8 overflow-y-auto flex-1">
           {!meeting ? (
             <>
               <p className="text-on-surface-variant font-body text-sm mb-8 leading-relaxed">
@@ -309,7 +309,7 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
         )}
 
         {/* Footer Actions */}
-        <div className="px-8 py-6 bg-surface-container-low flex justify-end gap-4 border-t border-outline-variant/10">
+        <div className="px-4 md:px-8 py-4 md:py-6 bg-surface-container-low flex flex-col-reverse md:flex-row justify-end gap-3 md:gap-4 border-t border-outline-variant/10 sticky bottom-0">
           {!meeting ? (
             <>
               <button

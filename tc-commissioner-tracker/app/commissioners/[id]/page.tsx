@@ -10,6 +10,10 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { PUBLIC_STATEMENTS } from "@/lib/public-statements";
 import CategoryTag from "@/components/CategoryTag";
 import FilterBar from "@/components/FilterBar";
+import TopicRadarChart from "@/components/charts/TopicRadarChart";
+import FollowThroughRate from "@/components/charts/FollowThroughRate";
+import ActivitySparkline from "@/components/charts/ActivitySparkline";
+import type { FollowUpItem } from "@/lib/types";
 
 const BORDER_COLORS = ["border-primary", "border-secondary", "border-primary-container", "border-tertiary"];
 const DOT_COLORS = ["bg-primary", "bg-secondary", "bg-tertiary-container", "bg-outline", "bg-on-primary-container", "bg-error"];
@@ -48,6 +52,24 @@ function CommissionerContent() {
     meetingActivities.push({ meetingId: meeting.id, date: meeting.date, activity });
   }
 
+  // Gather follow-ups owned by this commissioner
+  const myFollowUps: FollowUpItem[] = [];
+  for (const m of allMeetings) {
+    if (m.followUps) {
+      for (const fu of m.followUps) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const owner = fu.owner || (fu as any).raisedBy || "";
+        if (owner === id) myFollowUps.push(fu);
+      }
+    }
+  }
+
+  // Load status overrides for follow-through rate
+  let fuStatusOverrides: Record<string, string> = {};
+  if (typeof window !== "undefined") {
+    try { fuStatusOverrides = JSON.parse(localStorage.getItem("tc-followup-status") || "{}"); } catch { /* ignore */ }
+  }
+
   const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
   const maxCatCount = sortedCategories[0]?.[1] || 1;
 
@@ -59,23 +81,23 @@ function CommissionerContent() {
   ];
 
   return (
-    <div className="px-8 py-12 max-w-6xl mx-auto">
+    <div className="px-4 md:px-8 py-8 md:py-12 max-w-6xl mx-auto">
       {/* Hero Header */}
-      <section className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-outline-variant/20 pb-12">
+      <section className="mb-10 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 border-b border-outline-variant/20 pb-8 md:pb-12">
         <div className="max-w-2xl">
-          <span className="text-on-surface-variant font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Commissioner Profile</span>
-          <h1 className="font-headline text-6xl md:text-7xl font-bold text-primary leading-tight mb-4">{commissioner.name}</h1>
-          <div className="flex items-center gap-6">
+          <span className="text-on-surface-variant font-bold text-xs uppercase tracking-[0.2em] mb-3 md:mb-4 block">Commissioner Profile</span>
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold text-primary leading-tight mb-3 md:mb-4">{commissioner.name}</h1>
+          <div className="flex flex-wrap items-center gap-3 md:gap-6">
             <div className="flex items-center">
-              <span className="text-2xl italic font-headline text-secondary pr-4">
+              <span className="text-lg md:text-2xl italic font-headline text-secondary pr-3 md:pr-4">
                 {commissioner.role === "Chair" ? "Board Chair" : commissioner.role}
               </span>
-              <div className="h-8 w-px bg-outline-variant/40" />
+              <div className="h-6 md:h-8 w-px bg-outline-variant/40" />
             </div>
-            <p className="text-on-surface-variant font-medium">Serving since {commissioner.since}</p>
+            <p className="text-on-surface-variant font-medium text-sm md:text-base">Serving since {commissioner.since}</p>
           </div>
         </div>
-        <div className="flex flex-col items-end">
+        <div className="hidden md:flex flex-col items-end">
           <div className="h-16 w-32 rounded-sm" style={{ background: `linear-gradient(135deg, ${commissioner.color}, ${commissioner.color}88, ${commissioner.color}44)` }} />
           <p className="text-xs font-bold text-primary uppercase tracking-widest mt-4">District Identity Bar</p>
         </div>
@@ -87,16 +109,39 @@ function CommissionerContent() {
       </div>
 
       {/* Metrics Bento Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-10 md:mb-16">
         {metricCards.map((stat, i) => (
-          <div key={stat.label} className={`bg-surface-container-lowest p-8 ${BORDER_COLORS[i % BORDER_COLORS.length]} border-l-4`}>
-            <p className="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-2">{stat.label}</p>
-            <h3 className="text-4xl font-headline text-primary">{stat.value}</h3>
+          <div key={stat.label} className={`bg-surface-container-lowest p-4 md:p-8 ${BORDER_COLORS[i % BORDER_COLORS.length]} border-l-4`}>
+            <p className="text-on-surface-variant text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">{stat.label}</p>
+            <h3 className="text-2xl md:text-4xl font-headline text-primary">{stat.value}</h3>
           </div>
         ))}
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      {/* Data Visualizations */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-16">
+        {/* Topic Radar */}
+        <div className="bg-surface-container-lowest p-4 md:p-6 rounded-lg border border-outline-variant/20">
+          <h4 className="font-headline text-lg font-bold text-primary mb-4">Topic Profile</h4>
+          <div className="flex justify-center overflow-x-auto">
+            <TopicRadarChart commissionerId={id} meetings={meetings} color={commissioner.color} />
+          </div>
+        </div>
+
+        {/* Follow-Through Rate */}
+        <FollowThroughRate followUps={myFollowUps} statusOverrides={fuStatusOverrides} />
+
+        {/* Activity Sparkline */}
+        <div className="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/20">
+          <h4 className="font-headline text-lg font-bold text-primary mb-4">Engagement Over Time</h4>
+          <ActivitySparkline commissionerId={id} meetings={allMeetings} color={commissioner.color} />
+          {allMeetings.filter((m) => m.attendees.includes(id)).length < 2 && (
+            <p className="text-[10px] text-on-surface-variant italic mt-2">Requires 2+ meetings to display</p>
+          )}
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
         {/* Left Column */}
         <div className="lg:col-span-5 space-y-12">
           <div>

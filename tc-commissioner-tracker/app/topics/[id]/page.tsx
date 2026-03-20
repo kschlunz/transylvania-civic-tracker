@@ -89,11 +89,11 @@ function TopicContent() {
   }
 
   return (
-    <div className="px-8 py-12 max-w-7xl mx-auto">
-      <header className="mb-16 border-b border-outline-variant/20 pb-12 flex flex-col md:flex-row justify-between items-end gap-8">
+    <div className="px-4 md:px-8 py-8 md:py-12 max-w-7xl mx-auto">
+      <header className="mb-10 md:mb-16 border-b border-outline-variant/20 pb-8 md:pb-12 flex flex-col md:flex-row justify-between items-end gap-6 md:gap-8">
         <div className="max-w-2xl">
           <span className="font-label text-xs uppercase tracking-[0.2em] text-secondary mb-4 block">Central Repository</span>
-          <h1 className="font-headline text-5xl md:text-6xl font-black text-primary leading-tight">
+          <h1 className="font-headline text-3xl md:text-5xl lg:text-6xl font-black text-primary leading-tight">
             {category.label}
           </h1>
           <p className="font-body text-lg text-on-surface-variant mt-6 leading-relaxed">
@@ -106,9 +106,9 @@ function TopicContent() {
         <FilterBar dateOnly />
       </div>
 
-      <section className="mb-24">
-        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4 flex flex-col gap-8">
+      <section className="mb-12 md:mb-24">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 md:gap-12">
+          <div className="lg:col-span-4 flex flex-col gap-6 md:gap-8">
             <div className="bg-surface-container-low p-8 rounded-xl shadow-[0_10px_40px_rgba(25,28,28,0.06)]">
               <span className="inline-block bg-secondary-fixed text-on-secondary-fixed font-label text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mb-6">Topic Primary</span>
               <div className="flex items-center gap-3 mb-4">

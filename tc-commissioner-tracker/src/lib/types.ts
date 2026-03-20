@@ -68,6 +68,16 @@ export interface Meeting {
   commissionerActivity: Record<string, CommissionerActivity>;
   publicComments: PublicComment[];
   followUps?: FollowUpItem[];
+  /** Link to the original minutes PDF on the county website */
+  sourceUrl?: string;
+  /** Link to the agenda PDF */
+  agendaUrl?: string;
+}
+
+/** Generate the county minutes PDF URL from a meeting date and type */
+export function getSourceUrl(date: string, type: string): string {
+  const typeSlug = type === "special" ? "special%20mtg" : "reg%20mtg";
+  return `https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/${date}%20${typeSlug}.pdf`;
 }
 
 export interface PublicStatement {

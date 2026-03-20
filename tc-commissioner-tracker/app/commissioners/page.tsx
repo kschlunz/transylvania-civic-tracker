@@ -4,6 +4,8 @@ import Link from "next/link";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import type { Meeting } from "@/lib/types";
+import TopicRadarChart from "@/components/charts/TopicRadarChart";
+import MotionPartnershipMatrix from "@/components/charts/MotionPartnershipMatrix";
 
 function getStats(commissionerId: string, meetings: Meeting[]) {
   let meetingsPresent = 0;
@@ -61,11 +63,11 @@ export default function CommissionersList() {
   const recentActions = getRecentActions(meetings);
 
   return (
-    <div className="px-8 lg:px-12 py-16 space-y-16">
+    <div className="px-4 md:px-8 lg:px-12 py-8 md:py-16 space-y-10 md:space-y-16">
       {/* Editorial Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="max-w-2xl">
-          <h1 className="font-headline text-5xl md:text-6xl text-primary font-bold mb-4 tracking-tight leading-none">
+          <h1 className="font-headline text-3xl md:text-5xl lg:text-6xl text-primary font-bold mb-4 tracking-tight leading-none">
             The Board of Commissioners
           </h1>
           <p className="font-body text-lg text-on-surface-variant max-w-xl">
@@ -75,7 +77,7 @@ export default function CommissionersList() {
       </div>
 
       {/* Commissioner Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
         {COMMISSIONERS.map((commissioner) => {
           const stats = getStats(commissioner.id, meetings);
           const badge = getRoleBadge(commissioner.role);
@@ -85,7 +87,7 @@ export default function CommissionersList() {
             <Link
               key={commissioner.id}
               href={`/commissioners/${commissioner.id}`}
-              className="relative bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-8 flex gap-8 shadow-sm hover:shadow-md transition-shadow group"
+              className="relative bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-5 md:p-8 flex gap-4 shadow-sm hover:shadow-md transition-shadow group"
             >
               <div className="w-2 h-16 rounded-full mt-2 shrink-0" style={{ backgroundColor: commissioner.color }} />
               <div className="flex-1">
@@ -123,10 +125,23 @@ export default function CommissionersList() {
                   </span>
                 </div>
               </div>
+              {/* Mini Radar */}
+              <div className="hidden md:flex items-center shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
+                <TopicRadarChart commissionerId={commissioner.id} meetings={meetings} color={commissioner.color} mini />
+              </div>
             </Link>
           );
         })}
       </div>
+
+      {/* Motion Partnership Matrix */}
+      <section className="pt-16 border-t border-outline-variant/30 pb-16">
+        <h3 className="font-headline text-3xl text-primary font-bold mb-4">Working Relationships</h3>
+        <p className="text-sm text-on-surface-variant mb-8">How often each commissioner pair works together on motions — movers (rows) and seconders (columns).</p>
+        <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+          <MotionPartnershipMatrix meetings={meetings} />
+        </div>
+      </section>
 
       {/* Recent Actions Ledger */}
       <section className="pt-16 border-t border-outline-variant/30">
@@ -138,20 +153,20 @@ export default function CommissionersList() {
             const icon = topCat ? CATEGORY_ICONS[topCat] : undefined;
 
             return (
-              <div key={i} className="grid grid-cols-12 py-6 group hover:bg-surface-container-low transition-colors px-4 -mx-4 rounded-lg">
-                <div className="col-span-2 font-label text-xs text-on-surface-variant uppercase self-center">
+              <div key={i} className="flex flex-col md:grid md:grid-cols-12 gap-1 md:gap-0 py-4 md:py-6 group hover:bg-surface-container-low transition-colors px-4 -mx-4 rounded-lg">
+                <div className="md:col-span-2 font-label text-[10px] md:text-xs text-on-surface-variant uppercase md:self-center">
                   {new Date(action.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                 </div>
-                <div className="col-span-1 flex justify-center">
+                <div className="hidden md:col-span-1 md:flex justify-center">
                   <div className="w-2 h-2 rounded-full bg-primary mt-1" />
                 </div>
-                <div className="col-span-7 font-body text-on-surface">
+                <div className="md:col-span-7 font-body text-sm md:text-base text-on-surface">
                   <Link href={`/commissioners/${action.commId}`} className="font-bold hover:underline">
                     {action.commName}
                   </Link>
                   {" "}{action.text.charAt(0).toLowerCase() + action.text.slice(1)}
                 </div>
-                <div className="col-span-2 text-right">
+                <div className="md:col-span-2 md:text-right">
                   {category && (
                     <Link
                       href={`/topics/${topCat}`}

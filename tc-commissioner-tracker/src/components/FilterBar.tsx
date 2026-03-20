@@ -72,11 +72,24 @@ export default function FilterBar({ dateOnly = false }: FilterBarProps) {
   ];
 
   const active = hasActiveFilters(filters);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="space-y-3">
+      {/* Mobile toggle */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="md:hidden flex items-center gap-2 px-3 py-2 text-[11px] font-bold uppercase tracking-tight text-on-surface-variant border border-outline-variant/30 rounded-lg w-full justify-center"
+      >
+        <span className="material-symbols-outlined text-[16px]">filter_list</span>
+        Filters
+        {active && <span className="w-2 h-2 rounded-full bg-primary" />}
+        <span className="material-symbols-outlined text-[16px] ml-auto">{mobileOpen ? "expand_less" : "expand_more"}</span>
+      </button>
+
+      <div className={`flex-wrap items-center gap-3 ${mobileOpen ? "flex" : "hidden md:flex"}`}>
       {/* Date Range */}
-      <div className="flex items-center gap-1 bg-surface-container-low rounded-lg p-1">
+      <div className="flex items-center gap-1 bg-surface-container-low rounded-lg p-1 overflow-x-auto">
         {dateRangeOptions.map((opt) => (
           <button
             key={opt.value}
@@ -206,6 +219,7 @@ export default function FilterBar({ dateOnly = false }: FilterBarProps) {
           Clear
         </button>
       )}
+      </div>
     </div>
   );
 }
