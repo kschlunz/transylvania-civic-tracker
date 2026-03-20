@@ -1,11 +1,13 @@
 "use client";
 
-import { Suspense, useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import { type FollowUpItem, getSourceUrl } from "@/lib/types";
+import { getFollowUpsAsync } from "@/lib/data";
+import { isSupabaseEnabled } from "@/lib/supabase";
 
 const STATUS_CONFIG: Record<FollowUpItem["status"], { label: string; bg: string; text: string; icon: string }> = {
   open: { label: "Open", bg: "bg-error/10", text: "text-error", icon: "radio_button_unchecked" },
@@ -64,26 +66,40 @@ function FollowUpsContent() {
     return getSourceUrl(meetingId, "regular");
   }
 
-  // Gather all follow-ups and build a "last referenced" lookup
+  // Gather all follow-ups — prefer Supabase (has updated statuses), fall back to meeting JSON
+  const [supabaseFollowUps, setSupabaseFollowUps] = useState<FollowUpItem[] | null>(null);
+
+  useEffect(() => {
+    if (isSupabaseEnabled()) {
+      getFollowUpsAsync().then(setSupabaseFollowUps).catch(() => setSupabaseFollowUps(null));
+    }
+  }, []);
+
   const { allFollowUps, lastReferenced } = useMemo(() => {
+    // If we have Supabase data, use it (has updated statuses from resolutions)
+    if (supabaseFollowUps && supabaseFollowUps.length > 0) {
+      const refMap: Record<string, { meetingId: string; date: string }> = {};
+      for (const fu of supabaseFollowUps) {
+        if (fu.lastReferencedMeetingId) {
+          refMap[fu.id] = { meetingId: fu.lastReferencedMeetingId, date: fu.resolvedDate || fu.dateRaised };
+        }
+      }
+      return { allFollowUps: supabaseFollowUps, lastReferenced: refMap };
+    }
+
+    // Fall back to extracting from meeting JSON
     const items: FollowUpItem[] = [];
     const refMap: Record<string, { meetingId: string; date: string }> = {};
-
-    // Sort meetings by date to track references chronologically
     const sortedMeetings = [...meetings].sort((a, b) => a.date.localeCompare(b.date));
 
     for (const m of sortedMeetings) {
       if (m.followUps) {
         for (const raw of m.followUps) {
-          // Normalize legacy "raisedBy" field to "owner"
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const fu = { ...raw, owner: raw.owner || (raw as any).raisedBy || "staff" } as FollowUpItem;
-          // If this follow-up's relatedMeetingId matches the current meeting,
-          // it was raised here — collect it
           if (fu.relatedMeetingId === m.id) {
             items.push(fu);
           }
-          // If lastReferencedMeetingId is set in the data, use it
           if (fu.lastReferencedMeetingId) {
             refMap[fu.id] = { meetingId: fu.lastReferencedMeetingId, date: m.date };
           }
@@ -91,7 +107,6 @@ function FollowUpsContent() {
       }
     }
 
-    // Deduplicate by ID (in case same follow-up appears in multiple meeting files)
     const deduped = new Map<string, FollowUpItem>();
     for (const item of items) {
       deduped.set(item.id, item);
@@ -101,7 +116,7 @@ function FollowUpsContent() {
       allFollowUps: Array.from(deduped.values()).sort((a, b) => b.dateRaised.localeCompare(a.dateRaised)),
       lastReferenced: refMap,
     };
-  }, [meetings]);
+  }, [meetings, supabaseFollowUps]);
 
   // Filters from URL
   const ownerFilter = searchParams.get("owner") || "";
@@ -118,7 +133,7 @@ function FollowUpsContent() {
     return items;
   }, [allFollowUps, ownerFilter, catFilter]);
 
-  // Status overrides from localStorage
+  // Status overrides from localStorage (only used when no Supabase data)
   const [statusOverrides, setStatusOverrides] = useState<Record<string, FollowUpItem["status"]>>(() => {
     if (typeof window === "undefined") return {};
     try {
@@ -128,7 +143,12 @@ function FollowUpsContent() {
     }
   });
 
+  const hasSupabase = supabaseFollowUps !== null && supabaseFollowUps.length > 0;
+
   function getEffectiveStatus(item: FollowUpItem): FollowUpItem["status"] {
+    // When Supabase data is available, trust it directly (statuses are updated there)
+    if (hasSupabase) return item.status;
+    // Fall back to localStorage overrides for local JSON data
     return statusOverrides[item.id] || item.status;
   }
 
@@ -300,8 +320,8 @@ function FollowUpsContent() {
                       </div>
                     </div>
                   </div>
-                  {/* Status update — admin only */}
-                  {isAdmin ? (
+                  {/* Status update — admin only, no duplicate badge for non-admin */}
+                  {isAdmin && (
                     <select
                       value={effectiveStatus}
                       onChange={(e) => updateStatus(item.id, e.target.value as FollowUpItem["status"])}
@@ -312,11 +332,6 @@ function FollowUpsContent() {
                       <option value="resolved">Resolved</option>
                       <option value="dropped">Dropped</option>
                     </select>
-                  ) : (
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-[10px] font-bold uppercase tracking-tight ${config.bg} ${config.text} shrink-0`}>
-                      <span className="material-symbols-outlined text-[14px]">{config.icon}</span>
-                      {config.label}
-                    </span>
                   )}
                 </div>
               );
@@ -386,7 +401,7 @@ function FollowUpsContent() {
                       )}
                     </div>
                   </div>
-                  {isAdmin ? (
+                  {isAdmin && (
                     <select
                       value={effectiveStatus}
                       onChange={(e) => updateStatus(item.id, e.target.value as FollowUpItem["status"])}
@@ -397,11 +412,6 @@ function FollowUpsContent() {
                       <option value="resolved">Resolved</option>
                       <option value="dropped">Dropped</option>
                     </select>
-                  ) : (
-                    <span className={`inline-flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase ${config.bg} ${config.text} shrink-0`}>
-                      <span className="material-symbols-outlined text-[12px]">{config.icon}</span>
-                      {config.label}
-                    </span>
                   )}
                 </div>
               );
