@@ -1,11 +1,13 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS, ELECTION_INFO } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
+import { getFollowUpsAsync } from "@/lib/data";
+import { isSupabaseEnabled } from "@/lib/supabase";
 import FilterBar from "@/components/FilterBar";
 import type { FollowUpItem, Meeting } from "@/lib/types";
 
@@ -71,28 +73,26 @@ function getDaysColor(days: number) {
   return "text-on-surface-variant";
 }
 
-function OpenItemsSummary({ meetings }: { meetings: ReturnType<typeof useMeetings>["meetings"] }) {
-  const allFollowUps: FollowUpItem[] = [];
-  for (const m of meetings) {
-    if (m.followUps) {
-      allFollowUps.push(...m.followUps);
+function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
+  // Fall back to meeting JSON initially, then replace with Supabase data
+  const [followUps, setFollowUps] = useState<FollowUpItem[]>(() => {
+    const items: FollowUpItem[] = [];
+    for (const m of meetings) {
+      if (m.followUps) items.push(...m.followUps);
     }
-  }
-
-  // Apply localStorage overrides
-  let statusOverrides: Record<string, string> = {};
-  if (typeof window !== "undefined") {
-    try {
-      statusOverrides = JSON.parse(localStorage.getItem("tc-followup-status") || "{}");
-    } catch { /* ignore */ }
-  }
-
-  const getStatus = (item: FollowUpItem) => statusOverrides[item.id] || item.status;
-  const openItems = allFollowUps.filter((f) => {
-    const s = getStatus(f);
-    return s === "open" || s === "in_progress";
+    return items;
   });
-  const resolvedCount = allFollowUps.length - openItems.length;
+
+  useEffect(() => {
+    if (isSupabaseEnabled()) {
+      getFollowUpsAsync().then((sbItems) => {
+        if (sbItems.length > 0) setFollowUps(sbItems);
+      }).catch(() => {});
+    }
+  }, []);
+
+  const openItems = followUps.filter((f) => f.status === "open" || f.status === "in_progress");
+  const resolvedCount = followUps.filter((f) => f.status === "resolved" || f.status === "dropped").length;
 
   if (openItems.length === 0) return null;
 
