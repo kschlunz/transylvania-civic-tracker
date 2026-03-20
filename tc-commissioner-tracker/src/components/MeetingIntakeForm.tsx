@@ -128,15 +128,25 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
   }
 
   const [saving, setSaving] = useState(false);
+  const [confirmOverwrite, setConfirmOverwrite] = useState(false);
 
   async function handleAccept() {
     if (!result) return;
+
+    // Check if a meeting with this date already exists
+    const existing = meetings.find((m) => m.id === result.meeting.id);
+    if (existing && !confirmOverwrite) {
+      setConfirmOverwrite(true);
+      setToast(`A meeting for ${new Date(result.meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} already exists. Click save again to overwrite.`);
+      return;
+    }
 
     const acceptedResolutions = result.resolvedFollowUps.filter(
       (r) => !rejectedResolutions.has(r.id)
     );
 
     setSaving(true);
+    setConfirmOverwrite(false);
     try {
       await onAccept(result.meeting, acceptedResolutions);
       setToast("Meeting saved to database successfully.");
@@ -344,7 +354,7 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
                 className="bg-primary text-on-primary px-8 py-3 rounded shadow-lg hover:bg-primary-container transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="material-symbols-outlined text-sm">{saving ? "hourglass_empty" : "save"}</span>
-                <span className="font-label text-sm font-bold">{saving ? "Saving..." : "Accept &amp; Save"}</span>
+                <span className="font-label text-sm font-bold">{saving ? "Saving..." : "Accept & Save"}</span>
               </button>
             </>
           )}
