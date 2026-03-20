@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import type { Meeting, FollowUpItem } from "@/lib/types";
+import type { Meeting, FollowUpItem, TopicThread } from "@/lib/types";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
+import { getThreadsAsync, upsertThread } from "@/lib/data";
 
 function getCommissionerName(id: string) {
   if (id === "staff") return "County Staff";
@@ -20,9 +21,23 @@ interface ResolvedFollowUp {
   resolution: string;
 }
 
+interface NewThread {
+  id: string;
+  title: string;
+  categories: string[];
+  summary: string;
+}
+
+interface ThreadUpdate {
+  id: string;
+  summary: string;
+}
+
 interface ProcessedResult {
   meeting: Meeting;
   resolvedFollowUps: ResolvedFollowUp[];
+  newThreads: NewThread[];
+  threadUpdates: ThreadUpdate[];
 }
 
 interface MeetingIntakeFormProps {
@@ -69,6 +84,15 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
     const timer = setInterval(() => setElapsed((e) => e + 1), 1000);
 
     try {
+      // Fetch active threads to pass to the API
+      let activeThreads: { id: string; title: string }[] = [];
+      try {
+        const threads = await getThreadsAsync();
+        activeThreads = threads
+          .filter((t) => t.status === "active" || t.status === "recurring")
+          .map((t) => ({ id: t.id, title: t.title }));
+      } catch { /* no threads yet is fine */ }
+
       const res = await fetch("/api/process-minutes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -80,6 +104,7 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
             owner: f.owner,
             description: f.description,
           })),
+          activeThreads,
         }),
       });
 
@@ -90,14 +115,13 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
 
       const data = await res.json();
 
-      // Separate resolvedFollowUps from the meeting data
-      const { resolvedFollowUps = [], ...meetingData } = data;
+      const { resolvedFollowUps = [], newThreads = [], threadUpdates = [], ...meetingData } = data;
 
-      // The meeting's followUps field should contain only newFollowUps
-      // Claude may return them as "followUps" (new items only per prompt)
       setResult({
         meeting: meetingData as Meeting,
         resolvedFollowUps: resolvedFollowUps as ResolvedFollowUp[],
+        newThreads: newThreads as NewThread[],
+        threadUpdates: threadUpdates as ThreadUpdate[],
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -148,6 +172,35 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
     setSaving(true);
     setConfirmOverwrite(false);
     try {
+      // Save new threads
+      for (const nt of result.newThreads) {
+        await upsertThread({
+          id: nt.id,
+          title: nt.title,
+          categories: nt.categories,
+          firstMentionedDate: result.meeting.date,
+          firstMentionedMeetingId: result.meeting.id,
+          status: "active",
+          mentions: [{ meetingId: result.meeting.id, date: result.meeting.date, summary: nt.summary }],
+        });
+      }
+
+      // Update existing threads with new mentions
+      for (const tu of result.threadUpdates) {
+        try {
+          const threads = await getThreadsAsync();
+          const existing = threads.find((t) => t.id === tu.id);
+          if (existing) {
+            const alreadyMentioned = existing.mentions.some((m) => m.meetingId === result.meeting.id);
+            if (!alreadyMentioned) {
+              existing.mentions.push({ meetingId: result.meeting.id, date: result.meeting.date, summary: tu.summary });
+              existing.mentions.sort((a, b) => a.date.localeCompare(b.date));
+            }
+            await upsertThread(existing);
+          }
+        } catch { /* thread may not exist yet */ }
+      }
+
       await onAccept(result.meeting, acceptedResolutions);
       setToast("Meeting saved to database successfully.");
     } catch (err) {
@@ -281,6 +334,44 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
                         </div>
                       );
                     })}
+                  </div>
+                </div>
+              )}
+
+              {/* Topic Threads */}
+              {result && (result.newThreads.length > 0 || result.threadUpdates.length > 0) && (
+                <div className="mt-8">
+                  <h4 className="font-headline font-bold text-primary text-xl mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-lg">timeline</span>
+                    Topic Threads ({result.newThreads.length + result.threadUpdates.length})
+                  </h4>
+                  <div className="space-y-3">
+                    {result.newThreads.map((nt) => (
+                      <div key={nt.id} className="bg-surface-container-lowest border border-outline-variant/20 p-5 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary">New Thread</span>
+                        </div>
+                        <p className="text-sm font-bold text-on-surface">{nt.title}</p>
+                        <p className="text-sm text-on-surface-variant mt-1">{nt.summary}</p>
+                        <div className="flex gap-1 mt-2">
+                          {nt.categories.map((catId) => {
+                            const cat = CATEGORIES.find((c) => c.id === catId);
+                            return cat ? (
+                              <span key={catId} className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase">{cat.label}</span>
+                            ) : null;
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                    {result.threadUpdates.map((tu) => (
+                      <div key={tu.id} className="bg-surface-container-lowest border border-outline-variant/20 p-5 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">Thread Update</span>
+                          <span className="text-[10px] text-on-surface-variant">{tu.id}</span>
+                        </div>
+                        <p className="text-sm text-on-surface-variant">{tu.summary}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

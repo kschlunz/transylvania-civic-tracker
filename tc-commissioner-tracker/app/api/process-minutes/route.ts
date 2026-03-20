@@ -56,6 +56,16 @@ Extract the following from the meeting minutes:
 
 Only include resolvedFollowUps entries for items you are confident are addressed in the minutes. Do not guess.
 
+7. Topic threads: Identify specific recurring items discussed in this meeting — capital projects, ongoing studies, policy initiatives, facility issues, etc. NOT routine items like consent agenda approvals or one-off proclamations.
+   - newThreads: Items appearing for the first time that are likely to recur across future meetings. For each:
+     - id: slugified title, e.g. "solid-waste-rate-study" or "new-courthouse-project"
+     - title: descriptive name, e.g. "Solid Waste Rate Study" or "Rosman Old Gym Structural Issues"
+     - categories: relevant category IDs
+     - summary: what happened with this item at this meeting (1-2 sentences)
+   - threadUpdates: If existing topic threads are provided below, identify any that were discussed in this meeting. For each:
+     - id: the existing thread ID
+     - summary: what happened with this item at this meeting (1-2 sentences)
+
 Use the meeting date as the id field (e.g., "2026-02-09").
 
 Generate a sourceUrl for the official minutes PDF using this pattern:
@@ -108,6 +118,16 @@ The JSON must match this TypeScript interface:
     status: "in_progress" | "resolved";
     resolution: string;
   }>;
+  newThreads: Array<{
+    id: string;
+    title: string;
+    categories: string[];
+    summary: string;
+  }>;
+  threadUpdates: Array<{
+    id: string;
+    summary: string;
+  }>;
 }`;
 
 interface OpenFollowUp {
@@ -115,6 +135,11 @@ interface OpenFollowUp {
   dateRaised: string;
   owner: string;
   description: string;
+}
+
+interface ActiveThread {
+  id: string;
+  title: string;
 }
 
 export async function POST(request: Request) {
@@ -126,7 +151,7 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: { minutesText?: string; openFollowUps?: OpenFollowUp[] };
+  let body: { minutesText?: string; openFollowUps?: OpenFollowUp[]; activeThreads?: ActiveThread[] };
   try {
     body = await request.json();
   } catch {
@@ -136,7 +161,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { minutesText, openFollowUps } = body;
+  const { minutesText, openFollowUps, activeThreads } = body;
   if (!minutesText || typeof minutesText !== "string") {
     return Response.json(
       { error: "minutesText is required and must be a string" },
@@ -152,6 +177,13 @@ export async function POST(request: Request) {
       .map((f) => `- [${f.id}] (raised ${f.dateRaised} by ${f.owner}): ${f.description}`)
       .join("\n");
     userContent += `\n\n---\n\nHere are currently open follow-up items from previous meetings. If any of these are addressed, updated, or resolved in the minutes above, include them in the resolvedFollowUps array:\n\n${followUpsList}`;
+  }
+
+  if (activeThreads && activeThreads.length > 0) {
+    const threadsList = activeThreads
+      .map((t) => `- [${t.id}]: ${t.title}`)
+      .join("\n");
+    userContent += `\n\n---\n\nHere are active topic threads being tracked across meetings. If any of these items are discussed in the minutes above, include them in the threadUpdates array with a summary of what happened:\n\n${threadsList}`;
   }
 
   try {

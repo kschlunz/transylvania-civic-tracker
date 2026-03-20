@@ -1,4 +1,4 @@
-import type { Meeting, FollowUpItem, PublicStatement } from "./types";
+import type { Meeting, FollowUpItem, PublicStatement, TopicThread } from "./types";
 import { supabase, isSupabaseEnabled } from "./supabase";
 
 // ============================================
@@ -179,6 +179,177 @@ function getLocalFollowUps(): FollowUpItem[] {
     }
   }
   return items.sort((a, b) => b.dateRaised.localeCompare(a.dateRaised));
+}
+
+// ============================================
+// RELATED MEETINGS
+// ============================================
+
+export interface RelatedMeetingSummary {
+  id: string;
+  date: string;
+  tldr: string;
+}
+
+/**
+ * For a given meeting, find other meetings that share topic categories.
+ * Returns a map of category ID → array of related meeting summaries.
+ * Only includes categories that appear in at least `minOtherMeetings` other meetings.
+ */
+export function getRelatedMeetings(
+  meetingId: string,
+  allMeetings: Meeting[],
+  minOtherMeetings: number = 2,
+): Record<string, RelatedMeetingSummary[]> {
+  const meeting = allMeetings.find((m) => m.id === meetingId);
+  if (!meeting) return {};
+
+  // Collect all categories used in this meeting
+  const meetingCategories = new Set<string>();
+  for (const activity of Object.values(meeting.commissionerActivity)) {
+    for (const topic of activity.topics) {
+      for (const cat of topic.categories) {
+        meetingCategories.add(cat);
+      }
+    }
+  }
+  // For each category, find other meetings that also discuss it
+  const result: Record<string, RelatedMeetingSummary[]> = {};
+
+  for (const catId of meetingCategories) {
+    const related: RelatedMeetingSummary[] = [];
+
+    for (const other of allMeetings) {
+      if (other.id === meetingId) continue;
+
+      let hasCategory = false;
+      for (const activity of Object.values(other.commissionerActivity)) {
+        for (const topic of activity.topics) {
+          if (topic.categories.includes(catId)) {
+            hasCategory = true;
+            break;
+          }
+        }
+        if (hasCategory) break;
+      }
+
+      if (hasCategory) {
+        related.push({
+          id: other.id,
+          date: other.date,
+          tldr: other.tldr.slice(0, 120),
+        });
+      }
+    }
+
+    if (related.length >= minOtherMeetings) {
+      result[catId] = related.sort((a, b) => a.date.localeCompare(b.date));
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Count how many unique other meetings share at least one topic category with a given meeting.
+ */
+export function getRelatedMeetingCount(meetingId: string, allMeetings: Meeting[]): number {
+  const meeting = allMeetings.find((m) => m.id === meetingId);
+  if (!meeting) return 0;
+
+  const meetingCategories = new Set<string>();
+  for (const activity of Object.values(meeting.commissionerActivity)) {
+    for (const topic of activity.topics) {
+      for (const cat of topic.categories) {
+        meetingCategories.add(cat);
+      }
+    }
+  }
+
+  const relatedIds = new Set<string>();
+  for (const other of allMeetings) {
+    if (other.id === meetingId) continue;
+    for (const activity of Object.values(other.commissionerActivity)) {
+      for (const topic of activity.topics) {
+        if (topic.categories.some((c) => meetingCategories.has(c))) {
+          relatedIds.add(other.id);
+          break;
+        }
+      }
+      if (relatedIds.has(other.id)) break;
+    }
+  }
+
+  return relatedIds.size;
+}
+
+// ============================================
+// TOPIC THREADS
+// ============================================
+
+function dbRowToThread(row: Record<string, unknown>): TopicThread {
+  return {
+    id: row.id as string,
+    title: row.title as string,
+    categories: (row.categories as string[]) || [],
+    firstMentionedDate: (row.first_mentioned_date as string).slice(0, 10),
+    firstMentionedMeetingId: (row.first_mentioned_meeting_id as string) || "",
+    status: (row.status as TopicThread["status"]) || "active",
+    mentions: (row.mentions as TopicThread["mentions"]) || [],
+  };
+}
+
+/** Fetch all topic threads from Supabase */
+export async function getThreadsAsync(): Promise<TopicThread[]> {
+  if (isSupabaseEnabled()) {
+    const { data, error } = await supabase!
+      .from("topic_threads")
+      .select("*")
+      .order("first_mentioned_date", { ascending: false });
+
+    if (error) {
+      console.error("Supabase getThreads error:", error);
+      return [];
+    }
+    return (data || []).map(dbRowToThread);
+  }
+  return [];
+}
+
+/** Fetch a single thread by ID */
+export async function getThreadAsync(id: string): Promise<TopicThread | undefined> {
+  if (isSupabaseEnabled()) {
+    const { data, error } = await supabase!
+      .from("topic_threads")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !data) return undefined;
+    return dbRowToThread(data);
+  }
+  return undefined;
+}
+
+/** Upsert a topic thread into Supabase */
+export async function upsertThread(thread: TopicThread): Promise<void> {
+  if (!isSupabaseEnabled() || !supabase) return;
+
+  const { error } = await supabase
+    .from("topic_threads")
+    .upsert({
+      id: thread.id,
+      title: thread.title,
+      categories: thread.categories,
+      first_mentioned_date: thread.firstMentionedDate,
+      first_mentioned_meeting_id: thread.firstMentionedMeetingId,
+      status: thread.status,
+      mentions: thread.mentions,
+    });
+
+  if (error) {
+    console.error("Failed to upsert thread:", error);
+  }
 }
 
 function getLocalPublicStatements(): Record<string, PublicStatement[]> {

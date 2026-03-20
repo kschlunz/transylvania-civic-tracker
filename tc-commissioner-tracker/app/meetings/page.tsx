@@ -8,6 +8,7 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import MeetingIntakeForm from "@/components/MeetingIntakeForm";
 import FilterBar from "@/components/FilterBar";
 import type { Meeting } from "@/lib/types";
+import { getRelatedMeetingCount } from "@/lib/data";
 
 interface ResolvedFollowUp {
   id: string;
@@ -173,10 +174,19 @@ function MeetingsContent() {
                   <p className="text-on-surface-variant font-body text-sm leading-relaxed line-clamp-3">
                     {meeting.tldr}
                   </p>
-                  <div className="flex items-center gap-4 mt-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">
+                  <div className="flex items-center gap-4 mt-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider flex-wrap">
                     <span>{meeting.attendees.length} commissioners</span>
                     <span>~{meeting.audienceSize} audience</span>
                     <span>{meeting.keyVotes.length} votes</span>
+                    {(() => {
+                      const count = getRelatedMeetingCount(meeting.id, allMeetings);
+                      return count > 0 ? (
+                        <span className="text-secondary">
+                          <span className="material-symbols-outlined text-[12px] mr-0.5 align-middle">link</span>
+                          Connected to {count} other meeting{count !== 1 ? "s" : ""}
+                        </span>
+                      ) : null;
+                    })()}
                   </div>
                 </div>
                 <div className="hidden md:flex md:col-span-2 justify-end">

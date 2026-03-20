@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: "dashboard" },
   { href: "/commissioners", label: "Commissioners", icon: "groups" },
   { href: "/topics/fiscal", label: "Topics", icon: "topic", matchPrefix: "/topics" },
+  { href: "/threads", label: "Threads", icon: "timeline" },
   { href: "/follow-ups", label: "Follow-ups", icon: "checklist" },
   { href: "/meetings", label: "Meetings", icon: "event" },
 ];

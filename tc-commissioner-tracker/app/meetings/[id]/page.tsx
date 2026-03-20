@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import VoteDetailModal from "@/components/VoteDetailModal";
-import { type KeyVote, getSourceUrl } from "@/lib/types";
+import { type KeyVote, type TopicThread, getSourceUrl } from "@/lib/types";
+import { getThreadsAsync } from "@/lib/data";
 
 function getCommissionerName(id: string) {
   return COMMISSIONERS.find((c) => c.id === id)?.name ?? id;
@@ -24,6 +25,28 @@ export default function MeetingDetail() {
   if (!meeting) notFound();
 
   const [selectedVote, setSelectedVote] = useState<KeyVote | null>(null);
+  const [threads, setThreads] = useState<TopicThread[]>([]);
+
+  useEffect(() => {
+    getThreadsAsync().then(setThreads).catch(() => setThreads([]));
+  }, []);
+
+  // Find threads that mention this meeting
+  const meetingThreads = threads.filter((t) =>
+    t.mentions.some((m) => m.meetingId === id)
+  );
+
+  function getThreadForVote(voteDescription: string): TopicThread | undefined {
+    // Check if any thread mentions this meeting and its title relates to the vote
+    return meetingThreads.find((t) => {
+      const mention = t.mentions.find((m) => m.meetingId === id);
+      if (!mention) return false;
+      // Check if the vote description appears in the thread's mention summary or title
+      const titleWords = t.title.toLowerCase().split(/\s+/);
+      const descWords = voteDescription.toLowerCase();
+      return titleWords.some((w) => w.length > 3 && descWords.includes(w));
+    });
+  }
 
   const dateStr = new Date(meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   const passedVotes = meeting.keyVotes.length;
@@ -124,6 +147,20 @@ export default function MeetingDetail() {
                     </div>
                   </div>
                 )}
+                {(() => {
+                  const thread = getThreadForVote(vote.description);
+                  if (!thread) return null;
+                  return (
+                    <Link
+                      href="/threads"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-1.5 mt-4 pt-3 border-t border-outline-variant/10 text-[10px] text-secondary font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">timeline</span>
+                      Part of: {thread.title} ({thread.mentions.length} meeting{thread.mentions.length !== 1 ? "s" : ""})
+                    </Link>
+                  );
+                })()}
               </button>
             ))}
           </div>
@@ -207,3 +244,4 @@ export default function MeetingDetail() {
     </div>
   );
 }
+

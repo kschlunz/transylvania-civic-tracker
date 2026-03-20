@@ -68,6 +68,8 @@ export interface Meeting {
   commissionerActivity: Record<string, CommissionerActivity>;
   publicComments: PublicComment[];
   followUps?: FollowUpItem[];
+  /** Thread references for votes/topics in this meeting */
+  threadRefs?: Array<{ threadId: string; voteIndex?: number; topicText?: string }>;
   /** Link to the original minutes PDF on the county website */
   sourceUrl?: string;
   /** Link to the agenda PDF */
@@ -78,6 +80,22 @@ export interface Meeting {
 export function getSourceUrl(date: string, type: string): string {
   const typeSlug = type === "special" ? "special%20mtg" : "reg%20mtg";
   return `https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/${date}%20${typeSlug}.pdf`;
+}
+
+export interface ThreadMention {
+  meetingId: string;
+  date: string;
+  summary: string;
+}
+
+export interface TopicThread {
+  id: string;
+  title: string;
+  categories: string[];
+  firstMentionedDate: string;
+  firstMentionedMeetingId: string;
+  status: "active" | "resolved" | "recurring";
+  mentions: ThreadMention[];
 }
 
 export interface PublicStatement {
