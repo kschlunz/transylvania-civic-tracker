@@ -64,11 +64,28 @@ function dbRowToStatement(row: Record<string, unknown>): { commissionerId: strin
 }
 
 // ============================================
+// CLIENT-SIDE CACHE
+// ============================================
+let cachedMeetings: Meeting[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+/** Clear the meetings cache (call after adding/updating a meeting) */
+export function invalidateMeetingsCache() {
+  cachedMeetings = null;
+  cacheTimestamp = 0;
+}
+
+// ============================================
 // PUBLIC API — same signatures, Supabase or local
 // ============================================
 
 /** Returns all meetings, sorted by date descending */
 export async function getMeetingsAsync(): Promise<Meeting[]> {
+  if (cachedMeetings && Date.now() - cacheTimestamp < CACHE_TTL) {
+    return cachedMeetings;
+  }
+
   if (isSupabaseEnabled()) {
     const { data, error } = await supabase!
       .from("meetings")
@@ -79,7 +96,10 @@ export async function getMeetingsAsync(): Promise<Meeting[]> {
       console.error("Supabase getMeetings error:", error);
       return getLocalMeetings();
     }
-    return (data || []).map(dbRowToMeeting);
+    const meetings = (data || []).map(dbRowToMeeting);
+    cachedMeetings = meetings;
+    cacheTimestamp = Date.now();
+    return meetings;
   }
   return getLocalMeetings();
 }

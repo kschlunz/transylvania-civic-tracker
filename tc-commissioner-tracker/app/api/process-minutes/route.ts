@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { parseClaudeResponse } from "@/lib/parse-claude-response";
 
 const SYSTEM_PROMPT = `You are a meeting minutes parser for the Transylvania County Board of Commissioners. Extract structured data from raw meeting minutes text.
 
@@ -243,15 +244,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Prepend the "{" prefill and strip any markdown fences
-    let jsonText = ("{" + textBlock.text).trim();
-    if (jsonText.startsWith("```")) {
-      jsonText = jsonText.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "");
-    }
-
-    const meeting = JSON.parse(jsonText);
-    console.log("Staff activity:", JSON.stringify(meeting.staffActivity));
-    console.log("Staff activity length:", meeting.staffActivity?.length ?? "undefined/missing");
+    const meeting = parseClaudeResponse(textBlock.text);
+    const staffActivity = meeting.staffActivity as Array<unknown> | undefined;
+    console.log("Staff activity:", JSON.stringify(staffActivity));
+    console.log("Staff activity length:", staffActivity?.length ?? "undefined/missing");
     return Response.json(meeting);
   } catch (error) {
     console.error("Error processing minutes:", error);

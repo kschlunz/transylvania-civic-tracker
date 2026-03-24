@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useMeetings } from "@/lib/meetings-context";
 import MeetingIntakeForm from "@/components/MeetingIntakeForm";
 import type { Meeting } from "@/lib/types";
@@ -16,35 +17,8 @@ interface ResolvedFollowUp {
 export default function AdminIntake() {
   const router = useRouter();
   const { addMeeting } = useMeetings();
-  const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const { isAdmin, isLoading } = useIsAdmin();
   const [showForm, setShowForm] = useState(true);
-
-  useEffect(() => {
-    async function checkAuth() {
-      if (!supabase) {
-        setAuthorized(false);
-        return;
-      }
-
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        router.push("/admin/login");
-        return;
-      }
-
-      // Verify user ID matches admin UUID
-      const adminUserId = process.env.NEXT_PUBLIC_ADMIN_USER_ID;
-      if (adminUserId && session.user.id !== adminUserId) {
-        setAuthorized(false);
-        return;
-      }
-
-      setAuthorized(true);
-    }
-
-    checkAuth();
-  }, [router]);
 
   async function handleAccept(meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) {
     await addMeeting(meeting);
@@ -74,7 +48,7 @@ export default function AdminIntake() {
     router.push("/admin/login");
   }
 
-  if (authorized === null) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -82,7 +56,7 @@ export default function AdminIntake() {
     );
   }
 
-  if (!authorized) {
+  if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
         <div className="text-center">

@@ -1,11 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
-import { supabase } from "@/lib/supabase";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import FilterBar from "@/components/FilterBar";
 import { getRelatedMeetingCount } from "@/lib/data";
 
@@ -16,17 +16,7 @@ function MeetingsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    if (!supabase) return;
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        const adminId = process.env.NEXT_PUBLIC_ADMIN_USER_ID;
-        setIsAdmin(!adminId || session.user.id === adminId);
-      }
-    });
-  }, []);
+  const { isAdmin } = useIsAdmin();
 
   const filters = parseFiltersFromParams(searchParams);
   const filtered = filterMeetings(allMeetings, filters);

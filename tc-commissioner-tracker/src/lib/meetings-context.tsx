@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import type { Meeting } from "./types";
-import { getMeetings, getMeetingsAsync } from "./data";
+import { getMeetings, getMeetingsAsync, invalidateMeetingsCache } from "./data";
 import { supabase, isSupabaseEnabled } from "./supabase";
 
 const LOCAL_MEETINGS = getMeetings();
@@ -99,6 +99,7 @@ export function MeetingsProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Refresh meetings from Supabase
+      invalidateMeetingsCache();
       const refreshed = await getMeetingsAsync();
       if (refreshed.length > 0) {
         setMeetings(refreshed);
