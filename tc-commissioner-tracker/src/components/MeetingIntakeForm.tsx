@@ -570,6 +570,37 @@ function MeetingPreview({ meeting }: { meeting: Meeting }) {
         </div>
       )}
 
+      {meeting.staffActivity && meeting.staffActivity.length > 0 && (
+        <div>
+          <h4 className="font-headline font-bold text-primary text-xl mb-4">
+            Staff Presentations ({meeting.staffActivity.length})
+          </h4>
+          <div className="space-y-3">
+            {meeting.staffActivity.map((staff, i) => (
+              <div key={i} className="bg-surface-container-lowest border border-outline-variant/20 p-5 rounded-lg">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-primary-fixed text-xs font-bold shrink-0">
+                    {staff.name.split(" ").map((n: string) => n[0]).join("")}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-on-surface">{staff.name}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">{staff.role}</p>
+                  </div>
+                </div>
+                <ul className="space-y-1.5">
+                  {staff.items.map((item: string, j: number) => (
+                    <li key={j} className="text-sm text-on-surface-variant leading-relaxed flex items-start gap-2">
+                      <span className="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">chevron_right</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div>
         <h4 className="font-headline font-bold text-primary text-xl mb-4">Commissioner Activity</h4>
         <div className="space-y-4">

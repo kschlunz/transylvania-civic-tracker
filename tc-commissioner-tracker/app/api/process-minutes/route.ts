@@ -250,6 +250,8 @@ export async function POST(request: Request) {
     }
 
     const meeting = JSON.parse(jsonText);
+    console.log("Staff activity:", JSON.stringify(meeting.staffActivity));
+    console.log("Staff activity length:", meeting.staffActivity?.length ?? "undefined/missing");
     return Response.json(meeting);
   } catch (error) {
     console.error("Error processing minutes:", error);
