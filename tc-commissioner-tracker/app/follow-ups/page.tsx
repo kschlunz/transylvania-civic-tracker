@@ -8,6 +8,7 @@ import { useMeetings } from "@/lib/meetings-context";
 import { type FollowUpItem, getSourceUrl } from "@/lib/types";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
+import Pagination, { paginate } from "@/components/Pagination";
 
 const STATUS_CONFIG: Record<FollowUpItem["status"], { label: string; bg: string; text: string; icon: string }> = {
   open: { label: "Open", bg: "bg-error/10", text: "text-error", icon: "radio_button_unchecked" },
@@ -58,6 +59,8 @@ function FollowUpsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const isAdmin = useIsAdmin();
+  const [openPage, setOpenPage] = useState(1);
+  const [resolvedPage, setResolvedPage] = useState(1);
 
   function getMeetingSourceUrl(meetingId: string): string {
     const m = meetings.find((mtg) => mtg.id === meetingId);
@@ -251,8 +254,8 @@ function FollowUpsContent() {
         {openItems.length === 0 ? (
           <p className="text-on-surface-variant text-sm italic py-8 text-center">No open follow-up items match the current filters.</p>
         ) : (
-          <div className="space-y-4">
-            {openItems.map((item) => {
+          <div id="open-items" className="space-y-4">
+            {paginate(openItems, openPage).paginated.map((item) => {
               const effectiveStatus = getEffectiveStatus(item);
               const config = STATUS_CONFIG[effectiveStatus];
               const days = daysSince(item.dateRaised);
@@ -336,6 +339,7 @@ function FollowUpsContent() {
                 </div>
               );
             })}
+            <Pagination currentPage={openPage} totalPages={paginate(openItems, openPage).totalPages} onPageChange={setOpenPage} scrollTargetId="open-items" />
           </div>
         )}
       </section>
@@ -347,8 +351,8 @@ function FollowUpsContent() {
             <span className="material-symbols-outlined text-secondary">task_alt</span>
             Resolved &amp; Closed
           </h2>
-          <div className="space-y-3">
-            {resolvedItems.map((item) => {
+          <div id="resolved-items" className="space-y-3">
+            {paginate(resolvedItems, resolvedPage).paginated.map((item) => {
               const effectiveStatus = getEffectiveStatus(item);
               const config = STATUS_CONFIG[effectiveStatus];
               const days = daysSince(item.dateRaised);
@@ -416,6 +420,7 @@ function FollowUpsContent() {
                 </div>
               );
             })}
+            <Pagination currentPage={resolvedPage} totalPages={paginate(resolvedItems, resolvedPage).totalPages} onPageChange={setResolvedPage} scrollTargetId="resolved-items" />
           </div>
         </section>
       )}

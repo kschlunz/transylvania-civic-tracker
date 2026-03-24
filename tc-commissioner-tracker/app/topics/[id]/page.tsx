@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
@@ -10,6 +10,7 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { PUBLIC_STATEMENTS } from "@/lib/public-statements";
 import CategoryTag from "@/components/CategoryTag";
 import FilterBar from "@/components/FilterBar";
+import Pagination, { paginate } from "@/components/Pagination";
 
 const DOT_COLORS = [
   "bg-primary", "bg-secondary", "bg-secondary-fixed-dim",
@@ -21,6 +22,7 @@ const BAR_COLORS = [
 
 function TopicContent() {
   const { id } = useParams<{ id: string }>();
+  const [timelinePage, setTimelinePage] = useState(1);
   const category = CATEGORIES.find((c) => c.id === id);
   if (!category) notFound();
 
@@ -189,33 +191,40 @@ function TopicContent() {
                 <h3 className="font-headline text-2xl font-bold text-primary">Activity Timeline</h3>
                 <span className="font-label text-xs text-outline uppercase">{totalActions} entries</span>
               </div>
-              <div className="space-y-0">
+              <div id="timeline-list" className="space-y-0">
                 {timeline.length === 0 && (
                   <p className="text-on-surface-variant text-sm italic py-8 text-center">No activity in the selected time period.</p>
                 )}
-                {timeline
-                  .sort((a, b) => b.date.localeCompare(a.date))
-                  .map((item, i) => {
-                    const commissioner = COMMISSIONERS.find((c) => c.id === item.commissionerId);
-                    const isLast = i === timeline.length - 1;
-                    return (
-                      <div key={i} className={`relative pl-12 ${isLast ? "" : "pb-12"}`}>
-                        {!isLast && <div className="absolute left-[7px] top-0 bottom-0 w-px bg-outline-variant/20" />}
-                        <div className={`absolute left-0 top-1.5 w-[15px] h-[15px] ${DOT_COLORS[i % DOT_COLORS.length]} rounded-full z-10 border-4 border-white`} />
-                        <div className="flex flex-col md:flex-row md:items-start gap-4">
-                          <div className="min-w-[120px]">
-                            <Link href={`/commissioners/${item.commissionerId}`} className="font-label text-sm font-bold text-primary block hover:underline">{commissioner?.name}</Link>
-                            <Link href={`/meetings/${item.meetingId}`} className="font-label text-xs text-outline hover:text-primary transition-colors">
-                              {new Date(item.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                            </Link>
+                {(() => {
+                  const sorted = [...timeline].sort((a, b) => b.date.localeCompare(a.date));
+                  const { paginated: pageItems, totalPages } = paginate(sorted, timelinePage);
+                  return (
+                    <>
+                      {pageItems.map((item, i) => {
+                        const commissioner = COMMISSIONERS.find((c) => c.id === item.commissionerId);
+                        const isLast = i === pageItems.length - 1;
+                        return (
+                          <div key={i} className={`relative pl-12 ${isLast ? "" : "pb-12"}`}>
+                            {!isLast && <div className="absolute left-[7px] top-0 bottom-0 w-px bg-outline-variant/20" />}
+                            <div className={`absolute left-0 top-1.5 w-[15px] h-[15px] ${DOT_COLORS[i % DOT_COLORS.length]} rounded-full z-10 border-4 border-white`} />
+                            <div className="flex flex-col md:flex-row md:items-start gap-4">
+                              <div className="min-w-[120px]">
+                                <Link href={`/commissioners/${item.commissionerId}`} className="font-label text-sm font-bold text-primary block hover:underline">{commissioner?.name}</Link>
+                                <Link href={`/meetings/${item.meetingId}`} className="font-label text-xs text-outline hover:text-primary transition-colors">
+                                  {new Date(item.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                                </Link>
+                              </div>
+                              <div>
+                                <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-3">{item.text}</p>
+                              </div>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-3">{item.text}</p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                        );
+                      })}
+                      <Pagination currentPage={timelinePage} totalPages={totalPages} onPageChange={setTimelinePage} scrollTargetId="timeline-list" />
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </div>

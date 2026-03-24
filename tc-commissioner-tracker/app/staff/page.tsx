@@ -7,6 +7,7 @@ import { CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import type { FollowUpItem, StaffActivityItem } from "@/lib/types";
+import Pagination, { paginate } from "@/components/Pagination";
 
 interface StaffProfile {
   name: string;
@@ -62,6 +63,7 @@ export default function StaffPage() {
   const { meetings } = useMeetings();
   const [followUps, setFollowUps] = useState<FollowUpItem[]>([]);
   const [expandedStaff, setExpandedStaff] = useState<string | null>(null);
+  const [staffPage, setStaffPage] = useState(1);
 
   useEffect(() => {
     // Get follow-ups from meeting data as fallback
@@ -134,12 +136,12 @@ export default function StaffPage() {
           </p>
         </div>
       ) : (
-        <section className="space-y-6">
+        <section id="staff-profiles" className="space-y-6">
           <div className="flex items-end border-b border-outline-variant/30 pb-4">
             <h2 className="font-headline text-3xl font-bold text-primary">Staff Profiles</h2>
           </div>
 
-          {profiles.map((profile) => {
+          {paginate(profiles, staffPage).paginated.map((profile) => {
             const isExpanded = expandedStaff === profile.name;
             const openFUs = profile.followUps.filter((f) => f.status === "open" || f.status === "in_progress");
             const resolvedFUs = profile.followUps.filter((f) => f.status === "resolved" || f.status === "dropped");
@@ -268,6 +270,7 @@ export default function StaffPage() {
               </div>
             );
           })}
+          <Pagination currentPage={staffPage} totalPages={paginate(profiles, staffPage).totalPages} onPageChange={setStaffPage} scrollTargetId="staff-profiles" />
         </section>
       )}
     </div>

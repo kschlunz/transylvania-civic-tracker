@@ -7,9 +7,8 @@ import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import FilterBar from "@/components/FilterBar";
+import Pagination, { paginate } from "@/components/Pagination";
 import { getRelatedMeetingCount } from "@/lib/data";
-
-const PAGE_SIZE = 10;
 
 function MeetingsContent() {
   const { meetings: allMeetings } = useMeetings();
@@ -23,8 +22,7 @@ function MeetingsContent() {
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
 
   const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
-  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
-  const paginated = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const { paginated, totalPages } = paginate(sorted, page);
 
   function goToPage(p: number) {
     const params = new URLSearchParams(searchParams.toString());
@@ -145,42 +143,7 @@ function MeetingsContent() {
           <p className="text-on-surface-variant text-sm italic py-12 text-center">No meetings match the current filters.</p>
         )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-4 mt-12">
-            <button
-              onClick={() => goToPage(page - 1)}
-              disabled={page <= 1}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm font-label font-bold text-primary hover:bg-surface-container-high rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <span className="material-symbols-outlined text-lg">chevron_left</span>
-              Previous
-            </button>
-            <div className="flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => goToPage(p)}
-                  className={`w-8 h-8 rounded text-xs font-bold transition-colors ${
-                    p === page
-                      ? "bg-primary text-on-primary"
-                      : "text-on-surface-variant hover:bg-surface-container-high"
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={() => goToPage(page + 1)}
-              disabled={page >= totalPages}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm font-label font-bold text-primary hover:bg-surface-container-high rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              Next
-              <span className="material-symbols-outlined text-lg">chevron_right</span>
-            </button>
-          </div>
-        )}
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
       </section>
 
     </div>

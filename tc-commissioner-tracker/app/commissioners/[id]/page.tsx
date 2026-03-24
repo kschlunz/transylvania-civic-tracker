@@ -4,19 +4,19 @@ import { Suspense, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
+import { COMMISSIONERS, CATEGORIES } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { PUBLIC_STATEMENTS } from "@/lib/public-statements";
 import CategoryTag from "@/components/CategoryTag";
 import FilterBar from "@/components/FilterBar";
+import CommissionerActivityLedger from "@/components/CommissionerActivityLedger";
 import TopicRadarChart from "@/components/charts/TopicRadarChart";
 import FollowThroughRate from "@/components/charts/FollowThroughRate";
 import ActivitySparkline from "@/components/charts/ActivitySparkline";
 import type { FollowUpItem } from "@/lib/types";
 
 const BORDER_COLORS = ["border-primary", "border-secondary", "border-primary-container", "border-tertiary"];
-const DOT_COLORS = ["bg-primary", "bg-secondary", "bg-tertiary-container", "bg-outline", "bg-on-primary-container", "bg-error"];
 
 interface ExpandableStatsProps {
   meetings: import("@/lib/types").Meeting[];
@@ -333,52 +333,14 @@ function CommissionerContent() {
 
         {/* Right Column: Activity Ledger */}
         <div className="lg:col-span-7">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="font-headline text-3xl font-bold italic">Activity Ledger</h2>
-          </div>
-
-          {meetingActivities.length === 0 && (
-            <p className="text-on-surface-variant text-sm italic py-8">No meeting activity in the selected time period.</p>
-          )}
-
-          {meetingActivities
-            .sort((a, b) => b.date.localeCompare(a.date))
-            .map(({ meetingId, date, activity }) => (
-              <div key={meetingId} className="mb-12">
-                <Link
-                  href={`/meetings/${meetingId}`}
-                  className="inline-block text-sm font-bold px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full mb-6 hover:opacity-80 transition-opacity"
-                >
-                  {new Date(date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                </Link>
-                <div className="relative pl-8">
-                  <div className="absolute left-0 top-0 bottom-0 w-px bg-outline-variant/30" />
-                  <div className="space-y-12">
-                    {activity.topics.map((topic, i) => (
-                      <div key={i} className="relative">
-                        <div className={`absolute -left-[36px] top-1.5 w-4 h-4 rounded-full ${DOT_COLORS[i % DOT_COLORS.length]} ring-4 ring-surface`} />
-                        <div className="bg-surface-container-lowest p-8 shadow-sm transition-transform hover:-translate-y-1">
-                          <p className="text-on-surface-variant text-sm leading-relaxed mb-4">{topic.text}</p>
-                          <div className="flex gap-2 flex-wrap">
-                            {topic.categories.map((catId) => {
-                              const cat = CATEGORIES.find((c) => c.id === catId);
-                              const icon = CATEGORY_ICONS[catId];
-                              if (!cat) return null;
-                              return (
-                                <Link key={catId} href={`/topics/${catId}`} className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 border border-outline-variant/20 text-on-surface-variant uppercase hover:bg-surface-container-high transition-colors">
-                                  {icon && <span className="material-symbols-outlined text-[12px]">{icon}</span>}
-                                  {cat.label}
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <h2 className="font-headline text-3xl font-bold italic mb-8">Activity Ledger</h2>
+          <CommissionerActivityLedger
+            commissionerId={id}
+            meetings={meetings}
+            allMeetings={allMeetings}
+            meetingActivities={meetingActivities}
+            followUps={myFollowUps}
+          />
         </div>
       </div>
     </div>

@@ -6,11 +6,14 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { getThreadsAsync } from "@/lib/data";
 import type { TopicThread } from "@/lib/types";
+import Pagination, { paginate } from "@/components/Pagination";
 
 function ThreadsContent() {
   const [threads, setThreads] = useState<TopicThread[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [activePage, setActivePage] = useState(1);
+  const [resolvedPage, setResolvedPage] = useState(1);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -139,8 +142,8 @@ function ThreadsContent() {
                 <span className="material-symbols-outlined text-primary">timeline</span>
                 Active Threads
               </h2>
-              <div className="space-y-3">
-                {activeThreads.map((thread) => {
+              <div id="active-threads" className="space-y-3">
+                {paginate(activeThreads, activePage).paginated.map((thread) => {
                   const isExpanded = expandedId === thread.id;
                   const lastDate = getLastMentionDate(thread);
                   const span = daysBetween(thread.firstMentionedDate, lastDate);
@@ -214,6 +217,7 @@ function ThreadsContent() {
                     </div>
                   );
                 })}
+                <Pagination currentPage={activePage} totalPages={paginate(activeThreads, activePage).totalPages} onPageChange={setActivePage} scrollTargetId="active-threads" />
               </div>
             </section>
           )}
@@ -225,8 +229,8 @@ function ThreadsContent() {
                 <span className="material-symbols-outlined text-secondary">check_circle</span>
                 Resolved Threads
               </h2>
-              <div className="space-y-3">
-                {resolvedThreads.map((thread) => {
+              <div id="resolved-threads" className="space-y-3">
+                {paginate(resolvedThreads, resolvedPage).paginated.map((thread) => {
                   const isExpanded = expandedId === thread.id;
 
                   return (
@@ -264,6 +268,7 @@ function ThreadsContent() {
                     </div>
                   );
                 })}
+                <Pagination currentPage={resolvedPage} totalPages={paginate(resolvedThreads, resolvedPage).totalPages} onPageChange={setResolvedPage} scrollTargetId="resolved-threads" />
               </div>
             </section>
           )}
