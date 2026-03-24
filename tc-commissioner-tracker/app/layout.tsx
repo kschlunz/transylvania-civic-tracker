@@ -5,6 +5,7 @@ import { MeetingsProvider } from "@/lib/meetings-context";
 import NavLinks from "@/components/NavLinks";
 import MobileMenu from "@/components/MobileMenu";
 import EmailSignup from "@/components/EmailSignup";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -87,6 +88,7 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
