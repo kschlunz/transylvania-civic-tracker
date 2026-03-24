@@ -9,6 +9,7 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import FilterBar from "@/components/FilterBar";
+import UpcomingMeetingBanner from "@/components/UpcomingMeetingBanner";
 import type { FollowUpItem, Meeting } from "@/lib/types";
 
 function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
@@ -390,7 +391,9 @@ function DashboardContent() {
   ];
 
   return (
-    <div className="px-4 md:px-8 lg:px-12 py-8 md:py-12 space-y-10 md:space-y-16">
+    <div>
+      <UpcomingMeetingBanner />
+      <div className="px-4 md:px-8 lg:px-12 py-8 md:py-12 space-y-10 md:space-y-16">
       {/* Hero Banner */}
       <section className="border-b border-outline-variant/30 pb-12">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
@@ -567,6 +570,7 @@ function DashboardContent() {
       </div>
 
       {/* Old open items + meetings moved above commissioners */}
+    </div>
     </div>
   );
 }

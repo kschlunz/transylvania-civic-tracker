@@ -108,39 +108,6 @@ export default function MeetingDetail() {
         </div>
       </section>
 
-      {/* Staff Presentations */}
-      {meeting.staffActivity && meeting.staffActivity.length > 0 && (
-        <section className="mb-12 md:mb-24">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="material-symbols-outlined text-secondary">groups</span>
-            <h3 className="font-headline text-2xl md:text-3xl font-bold text-primary">Staff Presentations</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            {meeting.staffActivity.map((staff) => (
-              <div key={staff.name} className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary-fixed text-sm font-bold shrink-0">
-                    {staff.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <div>
-                    <Link href="/staff" className="font-headline text-lg font-bold text-primary hover:underline">{staff.name}</Link>
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">{staff.role}</p>
-                  </div>
-                </div>
-                <ul className="space-y-2">
-                  {staff.items.map((item, i) => (
-                    <li key={i} className="text-sm text-on-surface-variant leading-relaxed flex items-start gap-2">
-                      <span className="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">chevron_right</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
       <div className="grid lg:grid-cols-3 gap-10 md:gap-16">
         {/* Key Votes + Public Comments */}
         <div className="lg:col-span-2 space-y-12">
@@ -200,8 +167,8 @@ export default function MeetingDetail() {
 
           {/* Public Comments */}
           {meeting.publicComments.length > 0 && (
-            <div className="mt-20">
-              <h3 className="font-headline text-3xl font-bold text-primary mb-12">Public Ledger of Record</h3>
+            <div className="mt-12">
+              <h3 className="font-headline text-3xl font-bold text-primary mb-8">Public Ledger of Record</h3>
               <div className="space-y-1">
                 {meeting.publicComments.map((comment, i) => (
                   <div key={i} className="flex items-start gap-6 py-4 px-6 hover:bg-surface-container transition-colors rounded">
@@ -210,6 +177,39 @@ export default function MeetingDetail() {
                       <span className="font-bold text-sm">{comment.speaker}</span>
                       <p className="text-on-surface-variant text-sm leading-relaxed mt-1">{comment.summary}</p>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Staff Presentations */}
+          {meeting.staffActivity && meeting.staffActivity.length > 0 && (
+            <div className="mt-12">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="material-symbols-outlined text-secondary">groups</span>
+                <h3 className="font-headline text-2xl md:text-3xl font-bold text-primary">Staff Presentations</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {meeting.staffActivity.map((staff) => (
+                  <div key={staff.name} className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-5 md:p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary-fixed text-sm font-bold shrink-0">
+                        {staff.name.split(" ").map((n) => n[0]).join("")}
+                      </div>
+                      <div>
+                        <Link href="/staff" className="font-headline text-lg font-bold text-primary hover:underline">{staff.name}</Link>
+                        <p className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">{staff.role}</p>
+                      </div>
+                    </div>
+                    <ul className="space-y-2">
+                      {staff.items.map((item, i) => (
+                        <li key={i} className="text-sm text-on-surface-variant leading-relaxed flex items-start gap-2">
+                          <span className="material-symbols-outlined text-[14px] text-secondary shrink-0 mt-0.5">chevron_right</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
