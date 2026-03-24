@@ -40,18 +40,32 @@ Extract the following from the meeting minutes:
 
 4. All public comments: speaker full name and a summary of what they said.
 
-5. Staff activity: When the County Manager, Finance Director, Project Manager, IT Director, or other department heads present, report, or make recommendations to the board, extract what they presented. Common staff members include:
-   - Jaime Laughter (County Manager)
+5. Staff activity (IMPORTANT — this is separate from commissioner activity). Extract every county staff member who gave a presentation, report, recommendation, or update to the board. Look for patterns like:
+   - "The Manager reported/presented/noted/recommended..."
+   - "The County Manager presented..."
+   - "Finance Director [name] presented..."
+   - "Project Manager [name] provided an update on..."
+   - "[title] [name] explained/noted/recommended..."
+   - Any department head who spoke substantively to the board
+   - Staff members who presented agenda items before a vote
+   - References like "staff presented", "the manager said", "director reported"
+
+   Known Transylvania County staff (but include ANY staff mentioned by name):
+   - Jaime Laughter (County Manager) — often referred to as just "the Manager"
    - Meagan O'Neal (Finance Director)
    - Nathanael Carver (IT Director)
    - Beecher Allison (Project Manager)
    - David McNeill (Emergency Services Director)
-   For each staff member who presents or reports, capture:
-   - name: their full name
-   - role: their title
-   - items: array of strings describing what they presented, reported on, or recommended (e.g. "Presented FY27 budget overview with no tax increase strategy", "Recommended Encore AV system contract at $183,377")
+   - Trisha Hogan (Clerk to the Board)
 
-7. New follow-up items (newFollowUps): Extract any NEW commitments to future action made in THIS meeting. These are moments where a commissioner, the county manager, or staff says something will be done later: "staff will bring this back," "we'll schedule a workshop," "the manager will provide a report," "this will be on the next agenda," etc. For each:
+   For each staff member, capture:
+   - name: their full name
+   - role: their title/position
+   - items: array of strings — EVERY topic they presented, reported on, or recommended. Be thorough. If they presented on 5 topics, list all 5. Examples: "Presented FY27 budget overview with no tax increase strategy", "Recommended Encore AV system contract at $183,377", "Provided Hurricane Helene recovery status update"
+
+   Most commission meetings have significant staff presentations. If the minutes mention budget presentations, capital project updates, IT reports, etc., there IS staff activity to extract. The staffActivity array should NOT be empty for a typical meeting.
+
+6. New follow-up items (newFollowUps): Extract any NEW commitments to future action made in THIS meeting. These are moments where a commissioner, the county manager, or staff says something will be done later: "staff will bring this back," "we'll schedule a workshop," "the manager will provide a report," "this will be on the next agenda," etc. For each:
    - id: meeting date + sequential number, e.g. "2026-02-09-fu-1"
    - dateRaised: the meeting date
    - owner: the person who owns this commitment. Use commissioner IDs for commissioners. For county staff, use their full name when mentioned in the minutes — common staff names include: County Manager Jaime Laughter, Finance Director Meagan O'Neal, IT Director Nathanael Carver, Project Manager Beecher Allison. Only use "staff" when the minutes don't specify an individual.
@@ -60,14 +74,14 @@ Extract the following from the meeting minutes:
    - categories: relevant category IDs
    - relatedMeetingId: the meeting ID
 
-8. Resolved follow-ups (resolvedFollowUps): If open follow-up items from previous meetings are provided below, check whether any of them are addressed, updated, or resolved in these minutes. For each match:
+7. Resolved follow-ups (resolvedFollowUps): If open follow-up items from previous meetings are provided below, check whether any of them are addressed, updated, or resolved in these minutes. For each match:
    - id: the original follow-up item ID
    - status: "in_progress" if partially addressed, "resolved" if fully completed
    - resolution: brief description of what happened (1-2 sentences)
 
 Only include resolvedFollowUps entries for items you are confident are addressed in the minutes. Do not guess.
 
-9. Topic threads: Identify specific recurring items discussed in this meeting — capital projects, ongoing studies, policy initiatives, facility issues, etc. NOT routine items like consent agenda approvals or one-off proclamations.
+8. Topic threads: Identify specific recurring items discussed in this meeting — capital projects, ongoing studies, policy initiatives, facility issues, etc. NOT routine items like consent agenda approvals or one-off proclamations.
    - newThreads: Items appearing for the first time that are likely to recur across future meetings. For each:
      - id: slugified title, e.g. "solid-waste-rate-study" or "new-courthouse-project"
      - title: descriptive name, e.g. "Solid Waste Rate Study" or "Rosman Old Gym Structural Issues"

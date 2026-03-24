@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminLogin() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,18 +20,19 @@ export default function AdminLogin() {
       return;
     }
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (authError) {
-      setError(authError.message);
+    if (authError || !data.session) {
+      setError(authError?.message || "Login failed");
       setLoading(false);
       return;
     }
 
-    router.push("/admin/intake");
+    // Hard redirect so the intake page picks up the fresh session
+    window.location.href = "/admin/intake";
   }
 
   return (
