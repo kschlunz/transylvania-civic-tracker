@@ -1,26 +1,17 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
-import MeetingIntakeForm from "@/components/MeetingIntakeForm";
 import FilterBar from "@/components/FilterBar";
-import type { Meeting } from "@/lib/types";
 import { getRelatedMeetingCount } from "@/lib/data";
-
-interface ResolvedFollowUp {
-  id: string;
-  status: "in_progress" | "resolved";
-  resolution: string;
-}
 
 const PAGE_SIZE = 10;
 
 function MeetingsContent() {
-  const { meetings: allMeetings, addMeeting } = useMeetings();
-  const [showIntake, setShowIntake] = useState(false);
+  const { meetings: allMeetings } = useMeetings();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -44,28 +35,6 @@ function MeetingsContent() {
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  async function handleAccept(meeting: Meeting, acceptedResolutions: ResolvedFollowUp[]) {
-    await addMeeting(meeting);
-
-    // Apply accepted follow-up resolutions to Supabase
-    if (acceptedResolutions.length > 0) {
-      const { supabase } = await import("@/lib/supabase");
-      if (supabase) {
-        for (const r of acceptedResolutions) {
-          const { error } = await supabase
-            .from("follow_ups")
-            .update({ status: r.status, resolution: r.resolution })
-            .eq("id", r.id);
-          if (error) {
-            console.error(`Failed to update follow-up ${r.id}:`, error);
-          }
-        }
-      }
-    }
-
-    setShowIntake(false);
-  }
-
   return (
     <div className="px-4 md:px-8 lg:px-12 py-8 md:py-16 max-w-screen-2xl mx-auto">
       {/* Hero Section */}
@@ -86,48 +55,6 @@ function MeetingsContent() {
           </div>
         </div>
       </header>
-
-      {/* Add Meeting Notes Section */}
-      <section className="mb-12 md:mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
-          <div className="md:col-span-8 bg-surface-container-low p-6 md:p-12 rounded-t-xl md:rounded-l-xl md:rounded-tr-none flex flex-col justify-center">
-            <h2 className="font-headline text-3xl text-primary mb-4">Analyze New Deliberations</h2>
-            <p className="text-on-surface-variant font-body mb-8 max-w-lg">
-              Paste meeting transcripts or AI-generated summaries here. Our system will parse key decisions, voting records, and thematic shifts to update the ledger.
-            </p>
-            <button
-              onClick={() => setShowIntake(true)}
-              className="bg-primary text-on-primary px-8 py-3 rounded shadow-lg hover:bg-primary-container transition-colors flex items-center gap-2 w-fit"
-            >
-              <span className="material-symbols-outlined text-sm">analytics</span>
-              <span className="font-label text-sm font-bold">Process Meeting Notes</span>
-            </button>
-          </div>
-          <div className="md:col-span-4 bg-primary-container p-6 md:p-12 flex flex-col justify-between text-on-primary rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
-            <div>
-              <span className="material-symbols-outlined text-4xl mb-6 opacity-40">data_object</span>
-              <h3 className="font-headline text-2xl mb-4 text-primary-fixed">AI-Powered Extraction</h3>
-              <p className="text-on-primary-container text-sm leading-relaxed mb-6">
-                Paste raw meeting minutes and our AI will extract structured data — votes, commissioner activity, topics, and public comments.
-              </p>
-            </div>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-xs font-label text-on-primary-container">
-                <span className="material-symbols-outlined text-sm text-primary-fixed">check_circle</span>
-                Identify Voting Records
-              </li>
-              <li className="flex items-center gap-3 text-xs font-label text-on-primary-container">
-                <span className="material-symbols-outlined text-sm text-primary-fixed">check_circle</span>
-                Extract Commissioner Activity
-              </li>
-              <li className="flex items-center gap-3 text-xs font-label text-on-primary-container">
-                <span className="material-symbols-outlined text-sm text-primary-fixed">check_circle</span>
-                Cross-reference Topics
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* Meeting Ledger */}
       <section>
@@ -241,13 +168,6 @@ function MeetingsContent() {
         )}
       </section>
 
-      {/* Intake Modal */}
-      {showIntake && (
-        <MeetingIntakeForm
-          onAccept={handleAccept}
-          onClose={() => setShowIntake(false)}
-        />
-      )}
     </div>
   );
 }
