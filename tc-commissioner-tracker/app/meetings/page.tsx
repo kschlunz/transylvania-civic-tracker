@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
+import { supabase } from "@/lib/supabase";
 import FilterBar from "@/components/FilterBar";
 import { getRelatedMeetingCount } from "@/lib/data";
 
@@ -15,6 +16,17 @@ function MeetingsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!supabase) return;
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        const adminId = process.env.NEXT_PUBLIC_ADMIN_USER_ID;
+        setIsAdmin(!adminId || session.user.id === adminId);
+      }
+    });
+  }, []);
 
   const filters = parseFiltersFromParams(searchParams);
   const filtered = filterMeetings(allMeetings, filters);
@@ -48,11 +60,20 @@ function MeetingsContent() {
             A permanent archive of civic discourse. Track legislative progression, review committee summaries, and analyze the evolution of local policy through curated meeting transcripts.
           </p>
         </div>
-        <div className="flex flex-col items-start md:items-end gap-2">
+        <div className="flex flex-col items-start md:items-end gap-3">
           <div className="text-right">
             <p className="text-on-surface-variant font-label text-xs uppercase tracking-wider">Archive Status</p>
             <p className="text-primary font-headline italic text-xl">Active &amp; Synchronized</p>
           </div>
+          {isAdmin && (
+            <Link
+              href="/admin/intake"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded text-xs font-label font-bold hover:bg-primary-container transition-colors"
+            >
+              <span className="material-symbols-outlined text-sm">add</span>
+              Add Meeting
+            </Link>
+          )}
         </div>
       </header>
 
