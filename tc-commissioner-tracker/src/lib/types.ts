@@ -55,6 +55,12 @@ export interface FollowUpItem {
   resolution?: string;
 }
 
+export interface StaffActivityItem {
+  name: string;
+  role: string;
+  items: string[];
+}
+
 export interface Meeting {
   id: string;
   date: string;
@@ -68,6 +74,7 @@ export interface Meeting {
   commissionerActivity: Record<string, CommissionerActivity>;
   publicComments: PublicComment[];
   followUps?: FollowUpItem[];
+  staffActivity?: StaffActivityItem[];
   /** Thread references for votes/topics in this meeting */
   threadRefs?: Array<{ threadId: string; voteIndex?: number; topicText?: string }>;
   /** Link to the original minutes PDF on the county website */

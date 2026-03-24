@@ -27,6 +27,7 @@ function dbRowToMeeting(row: Record<string, unknown>): Meeting {
     commissionerActivity: (row.commissioner_activity as Meeting["commissionerActivity"]) || {},
     publicComments: (row.public_comments as Meeting["publicComments"]) || [],
     followUps: (row.follow_ups as FollowUpItem[]) || [],
+    staffActivity: (row.staff_activity as Meeting["staffActivity"]) || [],
     sourceUrl: (row.source_url as string) || undefined,
     agendaUrl: (row.agenda_url as string) || undefined,
   };

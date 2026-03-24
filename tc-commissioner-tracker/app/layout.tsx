@@ -50,7 +50,6 @@ export default function RootLayout({
               </nav>
             </div>
             <div className="flex items-center gap-2 md:gap-4">
-              <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors hidden md:block">settings</span>
               <MobileMenu />
             </div>
           </div>
@@ -81,6 +80,10 @@ export default function RootLayout({
               >
                 transylvaniacounty.org/meetings
               </a>.
+              {" · "}
+              <Link href="/methodology" className="underline hover:text-primary transition-colors">
+                How we categorize
+              </Link>
             </p>
           </div>
         </footer>

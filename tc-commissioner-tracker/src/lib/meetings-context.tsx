@@ -33,6 +33,7 @@ function meetingToRow(meeting: Meeting) {
     commissioner_activity: meeting.commissionerActivity,
     public_comments: meeting.publicComments,
     follow_ups: meeting.followUps || [],
+    staff_activity: meeting.staffActivity || [],
     source_url: meeting.sourceUrl || null,
     agenda_url: meeting.agendaUrl || null,
   };

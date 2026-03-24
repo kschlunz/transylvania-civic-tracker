@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: "dashboard" },
   { href: "/commissioners", label: "Commissioners", icon: "groups" },
+  { href: "/staff", label: "Staff", icon: "badge" },
   { href: "/topics/fiscal", label: "Topics", icon: "topic", matchPrefix: "/topics" },
   { href: "/threads", label: "Threads", icon: "timeline" },
   { href: "/follow-ups", label: "Follow-ups", icon: "checklist" },

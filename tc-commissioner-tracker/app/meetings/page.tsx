@@ -59,6 +59,10 @@ function MeetingsContent() {
           <p className="text-on-surface-variant text-lg leading-relaxed font-body">
             A permanent archive of civic discourse. Track legislative progression, review committee summaries, and analyze the evolution of local policy through curated meeting transcripts.
           </p>
+          <Link href="/methodology" className="inline-flex items-center gap-1.5 text-secondary hover:text-primary text-xs font-label font-bold uppercase tracking-wider mt-3 transition-colors">
+            <span className="material-symbols-outlined text-sm">info</span>
+            How we categorize
+          </Link>
         </div>
         <div className="flex flex-col items-start md:items-end gap-3">
           <div className="text-right">
