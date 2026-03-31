@@ -22,8 +22,18 @@ function getCommissionerColor(id: string) {
 
 export default function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
-  const { meetings } = useMeetings();
+  const { meetings, ready } = useMeetings();
   const meeting = meetings.find((m) => m.id === id);
+
+  if (!meeting && !ready) {
+    return (
+      <div className="max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-12 py-20 text-center">
+        <span className="material-symbols-outlined text-4xl text-outline-variant animate-pulse">hourglass_empty</span>
+        <p className="text-on-surface-variant text-sm mt-4">Loading meeting data...</p>
+      </div>
+    );
+  }
+
   if (!meeting) notFound();
 
   const [selectedVote, setSelectedVote] = useState<KeyVote | null>(null);
