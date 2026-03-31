@@ -214,8 +214,14 @@ function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
 
 function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
   const sorted = [...meetings].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
-  // Most recent meeting starts expanded
-  const [expandedId, setExpandedId] = useState<string | null>(sorted[0]?.id || null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  // Auto-expand most recent meeting when data loads
+  useEffect(() => {
+    if (sorted.length > 0 && expandedId === null) {
+      setExpandedId(sorted[0].id);
+    }
+  }, [sorted.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (sorted.length === 0) {
     return (
