@@ -79,7 +79,7 @@ function ThreadsContent() {
           Topic Threads
         </h1>
         <p className="text-on-surface-variant text-lg leading-relaxed font-body max-w-2xl">
-          Tracking specific items as they progress across multiple meetings — capital projects, studies, policy initiatives, and ongoing issues.
+          Ongoing issues that come up across multiple meetings — capital projects, policy changes, budget items, and recurring topics. See how each one has evolved over time.
         </p>
       </header>
 

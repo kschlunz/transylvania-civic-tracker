@@ -44,7 +44,7 @@ export default function RootLayout({
             <div className="flex items-center gap-4 md:gap-8">
               <Link href="/" className="flex flex-col">
                 <span className="text-xl md:text-2xl font-bold italic text-primary font-headline">Civic Ledger</span>
-                <span className="text-[9px] md:text-[10px] text-secondary font-bold tracking-widest uppercase hidden sm:block">Transylvania County · Informed Arbiter Edition</span>
+                <span className="text-[9px] md:text-[10px] text-secondary font-bold tracking-widest uppercase hidden sm:block">Transylvania County · Non-Partisan Civic Tracker</span>
               </Link>
               <nav className="hidden md:flex gap-6 items-center">
                 <NavLinks />
@@ -67,11 +67,11 @@ export default function RootLayout({
         <footer className="border-t border-outline-variant/20 py-6 md:py-8 px-4 md:px-6 lg:px-12">
           <div className="max-w-screen-2xl mx-auto space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <p className="text-sm font-label font-bold text-on-surface-variant">Subscribe for meeting updates</p>
+              <p className="text-sm font-label font-bold text-on-surface-variant">Stay informed without attending meetings</p>
               <EmailSignup />
             </div>
             <p className="text-[10px] md:text-[11px] text-on-surface-variant/60 leading-relaxed max-w-3xl">
-              Meeting data is extracted from official Transylvania County meeting minutes using AI-assisted processing and reviewed by volunteers.
+              Data extracted from official Transylvania County meeting minutes using AI-assisted processing and reviewed by volunteers.
               For the official record, refer to the county&apos;s published minutes at{" "}
               <a
                 href="https://www.transylvaniacounty.org/meetings"
@@ -83,7 +83,11 @@ export default function RootLayout({
               </a>.
               {" · "}
               <Link href="/methodology" className="underline hover:text-primary transition-colors">
-                How we categorize
+                How we process data
+              </Link>
+              {" · "}
+              <Link href="/start-here" className="underline hover:text-primary transition-colors">
+                New here? Start here
               </Link>
             </p>
           </div>

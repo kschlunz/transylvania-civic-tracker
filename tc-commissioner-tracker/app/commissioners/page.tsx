@@ -71,7 +71,7 @@ export default function CommissionersList() {
             The Board of Commissioners
           </h1>
           <p className="font-body text-lg text-on-surface-variant max-w-xl">
-            Current Board of Commissioners — click for full activity profile. Tracking meetings, active topics, and legislative motions.
+            Your five county commissioners — their voting records, what topics they focus on, and how often they show up. Click any name for the full profile.
           </p>
         </div>
       </div>

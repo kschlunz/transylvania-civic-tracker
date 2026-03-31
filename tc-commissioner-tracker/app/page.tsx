@@ -10,9 +10,9 @@ import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
-import FilterBar from "@/components/FilterBar";
 import UpcomingMeetingBanner from "@/components/UpcomingMeetingBanner";
 import type { FollowUpItem, Meeting } from "@/lib/types";
+import { announcements as announcementsData } from "@/data/announcements";
 
 function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
   let topicCount = 0;
@@ -47,16 +47,6 @@ function getTopicCounts(meetings: ReturnType<typeof useMeetings>["meetings"]) {
   return Object.entries(counts).sort((a, b) => b[1] - a[1]);
 }
 
-function getTotalActions(meetings: ReturnType<typeof useMeetings>["meetings"]) {
-  let total = 0;
-  for (const meeting of meetings) {
-    for (const activity of Object.values(meeting.commissionerActivity)) {
-      total += activity.topics.length;
-    }
-  }
-  return total;
-}
-
 function getOwnerDisplayName(owner: string) {
   const commissioner = COMMISSIONERS.find((c) => c.id === owner);
   if (commissioner) return commissioner.name;
@@ -74,6 +64,63 @@ function getDaysColor(days: number) {
   if (days > 120) return "text-error";
   if (days >= 60) return "text-amber-600";
   return "text-on-surface-variant";
+}
+
+function HeroStats({ meetings }: { meetings: Meeting[] }) {
+  const [followUps, setFollowUps] = useState<FollowUpItem[]>(() => {
+    const items: FollowUpItem[] = [];
+    for (const m of meetings) {
+      if (m.followUps) items.push(...m.followUps);
+    }
+    return items;
+  });
+
+  useEffect(() => {
+    if (isSupabaseEnabled()) {
+      getFollowUpsAsync().then((sbItems) => {
+        if (sbItems.length > 0) setFollowUps(sbItems);
+      }).catch(() => {});
+    }
+  }, []);
+
+  const openCount = followUps.filter((f) => f.status === "open" || f.status === "in_progress").length;
+  const overdueCount = followUps.filter((f) => {
+    if (f.status !== "open" && f.status !== "in_progress") return false;
+    const days = Math.floor((Date.now() - new Date(f.dateRaised + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24));
+    return days > 90;
+  }).length;
+
+  const budgetTotal = budget.departments.reduce((s, d) => s + d.totalsByYear.fy26Projection, 0);
+
+  function fmt(val: number) {
+    if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(0)}M`;
+    return `$${(val / 1_000).toFixed(0)}K`;
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+      <Link href="/budget" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
+        <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">FY26 County Budget</p>
+        <p className="font-headline text-3xl md:text-4xl text-primary">{fmt(budgetTotal)}</p>
+        <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Explore where it goes →</p>
+      </Link>
+      <Link href="/follow-ups" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
+        <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Open Commitments</p>
+        <div className="flex items-baseline gap-2">
+          <p className="font-headline text-3xl md:text-4xl text-primary">{openCount}</p>
+          {overdueCount > 0 && (
+            <span className="text-sm font-bold text-error">{overdueCount} overdue</span>
+          )}
+        </div>
+        <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Are they following through? →</p>
+      </Link>
+      <Link href="/meetings" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
+        <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Meetings Tracked</p>
+        <p className="font-headline text-3xl md:text-4xl text-primary">{meetings.length}</p>
+        <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">See what happened →</p>
+      </Link>
+    </div>
+  );
 }
 
 function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
@@ -165,145 +212,29 @@ function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
   );
 }
 
-function DashboardStats({ meetings, stats, topicCounts }: {
-  meetings: Meeting[];
-  stats: { label: string; sublabel: string; value: number; barWidth: string }[];
-  topicCounts: [string, number][];
-}) {
-  const [expanded, setExpanded] = useState<string | null>(null);
-
-  const sortedMeetings = [...meetings].sort((a, b) => b.date.localeCompare(a.date));
-
-  function renderDetail(label: string) {
-    switch (label) {
-      case "Activity Monitor":
-        return (
-          <div className="space-y-2">
-            {sortedMeetings.map((m) => (
-              <Link key={m.id} href={`/meetings/${m.id}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
-                <span className="material-symbols-outlined text-sm text-secondary">event</span>
-                <span className="text-sm font-bold text-primary">
-                  {new Date(m.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                </span>
-                <span className="text-[10px] text-on-surface-variant uppercase capitalize">{m.type}</span>
-                <span className="text-[10px] text-on-surface-variant ml-auto">{m.keyVotes.length} votes</span>
-              </Link>
-            ))}
-          </div>
-        );
-      case "Legislative Body":
-        return (
-          <div className="space-y-2">
-            {COMMISSIONERS.map((c) => (
-              <Link key={c.id} href={`/commissioners/${c.id}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
-                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
-                <span className="text-sm font-bold text-primary">{c.name}</span>
-                <span className="text-[10px] text-on-surface-variant uppercase">
-                  {c.role === "Chair" ? "Board Chair" : c.role}
-                </span>
-              </Link>
-            ))}
-          </div>
-        );
-      case "Data Taxonomy":
-        return (
-          <div className="space-y-2">
-            {topicCounts.map(([catId, count]) => {
-              const cat = CATEGORIES.find((c) => c.id === catId);
-              const icon = CATEGORY_ICONS[catId];
-              if (!cat) return null;
-              return (
-                <Link key={catId} href={`/topics/${catId}`} className="flex items-center gap-3 py-2 px-3 rounded hover:bg-surface-container-high transition-colors min-h-[44px]">
-                  {icon && <span className="material-symbols-outlined text-sm text-secondary">{icon}</span>}
-                  <span className="text-sm font-bold text-primary">{cat.label}</span>
-                  <span className="text-[10px] text-on-surface-variant ml-auto">{count} actions</span>
-                </Link>
-              );
-            })}
-          </div>
-        );
-      default:
-        return null;
-    }
-  }
-
-  const expandableLabels = ["Activity Monitor", "Legislative Body", "Data Taxonomy"];
-
-  return (
-    <div className="space-y-3">
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-        {stats.map((stat) => {
-          const isExpandable = expandableLabels.includes(stat.label);
-          const isExpanded = expanded === stat.label;
-
-          if (!isExpandable) {
-            return (
-              <div key={stat.label} className="bg-surface-container-low p-6 rounded-lg">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
-                <div className="flex items-baseline gap-2">
-                  <h3 className="font-headline text-4xl">{stat.value}</h3>
-                  <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
-                </div>
-                <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
-                </div>
-              </div>
-            );
-          }
-
-          return (
-            <button
-              key={stat.label}
-              onClick={() => setExpanded(isExpanded ? null : stat.label)}
-              className={`bg-surface-container-low p-6 rounded-lg transition-all hover:bg-surface-container-high text-left cursor-pointer ${isExpanded ? "ring-2 ring-primary/20" : ""}`}
-            >
-              <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">{stat.label}</p>
-              <div className="flex items-baseline justify-between gap-2">
-                <div className="flex items-baseline gap-2">
-                  <h3 className="font-headline text-4xl">{stat.value}</h3>
-                  <span className="font-body text-sm text-on-surface-variant font-medium">{stat.sublabel}</span>
-                </div>
-                <span className="material-symbols-outlined text-on-surface-variant text-sm transition-transform" style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}>
-                  expand_more
-                </span>
-              </div>
-              <div className="mt-4 h-1 w-full bg-outline-variant/20 rounded-full overflow-hidden">
-                <div className="h-full bg-primary" style={{ width: stat.barWidth }} />
-              </div>
-            </button>
-          );
-        })}
-      </section>
-
-      {expanded && expandableLabels.includes(expanded) && (
-        <div className="bg-surface-container-low rounded-lg p-5 md:p-6">
-          <h4 className="font-headline text-lg font-bold text-primary mb-4">{expanded}</h4>
-          {renderDetail(expanded)}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const sorted = [...meetings].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+  const sorted = [...meetings].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+  // Most recent meeting starts expanded
+  const [expandedId, setExpandedId] = useState<string | null>(sorted[0]?.id || null);
 
   if (sorted.length === 0) {
     return (
       <section>
         <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
-          <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Deliberations</Link>
+          <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Meetings</Link>
         </div>
-        <p className="text-on-surface-variant text-sm italic py-8 text-center">No meetings match the current filters.</p>
+        <p className="text-on-surface-variant text-sm italic py-8 text-center">No meetings tracked yet.</p>
       </section>
     );
   }
 
   return (
     <section>
-      <div className="flex items-end border-b border-outline-variant/30 pb-4 mb-8">
-        <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Deliberations</Link>
+      <div className="flex items-end justify-between border-b border-outline-variant/30 pb-4 mb-8">
+        <Link href="/meetings" className="font-headline text-3xl hover:text-primary/80 transition-colors">Recent Meetings</Link>
+        <Link href="/meetings" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity flex items-center gap-1">
+          All meetings <span className="material-symbols-outlined text-sm">arrow_forward</span>
+        </Link>
       </div>
       <div className="space-y-3">
         {sorted.map((meeting) => {
@@ -333,17 +264,15 @@ function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
 
               {isExpanded && (
                 <div className="px-5 md:px-6 pb-6 space-y-6 border-t border-outline-variant/10 pt-4">
-                  {/* TLDR */}
                   <p className="font-headline italic text-on-surface-variant leading-relaxed">
                     {meeting.tldr}
                   </p>
 
-                  {/* Key Votes */}
                   {meeting.keyVotes.length > 0 && (
                     <div>
                       <h4 className="text-xs font-bold uppercase tracking-widest text-secondary mb-3">Key Votes</h4>
                       <div className="space-y-2">
-                        {meeting.keyVotes.map((vote, i) => (
+                        {meeting.keyVotes.slice(0, 5).map((vote, i) => (
                           <div key={i} className="flex items-start gap-3 text-sm">
                             <span className="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[9px] font-bold uppercase shrink-0 mt-0.5">
                               {vote.result}
@@ -353,6 +282,12 @@ function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
                         ))}
                       </div>
                     </div>
+                  )}
+
+                  {meeting.followUps && meeting.followUps.length > 0 && (
+                    <p className="text-xs text-on-surface-variant">
+                      <span className="font-bold text-error">{meeting.followUps.length}</span> follow-up{meeting.followUps.length !== 1 ? "s" : ""} created from this meeting
+                    </p>
                   )}
 
                   <Link
@@ -367,6 +302,148 @@ function RecentDeliberations({ meetings }: { meetings: Meeting[] }) {
             </div>
           );
         })}
+      </div>
+    </section>
+  );
+}
+
+function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
+  const [dbItems, setDbItems] = useState<{ date: string; icon: string; text: string; href: string }[]>([]);
+
+  // Fetch recent activity from Supabase
+  useEffect(() => {
+    if (!isSupabaseEnabled()) return;
+    import("@/lib/supabase").then(({ supabase: sb }) => {
+      if (!sb) return;
+      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+      // Recent meetings by created_at
+      sb.from("meetings")
+        .select("id, date, type, created_at")
+        .gte("created_at", weekAgo)
+        .order("created_at", { ascending: false })
+        .then(({ data: recentMeetings }) => {
+          if (!recentMeetings) return;
+          const items: typeof dbItems = [];
+          for (const m of recentMeetings) {
+            const dateStr = (m.date as string).slice(0, 10);
+            const dateLabel = new Date(dateStr + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+            const typeLabel = ((m.type as string) || "regular").charAt(0).toUpperCase() + ((m.type as string) || "regular").slice(1);
+            items.push({
+              date: dateStr,
+              icon: "event",
+              text: `New meeting processed: ${typeLabel} Session, ${dateLabel}`,
+              href: `/meetings/${m.id}`,
+            });
+          }
+
+          // Recent follow-ups by created_at
+          sb.from("follow_ups")
+            .select("id, date_raised, description, status, created_at, related_meeting_id")
+            .gte("created_at", weekAgo)
+            .order("created_at", { ascending: false })
+            .then(({ data: recentFUs }) => {
+              if (recentFUs && recentFUs.length > 0) {
+                // Group by meeting
+                const byMeeting = new Map<string, number>();
+                for (const fu of recentFUs) {
+                  const mid = fu.related_meeting_id as string;
+                  byMeeting.set(mid, (byMeeting.get(mid) || 0) + 1);
+                }
+                for (const [, count] of byMeeting) {
+                  const firstFU = recentFUs[0];
+                  const dateStr = (firstFU.date_raised as string).slice(0, 10);
+                  items.push({
+                    date: dateStr,
+                    icon: "add_circle",
+                    text: `${count} new follow-up${count !== 1 ? "s" : ""} created`,
+                    href: "/follow-ups",
+                  });
+                }
+
+                // Check for resolved items
+                const resolved = recentFUs.filter((f) => f.status === "resolved");
+                for (const fu of resolved.slice(0, 2)) {
+                  items.push({
+                    date: (fu.date_raised as string).slice(0, 10),
+                    icon: "check_circle",
+                    text: `Follow-up resolved: ${(fu.description as string).slice(0, 80)}`,
+                    href: "/follow-ups",
+                  });
+                }
+              }
+              setDbItems(items);
+            });
+        });
+    });
+  }, []);
+
+  // Merge: manual announcements + db items + meeting-based fallback
+  const now = Date.now();
+  const weekCutoff = now - 7 * 24 * 60 * 60 * 1000;
+
+  const allItems: { date: string; icon: string; text: string; href: string }[] = [];
+
+  // Manual announcements (from data file)
+  for (const a of announcementsData) {
+    if (new Date(a.date + "T12:00:00").getTime() >= weekCutoff) {
+      allItems.push({
+        date: a.date,
+        icon: a.icon || "auto_awesome",
+        text: a.text,
+        href: a.link || "/",
+      });
+    }
+  }
+
+  // DB items
+  allItems.push(...dbItems);
+
+  // Fallback: if no db items yet, use meeting dates from context
+  if (dbItems.length === 0) {
+    for (const m of meetings) {
+      const mTime = new Date(m.date + "T12:00:00").getTime();
+      if (mTime >= weekCutoff) {
+        const dateLabel = new Date(m.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+        allItems.push({
+          date: m.date,
+          icon: "event",
+          text: `Meeting processed: ${m.type.charAt(0).toUpperCase() + m.type.slice(1)} Session, ${dateLabel}`,
+          href: `/meetings/${m.id}`,
+        });
+      }
+    }
+  }
+
+  // Deduplicate: if a manual announcement date matches a db meeting date, keep only the manual one
+  const manualDates = new Set(announcementsData.map((a) => a.date));
+  const deduped = allItems.filter((item, i) => {
+    if (item.icon === "event" && manualDates.has(item.date)) {
+      // Check if there's a manual announcement for this date
+      const hasManual = allItems.some((other, j) => j !== i && other.date === item.date && other.icon !== "event" && other.icon !== "add_circle" && other.icon !== "check_circle");
+      if (hasManual) return false;
+    }
+    return true;
+  });
+
+  deduped.sort((a, b) => b.date.localeCompare(a.date));
+  const display = deduped.slice(0, 5);
+
+  if (display.length === 0) return null;
+
+  return (
+    <section>
+      <h2 className="text-xs font-label font-bold uppercase tracking-widest text-on-surface-variant mb-4">Recent Updates</h2>
+      <div className="space-y-2">
+        {display.map((item, i) => (
+          <Link key={i} href={item.href} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group">
+            <span className="text-[10px] font-label font-bold text-on-surface-variant/60 uppercase tracking-wider w-14 shrink-0">
+              {new Date(item.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+            </span>
+            <span className="material-symbols-outlined text-secondary text-sm shrink-0">{item.icon}</span>
+            <span className="text-on-surface-variant group-hover:text-primary transition-colors">{item.text}</span>
+          </Link>
+        ))}
       </div>
     </section>
   );
@@ -447,17 +524,8 @@ function DashboardContent() {
 
   const topicCounts = getTopicCounts(meetings);
   const maxTopicCount = topicCounts[0]?.[1] || 1;
-  const totalActions = getTotalActions(meetings);
-
   const topTopics = topicCounts.slice(0, 6);
   const remainingTopics = topicCounts.slice(6);
-
-  const stats = [
-    { label: "Activity Monitor", sublabel: "Meetings Tracked", value: meetings.length, barWidth: `${Math.min(100, (meetings.length / Math.max(allMeetings.length, 1)) * 100)}%` },
-    { label: "Legislative Body", sublabel: "Commissioners", value: COMMISSIONERS.length, barWidth: "100%" },
-    { label: "Data Taxonomy", sublabel: "Topic Categories", value: CATEGORIES.length, barWidth: "75%" },
-    { label: "History Log", sublabel: "Actions Logged", value: totalActions, barWidth: "50%" },
-  ];
 
   return (
     <div>
@@ -469,42 +537,38 @@ function DashboardContent() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
               <span className="w-2 h-2 bg-primary rounded-full pulse" />
-              <span className="font-label text-[10px] font-bold uppercase tracking-widest text-primary">Live Ledger</span>
+              <span className="font-label text-[10px] font-bold uppercase tracking-widest text-primary">Live Tracking</span>
             </div>
             <span className="text-[10px] font-label font-bold text-on-surface-variant/60 uppercase tracking-widest">
               Last Updated: {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </span>
           </div>
-          <div className="inline-flex items-center gap-3">
-            <div className="h-px w-8 bg-primary/30" />
-            <span className="font-label text-xs uppercase tracking-[0.3em] text-primary font-bold">Curated Intelligence</span>
-          </div>
           <div className="max-w-4xl">
             <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-primary leading-[0.95] font-bold -tracking-wider">
-              The State of <br />
-              <span className="serif-italic font-normal italic pr-2">Civic Governance.</span>
+              Tracking what your <br />
+              <span className="serif-italic font-normal italic pr-2">commissioners do.</span>
             </h1>
             <p className="font-body text-xl text-on-surface-variant mt-8 max-w-2xl leading-relaxed opacity-90">
-              A real-time ledger of commissioner engagement, legislative activity, and public accountability within Transylvania County.
+              What Transylvania County commissioners discuss, vote on, promise, and spend — all sourced from official public records.
             </p>
           </div>
+
+          {/* Live stat cards */}
+          <HeroStats meetings={allMeetings} />
         </div>
       </section>
 
-      {/* Filter Bar */}
-      <FilterBar />
+      {/* Recent Updates feed */}
+      <RecentUpdates meetings={allMeetings} />
 
-      {/* Stats Grid — Expandable */}
-      <DashboardStats meetings={meetings} stats={stats} topicCounts={topicCounts} />
-
-      {/* Recent Deliberations — PRIMARY CONTENT */}
+      {/* Recent Meetings — 3 most recent, first expanded */}
       <RecentDeliberations meetings={meetings} />
-
-      {/* Accountability Tracker — Open Items */}
-      <OpenItemsSummary meetings={meetings} />
 
       {/* Budget Snapshot */}
       <BudgetSnapshot />
+
+      {/* Accountability Tracker — Open Items */}
+      <OpenItemsSummary meetings={meetings} />
 
       {/* Commissioners + Topics two-column layout */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
@@ -512,7 +576,7 @@ function DashboardContent() {
           <div className="flex justify-between items-end border-b border-outline-variant/30 pb-4">
             <Link href="/commissioners" className="font-headline text-3xl hover:text-primary/80 transition-colors">Commissioners Overview</Link>
             <Link href="/commissioners" className="text-[10px] font-bold uppercase tracking-widest text-primary border-b border-primary hover:opacity-70 transition-opacity">
-              View Full Dossiers
+              View profiles
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -617,7 +681,7 @@ function DashboardContent() {
         <div className="bg-primary-container text-on-primary-container p-8 rounded-xl border border-primary/20 shadow-xl relative overflow-hidden group max-w-2xl">
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
-              <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">Priority Brief</span>
+              <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">Upcoming Election</span>
               <h3 className="font-headline text-3xl font-bold leading-tight text-white mb-4">
                 {ELECTION_INFO.nextElection} — {ELECTION_INFO.openSeats} Open Seats
               </h3>
@@ -633,7 +697,7 @@ function DashboardContent() {
               href="/commissioners"
               className="text-primary-fixed font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all underline decoration-primary-fixed/30 underline-offset-8"
             >
-              Review Candidates
+              Review commissioner profiles
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </Link>
           </div>

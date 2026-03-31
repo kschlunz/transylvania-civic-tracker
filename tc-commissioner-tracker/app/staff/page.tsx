@@ -99,7 +99,7 @@ export default function StaffPage() {
           County Staff Activity
         </h1>
         <p className="font-body text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-          Tracking presentations, reports, and recommendations from key county staff across all meetings.
+          County staff who present at commissioner meetings — what they reported, what they recommended, and any follow-up items assigned to them.
         </p>
       </header>
 

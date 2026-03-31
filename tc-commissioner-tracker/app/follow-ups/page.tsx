@@ -203,7 +203,7 @@ function FollowUpsContent() {
           Follow-Through Ledger
         </h1>
         <p className="text-on-surface-variant text-lg leading-relaxed font-body max-w-2xl">
-          Tracking commitments made during meetings — items where commissioners or staff said something would be done. Open items are monitored until resolved.
+          Promises and commitments your commissioners made in public meetings. Are they following through? Open items are tracked until resolved or dropped.
         </p>
       </header>
 

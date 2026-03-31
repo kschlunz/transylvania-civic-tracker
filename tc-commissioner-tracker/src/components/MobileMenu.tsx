@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { features } from "@/lib/feature-flags";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: "dashboard" },
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
   { href: "/follow-ups", label: "Follow-ups", icon: "checklist" },
   { href: "/meetings", label: "Meetings", icon: "event" },
   { href: "/budget", label: "Budget", icon: "account_balance" },
+  ...(features.investigations ? [{ href: "/investigations", label: "Investigations", icon: "search_insights", matchPrefix: "/investigations" }] : []),
 ];
 
 function MenuOverlay({ onClose }: { onClose: () => void }) {
