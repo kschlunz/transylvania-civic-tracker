@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   LineChart, Line,
@@ -49,8 +50,10 @@ function DeptTooltip({ active, payload }: { active?: boolean; payload?: Array<{ 
   );
 }
 
-export default function BudgetExplorer() {
-  const [selectedDept, setSelectedDept] = useState<string | null>(null);
+function BudgetContent() {
+  const searchParams = useSearchParams();
+  const initialDept = searchParams.get("dept");
+  const [selectedDept, setSelectedDept] = useState<string | null>(initialDept);
   const [lineItemPage, setLineItemPage] = useState(1);
   const [deptSearch, setDeptSearch] = useState("");
   const [showAllChart, setShowAllChart] = useState(false);
@@ -547,5 +550,13 @@ export default function BudgetExplorer() {
         </>
       )}
     </div>
+  );
+}
+
+export default function BudgetExplorer() {
+  return (
+    <Suspense>
+      <BudgetContent />
+    </Suspense>
   );
 }

@@ -407,7 +407,7 @@ function BudgetSnapshot() {
           return (
             <Link
               key={dept.department}
-              href="/budget"
+              href={`/budget?dept=${encodeURIComponent(dept.department)}`}
               className="flex items-center gap-4 group min-h-[44px]"
             >
               <span className="text-sm font-medium text-on-surface w-40 md:w-52 truncate group-hover:text-primary transition-colors">{dept.department}</span>
