@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { href: "/threads", label: "Threads", icon: "timeline" },
   { href: "/follow-ups", label: "Follow-ups", icon: "checklist" },
   { href: "/meetings", label: "Meetings", icon: "event" },
+  { href: "/budget", label: "Budget", icon: "account_balance" },
 ];
 
 function MenuOverlay({ onClose }: { onClose: () => void }) {

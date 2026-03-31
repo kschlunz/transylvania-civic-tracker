@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/threads", label: "Threads" },
   { href: "/follow-ups", label: "Follow-ups" },
   { href: "/meetings", label: "Meetings" },
+  { href: "/budget", label: "Budget" },
 ];
 
 export default function NavLinks() {
