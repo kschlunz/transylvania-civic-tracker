@@ -25,11 +25,21 @@ export interface DepartmentSummary {
   lineItems: BudgetLineItem[];
 }
 
+export interface BudgetContext {
+  accountCode: string;
+  department: string;
+  accountName: string;
+  dollarChange: number;
+  percentChange: number;
+  context: string; // plain-English "why this matters"
+}
+
 export interface BudgetData {
   lastUpdated: string;
   sourceUrl: string;
   fiscalYear: string;
   departments: DepartmentSummary[];
+  notableChangesContext?: BudgetContext[];
 }
 
 /** Categorize a line item by account name pattern */

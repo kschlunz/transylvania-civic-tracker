@@ -54,6 +54,7 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
   const [elapsed, setElapsed] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
   const [rejectedResolutions, setRejectedResolutions] = useState<Set<string>>(new Set());
+  const [digestStatus, setDigestStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   // Gather all open follow-ups from all meetings
   const openFollowUps = useMemo(() => {
@@ -153,6 +154,44 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
 
   const [saving, setSaving] = useState(false);
   const [confirmOverwrite, setConfirmOverwrite] = useState(false);
+
+  async function handleSendDigest() {
+    if (!result) return;
+    setDigestStatus("sending");
+    try {
+      const session = (await import("@/lib/supabase")).supabase;
+      const userId = session ? (await session.auth.getSession()).data.session?.user.id : undefined;
+
+      const res = await fetch("/api/send-digest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-user-id": userId || "",
+        },
+        body: JSON.stringify({
+          id: result.meeting.id,
+          date: result.meeting.date,
+          type: result.meeting.type,
+          tldr: result.meeting.tldr,
+          keyVotes: result.meeting.keyVotes.map((v) => ({ description: v.description, result: v.result })),
+          followUpsCreated: result.meeting.followUps?.length || 0,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setDigestStatus("error");
+        setToast(`Digest error: ${data.error}`);
+      } else {
+        setDigestStatus("sent");
+        setToast(`Digest sent to ${data.sent} subscriber${data.sent !== 1 ? "s" : ""}!`);
+      }
+    } catch (err) {
+      setDigestStatus("error");
+      setToast("Failed to send digest. Check console for details.");
+      console.error("Digest send error:", err);
+    }
+  }
 
   async function handleAccept() {
     if (!result) return;
@@ -497,6 +536,24 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
                 <span className="material-symbols-outlined text-sm">{saving ? "hourglass_empty" : "save"}</span>
                 <span className="font-label text-sm font-bold">{saving ? "Saving..." : "Accept & Save"}</span>
               </button>
+              {toast && !saving && digestStatus !== "sent" && (
+                <button
+                  onClick={handleSendDigest}
+                  disabled={digestStatus === "sending"}
+                  className="bg-secondary text-on-secondary px-6 py-3 rounded shadow hover:opacity-90 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="material-symbols-outlined text-sm">{digestStatus === "sending" ? "hourglass_empty" : "send"}</span>
+                  <span className="font-label text-sm font-bold">
+                    {digestStatus === "sending" ? "Sending..." : digestStatus === "error" ? "Retry Digest" : "Send Digest Email"}
+                  </span>
+                </button>
+              )}
+              {digestStatus === "sent" && (
+                <span className="flex items-center gap-1.5 text-sm text-secondary font-label font-bold">
+                  <span className="material-symbols-outlined text-sm">check_circle</span>
+                  Digest sent
+                </span>
+              )}
             </>
           )}
         </div>
