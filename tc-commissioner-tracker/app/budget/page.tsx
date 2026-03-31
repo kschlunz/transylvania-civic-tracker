@@ -52,6 +52,8 @@ function DeptTooltip({ active, payload }: { active?: boolean; payload?: Array<{ 
 export default function BudgetExplorer() {
   const [selectedDept, setSelectedDept] = useState<string | null>(null);
   const [lineItemPage, setLineItemPage] = useState(1);
+  const [deptSearch, setDeptSearch] = useState("");
+  const [showAllChart, setShowAllChart] = useState(false);
 
   const departments = budget.departments;
   const hasDepartments = departments.length > 0;
@@ -195,9 +197,8 @@ export default function BudgetExplorer() {
         </div>
       ) : (
         <>
-          {/* Department Drill-down or Overview */}
+          {/* ========== DEPARTMENT DETAIL VIEW ========== */}
           {selectedDept && deptDetail ? (
-            /* ========== DEPARTMENT DETAIL VIEW ========== */
             <section className="mb-12">
               <button
                 onClick={() => { setSelectedDept(null); setLineItemPage(1); }}
@@ -214,21 +215,6 @@ export default function BudgetExplorer() {
                 <span className={deptDetail.percentChange >= 0 ? "text-error font-bold" : "text-secondary font-bold"}>
                   {deptDetail.percentChange >= 0 ? "+" : ""}{deptDetail.percentChange.toFixed(1)}%
                 </span>
-              </div>
-
-              {/* Year-over-year trend for this dept */}
-              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6 mb-8">
-                <h3 className="font-headline text-lg font-bold text-primary mb-4">Spending Trend</h3>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={trendData}>
-                      <XAxis dataKey="shortYear" tick={{ fontSize: 11 }} />
-                      <YAxis tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} width={70} />
-                      <Tooltip formatter={(v) => formatFullCurrency(Number(v))} />
-                      <Line type="monotone" dataKey="total" stroke="#2D5A3D" strokeWidth={2} dot={{ r: 4 }} name="Total" />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
               </div>
 
               {/* Context highlights for this department */}
@@ -263,6 +249,21 @@ export default function BudgetExplorer() {
                   </div>
                 );
               })()}
+
+              {/* Year-over-year trend for this dept */}
+              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6 mb-8">
+                <h3 className="font-headline text-lg font-bold text-primary mb-4">Spending Trend</h3>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={trendData}>
+                      <XAxis dataKey="shortYear" tick={{ fontSize: 11 }} />
+                      <YAxis tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} width={70} />
+                      <Tooltip formatter={(v) => formatFullCurrency(Number(v))} />
+                      <Line type="monotone" dataKey="total" stroke="#2D5A3D" strokeWidth={2} dot={{ r: 4 }} name="Total" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
 
               {/* Line items table */}
               <div id="line-items" className="overflow-x-auto">
@@ -319,207 +320,229 @@ export default function BudgetExplorer() {
               </div>
             </section>
           ) : (
-            /* ========== DEPARTMENT OVERVIEW ========== */
-            <section className="mb-12">
-              <h2 className="font-headline text-3xl font-bold italic mb-8">
-                Department Spending — FY26 Projected
-              </h2>
-              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-4 md:p-6">
-                <div style={{ height: Math.max(400, sortedDepts.length * 40) }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={barData} layout="vertical" margin={{ left: 0, right: 20 }}>
-                      <XAxis type="number" tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} />
-                      <YAxis
-                        type="category"
-                        dataKey="department"
-                        width={160}
-                        tick={{ fontSize: 11 }}
-                      />
-                      <Tooltip content={<DeptTooltip />} />
-                      <Bar
-                        dataKey="fy26Projection"
-                        radius={[0, 4, 4, 0]}
-                        cursor="pointer"
-                        onClick={(_data, index) => {
-                          if (typeof index === "number" && barData[index]) {
-                            setSelectedDept(barData[index].department);
-                            setLineItemPage(1);
-                          }
-                        }}
-                      >
-                        {barData.map((_, i) => (
-                          <Cell key={i} fill={DEPT_COLORS[i % DEPT_COLORS.length]} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </section>
-          )}
+            /* ========== OVERVIEW — REORDERED ========== */
+            <>
+              {/* 1. NOTABLE CHANGES — leads with the story */}
+              <section className="mb-12">
+                <h2 className="font-headline text-3xl font-bold italic mb-8">What Changed This Year</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
+                    <h3 className="font-headline text-lg font-bold text-primary mb-4 flex items-center gap-2">
+                      <span className="material-symbols-outlined text-secondary">attach_money</span>
+                      Largest Dollar Changes
+                    </h3>
+                    <div className="space-y-3">
+                      {notableChanges.byDollar.map((item, i) => {
+                        const dollarChange = item.fy26Projection - item.fy25Budget;
+                        const ctx = contextMap.get(item.accountCode);
+                        return (
+                          <div key={`d-${i}`} className="flex items-start gap-3 text-sm">
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${
+                              dollarChange >= 0 ? "bg-error/10 text-error" : "bg-secondary/10 text-secondary"
+                            }`}>
+                              {dollarChange >= 0 ? "+" : ""}{formatCurrency(dollarChange)}
+                            </span>
+                            <div>
+                              <p className="font-medium">{item.accountName}</p>
+                              <p className="text-xs text-on-surface-variant">{item.department}</p>
+                              {ctx && <p className="text-xs text-secondary mt-1 italic">{ctx}</p>}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
 
-          {/* Year-over-year aggregate (when no dept selected) */}
-          {!selectedDept && (
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-              {/* Trend chart */}
-              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
-                <h3 className="font-headline text-xl font-bold text-primary mb-4">All Departments — Spending Trend</h3>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={trendData}>
-                      <XAxis dataKey="shortYear" tick={{ fontSize: 11 }} />
-                      <YAxis tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} width={70} />
-                      <Tooltip formatter={(v) => formatFullCurrency(Number(v))} />
-                      <Line type="monotone" dataKey="total" stroke="#2D5A3D" strokeWidth={2} dot={{ r: 4 }} name="Total Spending" />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
+                    <h3 className="font-headline text-lg font-bold text-primary mb-4 flex items-center gap-2">
+                      <span className="material-symbols-outlined text-secondary">trending_up</span>
+                      Largest Percentage Changes
+                    </h3>
+                    <div className="space-y-3">
+                      {notableChanges.byPercent.map((item, i) => {
+                        const ctx = contextMap.get(item.accountCode);
+                        return (
+                          <div key={`p-${i}`} className="flex items-start gap-3 text-sm">
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${
+                              item.percentChange >= 0 ? "bg-error/10 text-error" : "bg-secondary/10 text-secondary"
+                            }`}>
+                              {item.percentChange >= 0 ? "+" : ""}{item.percentChange.toFixed(1)}%
+                            </span>
+                            <div>
+                              <p className="font-medium">{item.accountName}</p>
+                              <p className="text-xs text-on-surface-variant">
+                                {item.department} · {formatFullCurrency(item.fy25Budget)} → {formatFullCurrency(item.fy26Projection)}
+                              </p>
+                              {ctx && <p className="text-xs text-secondary mt-1 italic">{ctx}</p>}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </section>
 
-              {/* Category breakdown */}
-              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
-                <h3 className="font-headline text-xl font-bold text-primary mb-4">Spending by Category</h3>
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="h-48 w-48 shrink-0">
+              {/* 2. DEPARTMENTS — search + card grid */}
+              <section className="mb-12" id="departments">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                  <h2 className="font-headline text-3xl font-bold italic">Explore Departments</h2>
+                  <div className="relative w-full md:w-72">
+                    <span className="material-symbols-outlined text-on-surface-variant text-lg absolute left-3 top-1/2 -translate-y-1/2">search</span>
+                    <input
+                      type="text"
+                      value={deptSearch}
+                      onChange={(e) => setDeptSearch(e.target.value)}
+                      placeholder="Find a department..."
+                      className="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg pl-10 pr-4 py-2.5 text-sm font-body focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {sortedDepts
+                    .filter((d) => !deptSearch || d.department.toLowerCase().includes(deptSearch.toLowerCase()))
+                    .map((dept, i) => (
+                    <button
+                      key={dept.department}
+                      onClick={() => { setSelectedDept(dept.department); setLineItemPage(1); setDeptSearch(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                      className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-5 text-left hover:shadow-md transition-all group"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-headline text-lg font-bold text-primary group-hover:underline">{dept.department}</h3>
+                        <span className="material-symbols-outlined text-on-surface-variant text-sm mt-1">chevron_right</span>
+                      </div>
+                      <p className="font-bold text-xl tabular-nums mt-2">{formatFullCurrency(dept.totalsByYear.fy26Projection)}</p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className={`text-xs font-bold ${dept.percentChange >= 0 ? "text-error" : "text-secondary"}`}>
+                          {dept.percentChange >= 0 ? "+" : ""}{dept.percentChange.toFixed(1)}%
+                        </span>
+                        <span className="text-xs text-on-surface-variant">{dept.lineItems.length} line items</span>
+                      </div>
+                      <div className="h-1.5 bg-surface-container-high rounded-full mt-3 overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${grandTotal > 0 ? (dept.totalsByYear.fy26Projection / grandTotal) * 100 : 0}%`,
+                            backgroundColor: DEPT_COLORS[i % DEPT_COLORS.length],
+                          }}
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* 3. TOP 10 BAR CHART — hidden on mobile, expandable to all */}
+              <section className="mb-12 hidden md:block">
+                <div className="flex items-end justify-between mb-6">
+                  <h2 className="font-headline text-3xl font-bold italic">
+                    {showAllChart ? "All Departments" : "Top 10 Departments"} — FY26 Projected
+                  </h2>
+                  <button
+                    onClick={() => setShowAllChart(!showAllChart)}
+                    className="text-xs font-label font-bold text-primary hover:underline flex items-center gap-1"
+                  >
+                    {showAllChart ? "Show top 10" : "Show all departments"}
+                    <span className="material-symbols-outlined text-sm">{showAllChart ? "collapse_all" : "expand_all"}</span>
+                  </button>
+                </div>
+                <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-4 md:p-6">
+                  <p className="text-[10px] text-on-surface-variant mb-3 font-label">Click any bar to explore department details</p>
+                  {(() => {
+                    const chartData = showAllChart ? barData : barData.slice(0, 10);
+                    return (
+                      <div style={{ height: Math.max(400, chartData.length * 40) }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={chartData} layout="vertical" margin={{ left: 0, right: 20 }}>
+                            <XAxis type="number" tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} />
+                            <YAxis
+                              type="category"
+                              dataKey="department"
+                              width={160}
+                              tick={{ fontSize: 11 }}
+                            />
+                            <Tooltip content={<DeptTooltip />} />
+                            <Bar
+                              dataKey="fy26Projection"
+                              radius={[0, 4, 4, 0]}
+                              cursor="pointer"
+                              onClick={(_data, index) => {
+                                if (typeof index === "number" && chartData[index]) {
+                                  setSelectedDept(chartData[index].department);
+                                  setLineItemPage(1);
+                                  window.scrollTo({ top: 0, behavior: "smooth" });
+                                }
+                              }}
+                            >
+                              {chartData.map((_, i) => (
+                                <Cell key={i} fill={DEPT_COLORS[i % DEPT_COLORS.length]} />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </section>
+
+              {/* 4. TREND + CATEGORY CHARTS */}
+              <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+                <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
+                  <h3 className="font-headline text-xl font-bold text-primary mb-4">All Departments — Spending Trend</h3>
+                  <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={categoryBreakdown}
-                          dataKey="value"
-                          nameKey="label"
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={40}
-                          outerRadius={75}
-                          strokeWidth={2}
-                          stroke="#F5F2ED"
-                        >
-                          {categoryBreakdown.map((entry) => (
-                            <Cell key={entry.category} fill={entry.color} />
-                          ))}
-                        </Pie>
+                      <LineChart data={trendData}>
+                        <XAxis dataKey="shortYear" tick={{ fontSize: 11 }} />
+                        <YAxis tickFormatter={(v: number) => formatCurrency(v)} tick={{ fontSize: 11 }} width={70} />
                         <Tooltip formatter={(v) => formatFullCurrency(Number(v))} />
-                      </PieChart>
+                        <Line type="monotone" dataKey="total" stroke="#2D5A3D" strokeWidth={2} dot={{ r: 4 }} name="Total Spending" />
+                      </LineChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="space-y-2 flex-1">
-                    {categoryBreakdown.map((cat) => (
-                      <div key={cat.category} className="flex items-center gap-3 text-sm">
-                        <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                        <span className="flex-1">{cat.label}</span>
-                        <span className="font-bold tabular-nums">{formatCurrency(cat.value)}</span>
-                        <span className="text-on-surface-variant text-xs tabular-nums w-12 text-right">
-                          {categoryTotal > 0 ? ((cat.value / categoryTotal) * 100).toFixed(0) : 0}%
-                        </span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
-              </div>
-            </section>
-          )}
 
-          {/* Notable Changes */}
-          {!selectedDept && (
-            <section className="mb-12">
-              <h2 className="font-headline text-3xl font-bold italic mb-8">Notable Changes</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Biggest dollar changes */}
                 <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
-                  <h3 className="font-headline text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary">attach_money</span>
-                    Largest Dollar Changes
-                  </h3>
-                  <div className="space-y-3">
-                    {notableChanges.byDollar.map((item, i) => {
-                      const dollarChange = item.fy26Projection - item.fy25Budget;
-                      const ctx = contextMap.get(item.accountCode);
-                      return (
-                        <div key={`d-${i}`} className="flex items-start gap-3 text-sm">
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${
-                            dollarChange >= 0 ? "bg-error/10 text-error" : "bg-secondary/10 text-secondary"
-                          }`}>
-                            {dollarChange >= 0 ? "+" : ""}{formatCurrency(dollarChange)}
+                  <h3 className="font-headline text-xl font-bold text-primary mb-4">Spending by Category</h3>
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="h-48 w-48 shrink-0">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={categoryBreakdown}
+                            dataKey="value"
+                            nameKey="label"
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={40}
+                            outerRadius={75}
+                            strokeWidth={2}
+                            stroke="#F5F2ED"
+                          >
+                            {categoryBreakdown.map((entry) => (
+                              <Cell key={entry.category} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <Tooltip formatter={(v) => formatFullCurrency(Number(v))} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="space-y-2 flex-1">
+                      {categoryBreakdown.map((cat) => (
+                        <div key={cat.category} className="flex items-center gap-3 text-sm">
+                          <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                          <span className="flex-1">{cat.label}</span>
+                          <span className="font-bold tabular-nums">{formatCurrency(cat.value)}</span>
+                          <span className="text-on-surface-variant text-xs tabular-nums w-12 text-right">
+                            {categoryTotal > 0 ? ((cat.value / categoryTotal) * 100).toFixed(0) : 0}%
                           </span>
-                          <div>
-                            <p className="font-medium">{item.accountName}</p>
-                            <p className="text-xs text-on-surface-variant">{item.department}</p>
-                            {ctx && <p className="text-xs text-secondary mt-1 italic">{ctx}</p>}
-                          </div>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                {/* Biggest percent changes */}
-                <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-6">
-                  <h3 className="font-headline text-lg font-bold text-primary mb-4 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary">trending_up</span>
-                    Largest Percentage Changes
-                  </h3>
-                  <div className="space-y-3">
-                    {notableChanges.byPercent.map((item, i) => {
-                      const ctx = contextMap.get(item.accountCode);
-                      return (
-                        <div key={`p-${i}`} className="flex items-start gap-3 text-sm">
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${
-                            item.percentChange >= 0 ? "bg-error/10 text-error" : "bg-secondary/10 text-secondary"
-                          }`}>
-                            {item.percentChange >= 0 ? "+" : ""}{item.percentChange.toFixed(1)}%
-                          </span>
-                          <div>
-                            <p className="font-medium">{item.accountName}</p>
-                            <p className="text-xs text-on-surface-variant">
-                              {item.department} · {formatFullCurrency(item.fy25Budget)} → {formatFullCurrency(item.fy26Projection)}
-                            </p>
-                            {ctx && <p className="text-xs text-secondary mt-1 italic">{ctx}</p>}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {/* Department quick links (when no dept selected) */}
-          {!selectedDept && (
-            <section>
-              <h2 className="font-headline text-3xl font-bold italic mb-8">All Departments</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {sortedDepts.map((dept, i) => (
-                  <button
-                    key={dept.department}
-                    onClick={() => { setSelectedDept(dept.department); setLineItemPage(1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                    className="bg-surface-container-lowest border border-outline-variant/20 rounded-lg p-5 text-left hover:shadow-md transition-all group"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-headline text-lg font-bold text-primary group-hover:underline">{dept.department}</h3>
-                      <span className="material-symbols-outlined text-on-surface-variant text-sm mt-1">chevron_right</span>
-                    </div>
-                    <p className="font-bold text-xl tabular-nums mt-2">{formatFullCurrency(dept.totalsByYear.fy26Projection)}</p>
-                    <div className="flex items-center gap-3 mt-1">
-                      <span className={`text-xs font-bold ${dept.percentChange >= 0 ? "text-error" : "text-secondary"}`}>
-                        {dept.percentChange >= 0 ? "+" : ""}{dept.percentChange.toFixed(1)}%
-                      </span>
-                      <span className="text-xs text-on-surface-variant">{dept.lineItems.length} line items</span>
-                    </div>
-                    {/* Mini bar showing relative size */}
-                    <div className="h-1.5 bg-surface-container-high rounded-full mt-3 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{
-                          width: `${grandTotal > 0 ? (dept.totalsByYear.fy26Projection / grandTotal) * 100 : 0}%`,
-                          backgroundColor: DEPT_COLORS[i % DEPT_COLORS.length],
-                        }}
-                      />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
+              </section>
+            </>
           )}
         </>
       )}
