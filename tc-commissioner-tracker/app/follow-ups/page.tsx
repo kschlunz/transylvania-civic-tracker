@@ -9,6 +9,8 @@ import { type FollowUpItem, getSourceUrl } from "@/lib/types";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import Pagination, { paginate } from "@/components/Pagination";
+import BudgetContextBadge from "@/components/BudgetContextBadge";
+import { getBudgetContext } from "@/lib/budget-context";
 
 const STATUS_CONFIG: Record<FollowUpItem["status"], { label: string; bg: string; text: string; icon: string }> = {
   open: { label: "Open", bg: "bg-error/10", text: "text-error", icon: "radio_button_unchecked" },
@@ -276,6 +278,7 @@ function FollowUpsContent() {
                       </span>
                     </div>
                     <p className="text-sm text-on-surface leading-relaxed font-medium">{item.description}</p>
+                    {(() => { const ctx = getBudgetContext(item.description); return ctx ? <BudgetContextBadge context={ctx} /> : null; })()}
                     <div className="flex items-center gap-4 mt-3 text-xs text-on-surface-variant flex-wrap">
                       {ownerLink ? (
                         <Link href={ownerLink} className="font-bold hover:underline">
@@ -372,6 +375,7 @@ function FollowUpsContent() {
                       </span>
                     </div>
                     <p className="text-sm text-on-surface-variant">{item.description}</p>
+                    {(() => { const ctx = getBudgetContext(item.description); return ctx ? <BudgetContextBadge context={ctx} /> : null; })()}
                     <div className="flex items-center gap-3 mt-1 text-xs text-on-surface-variant flex-wrap">
                       {ownerLink ? (
                         <Link href={ownerLink} className="font-bold hover:underline">

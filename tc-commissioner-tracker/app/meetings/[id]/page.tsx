@@ -7,6 +7,8 @@ import { useParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
 import VoteDetailModal from "@/components/VoteDetailModal";
+import BudgetContextBadge from "@/components/BudgetContextBadge";
+import { getBudgetContext } from "@/lib/budget-context";
 import { type KeyVote, type TopicThread, getSourceUrl } from "@/lib/types";
 import { getThreadsAsync } from "@/lib/data";
 
@@ -120,48 +122,55 @@ export default function MeetingDetail() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {meeting.keyVotes.map((vote, i) => (
-              <button key={i} onClick={() => setSelectedVote(vote)} className="bg-surface-container-lowest p-5 md:p-8 border-l-4 border-primary transition-all hover:shadow-xl text-left cursor-pointer min-h-[44px]">
-                <div className="flex justify-between items-start mb-6">
-                  {vote.result.toLowerCase() === "unanimous" ? (
-                    <span className="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                      Unanimous
-                    </span>
-                  ) : (
-                    <span className="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                      {vote.result}
-                    </span>
-                  )}
-                </div>
-                <h4 className="text-2xl font-bold mb-4 font-headline">{vote.description}</h4>
-                {vote.mover === "consent agenda" ? (
-                  <p className="text-sm text-on-surface-variant">Consent Agenda</p>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-on-surface-variant">Moved by</span>
-                      <span className="font-bold">{getCommissionerName(vote.mover)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-on-surface-variant">Seconded by</span>
-                      <span className="font-bold">{getCommissionerName(vote.seconder)}</span>
-                    </div>
+              <div key={i}>
+                <button onClick={() => setSelectedVote(vote)} className="w-full bg-surface-container-lowest p-5 md:p-8 border-l-4 border-primary transition-all hover:shadow-xl text-left cursor-pointer min-h-[44px]">
+                  <div className="flex justify-between items-start mb-6">
+                    {vote.result.toLowerCase() === "unanimous" ? (
+                      <span className="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                        Unanimous
+                      </span>
+                    ) : (
+                      <span className="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                        {vote.result}
+                      </span>
+                    )}
                   </div>
-                )}
+                  <h4 className="text-2xl font-bold mb-4 font-headline">{vote.description}</h4>
+                  {vote.mover === "consent agenda" ? (
+                    <p className="text-sm text-on-surface-variant">Consent Agenda</p>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-on-surface-variant">Moved by</span>
+                        <span className="font-bold">{getCommissionerName(vote.mover)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-on-surface-variant">Seconded by</span>
+                        <span className="font-bold">{getCommissionerName(vote.seconder)}</span>
+                      </div>
+                    </div>
+                  )}
+                  {(() => {
+                    const thread = getThreadForVote(vote.description);
+                    if (!thread) return null;
+                    return (
+                      <Link
+                        href="/threads"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1.5 mt-4 pt-3 border-t border-outline-variant/10 text-[10px] text-secondary font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">timeline</span>
+                        Part of: {thread.title} ({thread.mentions.length} meeting{thread.mentions.length !== 1 ? "s" : ""})
+                      </Link>
+                    );
+                  })()}
+                </button>
                 {(() => {
-                  const thread = getThreadForVote(vote.description);
-                  if (!thread) return null;
-                  return (
-                    <Link
-                      href="/threads"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1.5 mt-4 pt-3 border-t border-outline-variant/10 text-[10px] text-secondary font-bold uppercase tracking-wider hover:text-primary transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-[14px]">timeline</span>
-                      Part of: {thread.title} ({thread.mentions.length} meeting{thread.mentions.length !== 1 ? "s" : ""})
-                    </Link>
-                  );
+                  const ctx = getBudgetContext(vote.description);
+                  if (!ctx) return null;
+                  return <BudgetContextBadge context={ctx} />;
                 })()}
-              </button>
+              </div>
             ))}
           </div>
 
