@@ -115,9 +115,9 @@ function MeetingsContent() {
                     {meeting.tldr}
                   </p>
                   <div className="flex items-center gap-4 mt-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider flex-wrap">
-                    <span>{meeting.attendees.length} commissioners</span>
-                    <span>~{meeting.audienceSize} audience</span>
-                    <span>{meeting.keyVotes.length} votes</span>
+                    <span>{(meeting.attendees || []).length} commissioners</span>
+                    <span>~{meeting.audienceSize || 0} audience</span>
+                    <span>{(meeting.keyVotes || []).length} votes</span>
                     {(() => {
                       const count = getRelatedMeetingCount(meeting.id, allMeetings);
                       return count > 0 ? (

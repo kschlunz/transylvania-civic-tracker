@@ -27,7 +27,17 @@ function dbRowToMeeting(row: Record<string, unknown>): Meeting {
     duration: (row.duration as string) || "",
     tldr: (row.tldr as string) || "",
     keyVotes: (row.key_votes as Meeting["keyVotes"]) || [],
-    commissionerActivity: (row.commissioner_activity as Meeting["commissionerActivity"]) || {},
+    commissionerActivity: Object.fromEntries(
+      Object.entries((row.commissioner_activity as Meeting["commissionerActivity"]) || {}).map(([id, activity]) => [
+        id,
+        {
+          topics: (activity?.topics || []).map((t) => ({ ...t, categories: t.categories || [] })),
+          motionsMade: activity?.motionsMade || 0,
+          motionsSeconded: activity?.motionsSeconded || 0,
+          externalRoles: activity?.externalRoles || [],
+        },
+      ])
+    ),
     publicComments: (row.public_comments as Meeting["publicComments"]) || [],
     followUps: ((row.follow_ups as FollowUpItem[]) || []).map((fu) => ({ ...fu, type: fu.type || "action_item" })),
     staffActivity: (row.staff_activity as Meeting["staffActivity"]) || [],

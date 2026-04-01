@@ -82,16 +82,16 @@ export function filterMeetings(meetings: Meeting[], filters: FilterParams): Meet
   // Commissioner filter: meeting must have at least one matching commissioner as attendee
   if (filters.commissioners && filters.commissioners.length > 0) {
     result = result.filter((m) =>
-      m.attendees.some((a) => filters.commissioners!.includes(a))
+      (m.attendees || []).some((a) => filters.commissioners!.includes(a))
     );
   }
 
   // Category filter: meeting must have at least one topic tagged with a matching category
   if (filters.categories && filters.categories.length > 0) {
     result = result.filter((m) => {
-      for (const activity of Object.values(m.commissionerActivity)) {
-        for (const topic of activity.topics) {
-          if (topic.categories.some((c) => filters.categories!.includes(c))) {
+      for (const activity of Object.values(m.commissionerActivity || {})) {
+        for (const topic of activity.topics || []) {
+          if ((topic.categories || []).some((c) => filters.categories!.includes(c))) {
             return true;
           }
         }
