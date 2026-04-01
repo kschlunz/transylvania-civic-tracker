@@ -569,6 +569,9 @@ function DashboardContent() {
             <p className="font-body text-xl text-on-surface-variant mt-8 max-w-2xl leading-relaxed opacity-90">
               What Transylvania County commissioners discuss, vote on, promise, and spend — all sourced from official public records.
             </p>
+            <Link href="/start-here" className="inline-flex items-center gap-1 text-sm text-on-surface-variant/60 hover:text-primary mt-4 transition-colors">
+              New here? Start here <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </Link>
           </div>
 
           {/* Live stat cards */}
