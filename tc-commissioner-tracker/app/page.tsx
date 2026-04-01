@@ -329,8 +329,11 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
         .then(({ data: recentMeetings }) => {
           if (!recentMeetings) return;
           const items: typeof dbItems = [];
+          const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
           for (const m of recentMeetings) {
             const dateStr = (m.date as string).slice(0, 10);
+            // Skip backfilled meetings — only show if the meeting date is recent
+            if (dateStr < thirtyDaysAgo) continue;
             const dateLabel = new Date(dateStr + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
             const typeLabel = ((m.type as string) || "regular").charAt(0).toUpperCase() + ((m.type as string) || "regular").slice(1);
             items.push({
