@@ -387,13 +387,13 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
 
   // Merge: manual announcements + db items + meeting-based fallback
   const now = Date.now();
-  const weekCutoff = now - 7 * 24 * 60 * 60 * 1000;
+  const cutoff = now - 30 * 24 * 60 * 60 * 1000;
 
   const allItems: { date: string; icon: string; text: string; href: string }[] = [];
 
   // Manual announcements (from data file)
   for (const a of announcementsData) {
-    if (new Date(a.date + "T12:00:00").getTime() >= weekCutoff) {
+    if (new Date(a.date + "T12:00:00").getTime() >= cutoff) {
       allItems.push({
         date: a.date,
         icon: a.icon || "auto_awesome",
@@ -410,7 +410,7 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
   if (dbItems.length === 0) {
     for (const m of meetings) {
       const mTime = new Date(m.date + "T12:00:00").getTime();
-      if (mTime >= weekCutoff) {
+      if (mTime >= cutoff) {
         const dateLabel = new Date(m.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
         allItems.push({
           date: m.date,
