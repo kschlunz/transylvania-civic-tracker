@@ -149,15 +149,24 @@ function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
 
   return (
     <section>
-      <div className="flex items-end justify-between border-b border-outline-variant/30 pb-4 mb-8">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-outline-variant/30 pb-4 mb-8">
         <div className="flex items-center gap-3">
           <span className="material-symbols-outlined text-error">pending_actions</span>
           <Link href="/follow-ups" className="font-headline text-3xl hover:text-primary/80 transition-colors">Accountability Tracker</Link>
         </div>
-        <span className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
-          {openItems.length} open · {overdueItems.length} overdue · {resolvedCount} resolved
-          {ongoingItems.length > 0 && ` · ${ongoingItems.length} ongoing`}
-        </span>
+        <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs font-label font-bold uppercase tracking-wider">
+          <span className="text-on-surface-variant">{openItems.length} open</span>
+          <span className="text-on-surface-variant">·</span>
+          <span className="text-error">{overdueItems.length} overdue</span>
+          <span className="text-on-surface-variant">·</span>
+          <span className="text-on-surface-variant">{resolvedCount} resolved</span>
+          {ongoingItems.length > 0 && (
+            <>
+              <span className="text-on-surface-variant">·</span>
+              <span className="text-on-surface-variant">{ongoingItems.length} ongoing</span>
+            </>
+          )}
+        </div>
       </div>
       <div className="space-y-2">
         {topItems.map((item) => {
