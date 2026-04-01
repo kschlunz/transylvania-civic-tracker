@@ -344,11 +344,11 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
             });
           }
 
-          // Recent follow-ups by created_at
+          // Recent follow-ups — filter by actual date, not created_at
           sb.from("follow_ups")
             .select("id, date_raised, description, status, created_at, related_meeting_id")
-            .gte("created_at", weekAgo)
-            .order("created_at", { ascending: false })
+            .gte("date_raised", thirtyDaysAgo)
+            .order("date_raised", { ascending: false })
             .then(({ data: recentFUs }) => {
               if (recentFUs && recentFUs.length > 0) {
                 // Group by meeting
@@ -357,15 +357,17 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
                   const mid = fu.related_meeting_id as string;
                   byMeeting.set(mid, (byMeeting.get(mid) || 0) + 1);
                 }
-                for (const [, count] of byMeeting) {
-                  const firstFU = recentFUs[0];
-                  const dateStr = (firstFU.date_raised as string).slice(0, 10);
-                  items.push({
-                    date: dateStr,
-                    icon: "add_circle",
-                    text: `${count} new follow-up${count !== 1 ? "s" : ""} created`,
-                    href: "/follow-ups",
-                  });
+                for (const [mid, count] of byMeeting) {
+                  const firstInGroup = recentFUs.find((f) => f.related_meeting_id === mid);
+                  const dateStr = firstInGroup ? (firstInGroup.date_raised as string).slice(0, 10) : "";
+                  if (dateStr) {
+                    items.push({
+                      date: dateStr,
+                      icon: "add_circle",
+                      text: `${count} new follow-up${count !== 1 ? "s" : ""} created`,
+                      href: "/follow-ups",
+                    });
+                  }
                 }
 
                 // Check for resolved items
