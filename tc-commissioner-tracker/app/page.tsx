@@ -25,9 +25,9 @@ function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeo
     meetingsPresent++;
     const activity = meeting.commissionerActivity[commissionerId];
     if (!activity) continue;
-    topicCount += activity.topics.length;
-    motionsMade += activity.motionsMade;
-    motionsSeconded += activity.motionsSeconded;
+    topicCount += (activity.topics || []).length;
+    motionsMade += activity.motionsMade || 0;
+    motionsSeconded += activity.motionsSeconded || 0;
   }
 
   return { meetingsPresent, topicCount, motionsMade, motionsSeconded };
@@ -37,8 +37,8 @@ function getTopicCounts(meetings: ReturnType<typeof useMeetings>["meetings"]) {
   const counts: Record<string, number> = {};
   for (const meeting of meetings) {
     for (const activity of Object.values(meeting.commissionerActivity)) {
-      for (const topic of activity.topics) {
-        for (const cat of topic.categories) {
+      for (const topic of activity.topics || []) {
+        for (const cat of topic.categories || []) {
           counts[cat] = (counts[cat] || 0) + 1;
         }
       }

@@ -42,5 +42,5 @@ export const ELECTION_INFO = {
   openSeats: 2,
   note: "Dalton and McKelvey are not running for re-election.",
   gopNominees: ["Howell", "Sutherland"],
-  demNominees: ["Carson", "O'Neil"],
+  demNominees: ["Carson", "O'Neill"],
 };
