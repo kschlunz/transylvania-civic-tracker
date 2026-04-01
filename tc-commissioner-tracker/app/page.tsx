@@ -60,12 +60,6 @@ function daysSince(dateStr: string) {
   return Math.floor((now.getTime() - raised.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-function getDaysColor(days: number) {
-  if (days > 120) return "text-error";
-  if (days >= 60) return "text-amber-600";
-  return "text-on-surface-variant";
-}
-
 function HeroStats({ meetings }: { meetings: Meeting[] }) {
   const [followUps, setFollowUps] = useState<FollowUpItem[]>(() => {
     const items: FollowUpItem[] = [];
@@ -141,12 +135,14 @@ function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
     }
   }, []);
 
-  const openItems = followUps.filter((f) => f.status === "open" || f.status === "in_progress");
+  const openItems = followUps.filter((f) => (f.status === "open" || f.status === "in_progress") && f.type !== "ongoing");
+  const ongoingItems = followUps.filter((f) => (f.status === "open" || f.status === "in_progress") && f.type === "ongoing");
+  const overdueItems = followUps.filter((f) => isFollowUpOverdue(f));
   const resolvedCount = followUps.filter((f) => f.status === "resolved" || f.status === "dropped").length;
 
-  if (openItems.length === 0) return null;
+  if (openItems.length === 0 && ongoingItems.length === 0) return null;
 
-  // Sort by days open descending, take top 5
+  // Sort by most overdue first, take top 5
   const topItems = [...openItems]
     .sort((a, b) => a.dateRaised.localeCompare(b.dateRaised))
     .slice(0, 5);
@@ -159,13 +155,15 @@ function OpenItemsSummary({ meetings }: { meetings: Meeting[] }) {
           <Link href="/follow-ups" className="font-headline text-3xl hover:text-primary/80 transition-colors">Accountability Tracker</Link>
         </div>
         <span className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
-          {openItems.length} open · {resolvedCount} resolved
+          {openItems.length} open · {overdueItems.length} overdue · {resolvedCount} resolved
+          {ongoingItems.length > 0 && ` · ${ongoingItems.length} ongoing`}
         </span>
       </div>
       <div className="space-y-2">
         {topItems.map((item) => {
           const days = daysSince(item.dateRaised);
-          const daysColor = getDaysColor(days);
+          const overdue = isFollowUpOverdue(item);
+          const daysColor = overdue ? "text-error" : days >= 60 ? "text-amber-600" : "text-on-surface-variant";
           return (
             <Link
               key={item.id}
