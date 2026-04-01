@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { features } from "@/lib/feature-flags";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
+import { isFollowUpOverdue } from "@/lib/types";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard" },
@@ -26,12 +27,7 @@ function useOverdueCount() {
     if (!isSupabaseEnabled()) return;
 
     getFollowUpsAsync().then((items) => {
-      const overdue = items.filter((f) => {
-        if (f.status !== "open" && f.status !== "in_progress") return false;
-        const days = Math.floor((Date.now() - new Date(f.dateRaised + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24));
-        return days > 90;
-      }).length;
-      setCount(overdue);
+      setCount(items.filter((f) => isFollowUpOverdue(f)).length);
     }).catch(() => {});
   }, []);
 

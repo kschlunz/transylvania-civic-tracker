@@ -11,7 +11,7 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import UpcomingMeetingBanner from "@/components/UpcomingMeetingBanner";
-import type { FollowUpItem, Meeting } from "@/lib/types";
+import { type FollowUpItem, type Meeting, isFollowUpOverdue } from "@/lib/types";
 import { announcements as announcementsData } from "@/data/announcements";
 
 function getCommissionerStats(commissionerId: string, meetings: ReturnType<typeof useMeetings>["meetings"]) {
@@ -84,11 +84,8 @@ function HeroStats({ meetings }: { meetings: Meeting[] }) {
   }, []);
 
   const openCount = followUps.filter((f) => f.status === "open" || f.status === "in_progress").length;
-  const overdueCount = followUps.filter((f) => {
-    if (f.status !== "open" && f.status !== "in_progress") return false;
-    const days = Math.floor((Date.now() - new Date(f.dateRaised + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24));
-    return days > 90;
-  }).length;
+  const ongoingCount = followUps.filter((f) => (f.status === "open" || f.status === "in_progress") && f.type === "ongoing").length;
+  const overdueCount = followUps.filter((f) => isFollowUpOverdue(f)).length;
 
   const budgetTotal = budget.departments.reduce((s, d) => s + d.totalsByYear.fy26Projection, 0);
 
@@ -107,9 +104,12 @@ function HeroStats({ meetings }: { meetings: Meeting[] }) {
       <Link href="/follow-ups" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
         <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Open Commitments</p>
         <div className="flex items-baseline gap-2">
-          <p className="font-headline text-3xl md:text-4xl text-primary">{openCount}</p>
+          <p className="font-headline text-3xl md:text-4xl text-primary">{openCount - ongoingCount}</p>
           {overdueCount > 0 && (
             <span className="text-sm font-bold text-error">{overdueCount} overdue</span>
+          )}
+          {ongoingCount > 0 && (
+            <span className="text-sm text-on-surface-variant">+{ongoingCount} ongoing</span>
           )}
         </div>
         <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Are they following through? →</p>

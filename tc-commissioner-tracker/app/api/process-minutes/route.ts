@@ -72,6 +72,7 @@ Extract the following from the meeting minutes:
    - owner: the person who owns this commitment. Use commissioner IDs for commissioners. For county staff, use their full name when mentioned in the minutes — common staff names include: County Manager Jaime Laughter, Finance Director Meagan O'Neal, IT Director Nathanael Carver, Project Manager Beecher Allison. Only use "staff" when the minutes don't specify an individual.
    - description: what was committed to
    - status: "open" (always open when first extracted)
+   - type: classify as one of: "action_item" (specific one-time task like scheduling a hearing, sending a letter, presenting at next meeting), "report" (staff expected to research and report back), "long_term" (multi-month project, feasibility study, planning process), "ongoing" (recurring commitment like monthly meetings, quarterly reports)
    - categories: relevant category IDs
    - relatedMeetingId: the meeting ID
 
@@ -141,6 +142,7 @@ The JSON must match this TypeScript interface:
     owner: string;
     description: string;
     status: "open";
+    type: "action_item" | "report" | "long_term" | "ongoing";
     categories: string[];
     relatedMeetingId: string;
   }>;

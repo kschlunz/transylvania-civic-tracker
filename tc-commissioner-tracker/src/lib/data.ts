@@ -7,8 +7,11 @@ import { supabase, isSupabaseEnabled } from "./supabase";
 import meeting_2026_02_09 from "@/data/meetings/2026-02-09.json";
 
 const LOCAL_MEETINGS: Meeting[] = [
-  meeting_2026_02_09 as Meeting,
-];
+  meeting_2026_02_09 as unknown as Meeting,
+].map((m) => ({
+  ...m,
+  followUps: (m.followUps || []).map((fu) => ({ ...fu, type: fu.type || "action_item" })),
+}));
 
 // ============================================
 // SUPABASE → MEETING TYPE MAPPER
@@ -26,7 +29,7 @@ function dbRowToMeeting(row: Record<string, unknown>): Meeting {
     keyVotes: (row.key_votes as Meeting["keyVotes"]) || [],
     commissionerActivity: (row.commissioner_activity as Meeting["commissionerActivity"]) || {},
     publicComments: (row.public_comments as Meeting["publicComments"]) || [],
-    followUps: (row.follow_ups as FollowUpItem[]) || [],
+    followUps: ((row.follow_ups as FollowUpItem[]) || []).map((fu) => ({ ...fu, type: fu.type || "action_item" })),
     staffActivity: (row.staff_activity as Meeting["staffActivity"]) || [],
     sourceUrl: (row.source_url as string) || undefined,
     agendaUrl: (row.agenda_url as string) || undefined,
@@ -40,6 +43,7 @@ function dbRowToFollowUp(row: Record<string, unknown>): FollowUpItem {
     owner: (row.owner as string) || "staff",
     description: (row.description as string) || "",
     status: (row.status as FollowUpItem["status"]) || "open",
+    type: (row.type as FollowUpItem["type"]) || "action_item",
     categories: (row.categories as string[]) || [],
     relatedMeetingId: (row.related_meeting_id as string) || "",
     resolvedDate: row.resolved_date ? (row.resolved_date as string).slice(0, 10) : undefined,

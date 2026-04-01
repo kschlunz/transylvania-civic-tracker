@@ -39,6 +39,8 @@ export interface PublicComment {
   summary: string;
 }
 
+export type FollowUpType = "action_item" | "report" | "long_term" | "ongoing";
+
 export interface FollowUpItem {
   id: string;
   dateRaised: string;
@@ -46,6 +48,7 @@ export interface FollowUpItem {
   owner: string;
   description: string;
   status: "open" | "in_progress" | "resolved" | "dropped";
+  type: FollowUpType;  // defaults to "action_item" if missing from data
   categories: string[];
   relatedMeetingId: string;
   /** Most recent meeting where this item was referenced */
@@ -53,6 +56,31 @@ export interface FollowUpItem {
   resolvedDate?: string;
   resolvedMeetingId?: string;
   resolution?: string;
+}
+
+export const OVERDUE_THRESHOLDS: Record<FollowUpType, number> = {
+  action_item: 60,
+  report: 90,
+  long_term: 180,
+  ongoing: Infinity,
+};
+
+export const FOLLOWUP_TYPE_LABELS: Record<FollowUpType, string> = {
+  action_item: "Action Item",
+  report: "Report",
+  long_term: "Long-term Project",
+  ongoing: "Ongoing",
+};
+
+export function isFollowUpOverdue(fu: FollowUpItem): boolean {
+  if (fu.status === "resolved" || fu.status === "dropped") return false;
+  const threshold = OVERDUE_THRESHOLDS[fu.type] || 60;
+  const days = Math.floor((Date.now() - new Date(fu.dateRaised + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24));
+  return days > threshold;
+}
+
+export function followUpDaysOpen(fu: FollowUpItem): number {
+  return Math.floor((Date.now() - new Date(fu.dateRaised + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24));
 }
 
 export interface StaffActivityItem {

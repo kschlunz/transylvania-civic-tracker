@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS } from "@/lib/constants";
 import { useMeetings } from "@/lib/meetings-context";
-import { type FollowUpItem, getSourceUrl } from "@/lib/types";
+import { type FollowUpItem, type FollowUpType, getSourceUrl, isFollowUpOverdue, followUpDaysOpen, FOLLOWUP_TYPE_LABELS } from "@/lib/types";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import Pagination, { paginate } from "@/components/Pagination";
@@ -32,15 +32,10 @@ function getOwnerLink(owner: string): string | null {
   return null;
 }
 
-function daysSince(dateStr: string) {
-  const raised = new Date(dateStr + "T12:00:00");
-  const now = new Date();
-  return Math.floor((now.getTime() - raised.getTime()) / (1000 * 60 * 60 * 24));
-}
-
-function getDaysColor(days: number, isResolved: boolean) {
-  if (isResolved) return "text-secondary";
-  if (days > 120) return "text-error";
+function getDaysColor(fu: FollowUpItem) {
+  if (fu.status === "resolved" || fu.status === "dropped") return "text-secondary";
+  if (isFollowUpOverdue(fu)) return "text-error";
+  const days = followUpDaysOpen(fu);
   if (days >= 60) return "text-amber-600";
   return "text-on-surface-variant";
 }
@@ -126,6 +121,7 @@ function FollowUpsContent() {
   // Filters from URL
   const ownerFilter = searchParams.get("owner") || "";
   const catFilter = searchParams.get("cat") || "";
+  const typeFilter = searchParams.get("type") || "";
 
   const filtered = useMemo(() => {
     let items = allFollowUps;
@@ -135,8 +131,11 @@ function FollowUpsContent() {
     if (catFilter) {
       items = items.filter((f) => f.categories.includes(catFilter));
     }
+    if (typeFilter) {
+      items = items.filter((f) => f.type === typeFilter);
+    }
     return items;
-  }, [allFollowUps, ownerFilter, catFilter]);
+  }, [allFollowUps, ownerFilter, catFilter, typeFilter]);
 
   // Status overrides from localStorage (only used when no Supabase data)
   const [statusOverrides, setStatusOverrides] = useState<Record<string, FollowUpItem["status"]>>(() => {
@@ -231,7 +230,19 @@ function FollowUpsContent() {
           ))}
         </select>
 
-        {(ownerFilter || catFilter) && (
+        <select
+          value={typeFilter}
+          onChange={(e) => setFilter("type", e.target.value)}
+          className="bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-2 text-xs font-label font-bold uppercase tracking-tight focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+        >
+          <option value="">All Types</option>
+          <option value="action_item">Action Items</option>
+          <option value="report">Reports</option>
+          <option value="long_term">Long-term Projects</option>
+          <option value="ongoing">Ongoing</option>
+        </select>
+
+        {(ownerFilter || catFilter || typeFilter) && (
           <button
             onClick={() => router.push(pathname, { scroll: false })}
             className="flex items-center gap-1 px-3 py-2 text-[11px] font-bold uppercase tracking-tight text-error hover:bg-error/5 rounded-lg transition-colors"
@@ -260,10 +271,11 @@ function FollowUpsContent() {
             {paginate(openItems, openPage).paginated.map((item) => {
               const effectiveStatus = getEffectiveStatus(item);
               const config = STATUS_CONFIG[effectiveStatus];
-              const days = daysSince(item.dateRaised);
-              const daysColor = getDaysColor(days, false);
+              const days = followUpDaysOpen(item);
+              const daysColor = getDaysColor(item);
               const ownerLink = getOwnerLink(item.owner);
               const ref = lastReferenced[item.id];
+              const typeLabel = item.type !== "action_item" ? FOLLOWUP_TYPE_LABELS[item.type] : null;
 
               return (
                 <div key={item.id} className="bg-surface-container-lowest border border-outline-variant/20 p-4 md:p-6 rounded-lg flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
@@ -273,8 +285,13 @@ function FollowUpsContent() {
                         <span className="material-symbols-outlined text-[14px]">{config.icon}</span>
                         {config.label}
                       </span>
+                      {typeLabel && (
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest bg-surface-container-high text-on-surface-variant">
+                          {typeLabel}
+                        </span>
+                      )}
                       <span className={`text-[10px] font-bold uppercase tracking-wider ${daysColor}`}>
-                        {days} days open
+                        {days} days{isFollowUpOverdue(item) ? " · overdue" : ""}
                       </span>
                     </div>
                     <p className="text-sm text-on-surface leading-relaxed font-medium">{item.description}</p>
@@ -358,7 +375,7 @@ function FollowUpsContent() {
             {paginate(resolvedItems, resolvedPage).paginated.map((item) => {
               const effectiveStatus = getEffectiveStatus(item);
               const config = STATUS_CONFIG[effectiveStatus];
-              const days = daysSince(item.dateRaised);
+              const days = followUpDaysOpen(item);
               const ownerLink = getOwnerLink(item.owner);
               const ref = lastReferenced[item.id];
 
