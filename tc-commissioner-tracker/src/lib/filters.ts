@@ -6,6 +6,7 @@ export interface FilterParams {
   dateTo?: string;          // YYYY-MM-DD for custom range
   categories?: string[];    // category IDs
   commissioners?: string[]; // commissioner IDs
+  search?: string;          // free-text search across tldr, votes, topics
 }
 
 export function parseFiltersFromParams(searchParams: URLSearchParams): FilterParams {
@@ -14,6 +15,7 @@ export function parseFiltersFromParams(searchParams: URLSearchParams): FilterPar
   const dateTo = searchParams.get("to") || undefined;
   const categories = searchParams.get("cat")?.split(",").filter(Boolean) || [];
   const commissioners = searchParams.get("comm")?.split(",").filter(Boolean) || [];
+  const search = searchParams.get("q") || undefined;
 
   return {
     dateRange,
@@ -21,6 +23,7 @@ export function parseFiltersFromParams(searchParams: URLSearchParams): FilterPar
     dateTo,
     categories: categories.length > 0 ? categories : undefined,
     commissioners: commissioners.length > 0 ? commissioners : undefined,
+    search,
   };
 }
 
@@ -36,6 +39,9 @@ export function filtersToSearchParams(filters: FilterParams): URLSearchParams {
   }
   if (filters.commissioners && filters.commissioners.length > 0) {
     params.set("comm", filters.commissioners.join(","));
+  }
+  if (filters.search && filters.search.trim()) {
+    params.set("q", filters.search.trim());
   }
   return params;
 }
@@ -100,6 +106,23 @@ export function filterMeetings(meetings: Meeting[], filters: FilterParams): Meet
     });
   }
 
+  // Free-text search: tldr, key vote descriptions, commissioner topic text
+  if (filters.search && filters.search.trim()) {
+    const q = filters.search.trim().toLowerCase();
+    result = result.filter((m) => {
+      if ((m.tldr || "").toLowerCase().includes(q)) return true;
+      for (const v of m.keyVotes || []) {
+        if ((v.description || "").toLowerCase().includes(q)) return true;
+      }
+      for (const activity of Object.values(m.commissionerActivity || {})) {
+        for (const topic of activity.topics || []) {
+          if ((topic.text || "").toLowerCase().includes(q)) return true;
+        }
+      }
+      return false;
+    });
+  }
+
   return result;
 }
 
@@ -107,6 +130,7 @@ export function hasActiveFilters(filters: FilterParams): boolean {
   return (
     (filters.dateRange !== undefined && filters.dateRange !== "all") ||
     (filters.categories !== undefined && filters.categories.length > 0) ||
-    (filters.commissioners !== undefined && filters.commissioners.length > 0)
+    (filters.commissioners !== undefined && filters.commissioners.length > 0) ||
+    (filters.search !== undefined && filters.search.trim() !== "")
   );
 }

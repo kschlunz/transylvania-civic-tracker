@@ -35,6 +35,18 @@ function MeetingsContent() {
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
+  function onSearchChange(value: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value.trim()) {
+      params.set("q", value);
+    } else {
+      params.delete("q");
+    }
+    params.delete("page");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
+
   return (
     <div className="px-4 md:px-8 lg:px-12 py-8 md:py-16 max-w-screen-2xl mx-auto">
       {/* Hero Section */}
@@ -73,6 +85,19 @@ function MeetingsContent() {
       <section>
         <div className="flex items-center justify-between mb-8">
           <h2 className="font-headline text-4xl text-primary">Meeting Ledger</h2>
+        </div>
+
+        <div className="mb-4 relative">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">
+            search
+          </span>
+          <input
+            type="search"
+            value={filters.search || ""}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search meetings — keywords, votes, or topics (e.g. 'courthouse', 'sales tax')"
+            className="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg pl-10 pr-4 py-3 text-sm font-body text-on-surface placeholder:text-on-surface-variant/60 focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+          />
         </div>
 
         <div className="mb-8">

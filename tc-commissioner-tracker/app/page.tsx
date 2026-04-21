@@ -60,7 +60,7 @@ function daysSince(dateStr: string) {
   return Math.floor((now.getTime() - raised.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-function HeroStats({ meetings }: { meetings: Meeting[] }) {
+function HeroStats({ meetings, ready }: { meetings: Meeting[]; ready: boolean }) {
   const [followUps, setFollowUps] = useState<FollowUpItem[]>(() => {
     const items: FollowUpItem[] = [];
     for (const m of meetings) {
@@ -68,14 +68,20 @@ function HeroStats({ meetings }: { meetings: Meeting[] }) {
     }
     return items;
   });
+  const [followUpsLoaded, setFollowUpsLoaded] = useState(!isSupabaseEnabled());
 
   useEffect(() => {
     if (isSupabaseEnabled()) {
-      getFollowUpsAsync().then((sbItems) => {
-        if (sbItems.length > 0) setFollowUps(sbItems);
-      }).catch(() => {});
+      getFollowUpsAsync()
+        .then((sbItems) => {
+          if (sbItems.length > 0) setFollowUps(sbItems);
+        })
+        .catch(() => {})
+        .finally(() => setFollowUpsLoaded(true));
     }
   }, []);
+
+  const loading = !ready || !followUpsLoaded;
 
   const openCount = followUps.filter((f) => f.status === "open" || f.status === "in_progress").length;
   const ongoingCount = followUps.filter((f) => (f.status === "open" || f.status === "in_progress") && f.type === "ongoing").length;
@@ -88,6 +94,10 @@ function HeroStats({ meetings }: { meetings: Meeting[] }) {
     return `$${(val / 1_000).toFixed(0)}K`;
   }
 
+  const NumberSkeleton = ({ width = "w-20" }: { width?: string }) => (
+    <div className={`h-9 md:h-10 ${width} bg-on-surface/10 rounded animate-pulse`} />
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
       <Link href="/budget" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
@@ -97,20 +107,28 @@ function HeroStats({ meetings }: { meetings: Meeting[] }) {
       </Link>
       <Link href="/follow-ups" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
         <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Open Commitments</p>
-        <div className="flex items-baseline gap-2">
-          <p className="font-headline text-3xl md:text-4xl text-primary">{openCount - ongoingCount}</p>
-          {overdueCount > 0 && (
-            <span className="text-sm font-bold text-error">{overdueCount} overdue</span>
-          )}
-          {ongoingCount > 0 && (
-            <span className="text-sm text-on-surface-variant">+{ongoingCount} ongoing</span>
-          )}
-        </div>
+        {loading ? (
+          <NumberSkeleton width="w-16" />
+        ) : (
+          <div className="flex items-baseline gap-2">
+            <p className="font-headline text-3xl md:text-4xl text-primary">{openCount - ongoingCount}</p>
+            {overdueCount > 0 && (
+              <span className="text-sm font-bold text-error">{overdueCount} overdue</span>
+            )}
+            {ongoingCount > 0 && (
+              <span className="text-sm text-on-surface-variant">+{ongoingCount} ongoing</span>
+            )}
+          </div>
+        )}
         <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Are they following through? →</p>
       </Link>
       <Link href="/meetings" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
         <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Meetings Tracked</p>
-        <p className="font-headline text-3xl md:text-4xl text-primary">{meetings.length}</p>
+        {loading ? (
+          <NumberSkeleton width="w-12" />
+        ) : (
+          <p className="font-headline text-3xl md:text-4xl text-primary">{meetings.length}</p>
+        )}
         <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">See what happened →</p>
       </Link>
     </div>
@@ -535,7 +553,7 @@ function BudgetSnapshot() {
 }
 
 function DashboardContent() {
-  const { meetings: allMeetings } = useMeetings();
+  const { meetings: allMeetings, ready } = useMeetings();
   const searchParams = useSearchParams();
   const filters = parseFiltersFromParams(searchParams);
   const meetings = filterMeetings(allMeetings, filters);
@@ -575,7 +593,7 @@ function DashboardContent() {
           </div>
 
           {/* Live stat cards */}
-          <HeroStats meetings={allMeetings} />
+          <HeroStats meetings={allMeetings} ready={ready} />
         </div>
       </section>
 
