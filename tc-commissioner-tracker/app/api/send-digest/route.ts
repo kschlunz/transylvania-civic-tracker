@@ -276,7 +276,9 @@ export async function POST(request: NextRequest) {
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://civicledger.org";
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+  const rawFromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+  // Always present as "Civic Ledger" in inbox sender column
+  const fromEmail = rawFromEmail.includes("<") ? rawFromEmail : `Civic Ledger <${rawFromEmail}>`;
 
   const resend = new Resend(resendKey);
   const html = buildEmailHtml(meeting, fuStats, siteUrl);
