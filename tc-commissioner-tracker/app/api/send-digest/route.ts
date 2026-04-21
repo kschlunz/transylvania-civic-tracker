@@ -8,6 +8,8 @@ const TEST_EMAIL = "schlunzk@gmail.com";
 interface DigestRequest {
   meetingId: string;
   testMode?: boolean;
+  /** Explicit recipient list for one-off sends (bypasses subscribers table) */
+  to?: string[];
 }
 
 interface MeetingData {
@@ -259,7 +261,10 @@ export async function POST(request: NextRequest) {
 
   // Determine recipients
   let emails: string[];
-  if (body.testMode) {
+  if (body.to && body.to.length > 0) {
+    emails = body.to;
+    console.log(`One-off send to ${emails.length} recipient(s): ${emails.join(", ")}`);
+  } else if (body.testMode) {
     emails = [TEST_EMAIL];
     console.log(`Test mode: sending to ${TEST_EMAIL} only`);
   } else {

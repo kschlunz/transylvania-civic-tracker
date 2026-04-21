@@ -2,8 +2,9 @@
  * Send a meeting digest email.
  *
  * Usage:
- *   npx tsx scripts/send-digest.ts --meeting 2026-02-23 --test    # send to test email only
- *   npx tsx scripts/send-digest.ts --meeting 2026-02-23            # send to all subscribers
+ *   npx tsx scripts/send-digest.ts --meeting 2026-02-23 --test                         # test email (to you only)
+ *   npx tsx scripts/send-digest.ts --meeting 2026-02-23 --to alice@x.com,bob@y.com     # one-off send to specific addresses
+ *   npx tsx scripts/send-digest.ts --meeting 2026-02-23                                # live send to all subscribers
  */
 
 import { config } from "dotenv";
@@ -14,10 +15,14 @@ config({ path: resolve(__dirname, "../.env.local") });
 const meetingArg = process.argv.find((a) => a.startsWith("--meeting="))?.split("=")[1] ||
   (process.argv.includes("--meeting") ? process.argv[process.argv.indexOf("--meeting") + 1] : null);
 const testMode = process.argv.includes("--test");
+const toArg = process.argv.find((a) => a.startsWith("--to="))?.split("=")[1] ||
+  (process.argv.includes("--to") ? process.argv[process.argv.indexOf("--to") + 1] : null);
+const toEmails = toArg ? toArg.split(",").map((e) => e.trim()).filter(Boolean) : [];
 
 if (!meetingArg) {
   console.log("Usage:");
   console.log("  npx tsx scripts/send-digest.ts --meeting 2026-02-23 --test");
+  console.log("  npx tsx scripts/send-digest.ts --meeting 2026-02-23 --to alice@x.com,bob@y.com");
   console.log("  npx tsx scripts/send-digest.ts --meeting 2026-02-23");
   process.exit(1);
 }
@@ -31,7 +36,8 @@ if (!adminUserId) {
 }
 
 async function main() {
-  console.log(`${testMode ? "🧪 TEST MODE" : "📧 LIVE MODE"} — Meeting: ${meetingArg}\n`);
+  const mode = toEmails.length > 0 ? `🎯 ONE-OFF (${toEmails.length})` : testMode ? "🧪 TEST MODE" : "📧 LIVE MODE";
+  console.log(`${mode} — Meeting: ${meetingArg}\n`);
 
   const url = `${siteUrl}/api/send-digest`;
   console.log(`Calling: ${url}`);
@@ -44,7 +50,8 @@ async function main() {
     },
     body: JSON.stringify({
       meetingId: meetingArg,
-      testMode,
+      testMode: toEmails.length === 0 && testMode,
+      to: toEmails.length > 0 ? toEmails : undefined,
     }),
   });
 
