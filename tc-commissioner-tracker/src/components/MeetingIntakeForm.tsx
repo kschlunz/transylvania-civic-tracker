@@ -208,6 +208,9 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
     setConfirmOverwrite(false);
     const threadErrors: string[] = [];
     try {
+      // Save meeting + follow-ups first so threads can FK-reference it
+      await onAccept(result.meeting, acceptedResolutions);
+
       // Save new threads
       console.log(`[handleAccept] Saving ${result.newThreads.length} new thread(s)...`);
       for (const nt of result.newThreads) {
@@ -278,9 +281,6 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
           }
         }
       }
-
-      // Save meeting and follow-ups
-      await onAccept(result.meeting, acceptedResolutions);
 
       if (threadErrors.length > 0) {
         setToast(`Meeting saved but ${threadErrors.length} thread error(s): ${threadErrors[0]}`);
