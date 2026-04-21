@@ -333,7 +333,7 @@ export default function SchoolBondInvestigation() {
           Have information about the school bond timeline?
         </p>
         <a
-          href="mailto:tips@civicledger.org?subject=School%20Bond%20Investigation"
+          href="mailto:civicledgertc@proton.me?subject=School%20Bond%20Investigation"
           className="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-label font-bold text-sm hover:bg-primary-container transition-colors"
         >
           <span className="material-symbols-outlined text-sm">mail</span>

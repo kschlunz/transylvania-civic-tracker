@@ -178,8 +178,8 @@ export default function MethodologyPage() {
               </p>
               <p className="font-body text-sm text-on-surface-variant leading-relaxed">
                 Email corrections to{" "}
-                <a href="mailto:civicledger@proton.me" className="underline text-primary hover:text-primary/70 font-bold">
-                  civicledger@proton.me
+                <a href="mailto:civicledgertc@proton.me" className="underline text-primary hover:text-primary/70 font-bold">
+                  civicledgertc@proton.me
                 </a>{" "}
                 with the meeting date, the specific item, and what you think should be changed. We review all feedback.
               </p>

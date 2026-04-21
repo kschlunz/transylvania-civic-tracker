@@ -169,12 +169,8 @@ export default function MeetingIntakeForm({ onAccept, onClose }: MeetingIntakeFo
           "x-admin-user-id": userId || "",
         },
         body: JSON.stringify({
-          id: result.meeting.id,
-          date: result.meeting.date,
-          type: result.meeting.type,
-          tldr: result.meeting.tldr,
-          keyVotes: result.meeting.keyVotes.map((v) => ({ description: v.description, result: v.result })),
-          followUpsCreated: result.meeting.followUps?.length || 0,
+          meetingId: result.meeting.id,
+          testMode: true, // Always test mode from admin UI — use CLI for live sends
         }),
       });
 
