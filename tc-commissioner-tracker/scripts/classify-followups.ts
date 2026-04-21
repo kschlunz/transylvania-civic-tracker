@@ -75,12 +75,11 @@ async function main() {
     ).join("\n");
 
     const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-opus-4-7",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [
         { role: "user", content: `Classify these follow-up items:\n\n${itemsBlock}` },
-        { role: "assistant", content: "[" },
       ],
     });
 
@@ -90,9 +89,13 @@ async function main() {
       continue;
     }
 
-    let jsonText = "[" + textBlock.text;
+    let jsonText = textBlock.text.trim();
     if (jsonText.includes("```")) {
-      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "");
+      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+    }
+    if (!jsonText.startsWith("[")) {
+      const s = jsonText.indexOf("["), e = jsonText.lastIndexOf("]");
+      if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
     }
 
     try {

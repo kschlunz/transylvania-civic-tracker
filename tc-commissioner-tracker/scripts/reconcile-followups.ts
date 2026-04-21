@@ -137,12 +137,11 @@ async function main() {
 
 async function processSingle(followUps: FollowUp[], userPrompt: string) {
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-opus-4-7",
     max_tokens: 8192,
     system: SYSTEM_PROMPT,
     messages: [
       { role: "user", content: userPrompt },
-      { role: "assistant", content: "[" },
     ],
   });
 
@@ -152,9 +151,13 @@ async function processSingle(followUps: FollowUp[], userPrompt: string) {
     process.exit(1);
   }
 
-  let jsonText = "[" + textBlock.text;
+  let jsonText = textBlock.text.trim();
   if (jsonText.includes("```")) {
-    jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "");
+    jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+  }
+  if (!jsonText.startsWith("[")) {
+    const s = jsonText.indexOf("["), e = jsonText.lastIndexOf("]");
+    if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
   }
 
   let resolutions: Resolution[];
@@ -186,12 +189,11 @@ async function processBatched(followUps: FollowUp[], meetings: MeetingSummary[],
     const userPrompt = `Here are ${batch.length} open follow-up items (batch ${batchNum}/${totalBatches}):\n\n${followUpsBlock}\n\n---\n\nHere are all ${meetings.length} meetings in chronological order:\n\n${meetingsBlock}\n\nAnalyze which follow-ups have been resolved, dropped, or moved to in-progress based on the meeting evidence.`;
 
     const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-opus-4-7",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [
         { role: "user", content: userPrompt },
-        { role: "assistant", content: "[" },
       ],
     });
 
@@ -201,9 +203,13 @@ async function processBatched(followUps: FollowUp[], meetings: MeetingSummary[],
       continue;
     }
 
-    let jsonText = "[" + textBlock.text;
+    let jsonText = textBlock.text.trim();
     if (jsonText.includes("```")) {
-      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "");
+      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+    }
+    if (!jsonText.startsWith("[")) {
+      const s = jsonText.indexOf("["), e = jsonText.lastIndexOf("]");
+      if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
     }
 
     try {

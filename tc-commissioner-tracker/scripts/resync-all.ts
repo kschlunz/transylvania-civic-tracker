@@ -258,7 +258,7 @@ Return ONLY raw JSON. No markdown fences. No preamble. Start with [ and end with
   console.log(`  Prompt length: ${prompt.length} chars\n`);
 
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-4-6",
     max_tokens: 16384,
     messages: [
       { role: "user", content: prompt },

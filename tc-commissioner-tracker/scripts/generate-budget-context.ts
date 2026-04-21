@@ -140,17 +140,13 @@ async function main() {
       .join("\n\n");
 
     const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-opus-4-7",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [
         {
           role: "user",
           content: `Generate plain-English context for these budget changes:\n\n${changesBlock}${batchStart === 0 ? meetingContext : ""}`,
-        },
-        {
-          role: "assistant",
-          content: "[",
         },
       ],
     });
@@ -161,9 +157,13 @@ async function main() {
       continue;
     }
 
-    let jsonText = "[" + textBlock.text;
+    let jsonText = textBlock.text.trim();
     if (jsonText.includes("```")) {
-      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "");
+      jsonText = jsonText.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+    }
+    if (!jsonText.startsWith("[")) {
+      const s = jsonText.indexOf("["), e = jsonText.lastIndexOf("]");
+      if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
     }
 
     let contexts: Array<{ index: number; context: string }>;

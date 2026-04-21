@@ -125,11 +125,10 @@ Return ONLY raw JSON. No markdown fences. No preamble. Start with [ and end with
   console.log(`Prompt length: ${prompt.length} chars`);
 
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-opus-4-7",
     max_tokens: 16384,
     messages: [
       { role: "user", content: prompt },
-      { role: "assistant", content: "[" },
     ],
   });
 
@@ -139,9 +138,13 @@ Return ONLY raw JSON. No markdown fences. No preamble. Start with [ and end with
     process.exit(1);
   }
 
-  let jsonText = ("[" + textBlock.text).trim();
+  let jsonText = textBlock.text.trim();
   if (jsonText.startsWith("```")) {
-    jsonText = jsonText.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "");
+    jsonText = jsonText.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "").trim();
+  }
+  if (!jsonText.startsWith("[")) {
+    const s = jsonText.indexOf("["), e = jsonText.lastIndexOf("]");
+    if (s >= 0 && e > s) jsonText = jsonText.slice(s, e + 1);
   }
 
   let threads: Array<{
