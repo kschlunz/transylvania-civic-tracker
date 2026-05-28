@@ -1,5 +1,14 @@
 import type { Meeting, FollowUpItem, PublicStatement, TopicThread } from "./types";
 import { supabase, isSupabaseEnabled } from "./supabase";
+import {
+  STEPPER_STAGES,
+  type ActiveCycleSnapshot,
+  type BudgetCycle,
+  type BudgetCycleStage,
+  type BudgetDocument,
+  type BudgetDocumentStatus,
+  type BudgetMilestone,
+} from "./budget-cycle-types";
 
 // ============================================
 // LOCAL JSON FALLBACK
@@ -406,4 +415,139 @@ function getLocalPublicStatements(): Record<string, PublicStatement[]> {
   } catch {
     return {};
   }
+}
+
+// ============================================
+// BUDGET CYCLES
+// ============================================
+
+function dbRowToBudgetCycle(row: Record<string, unknown>): BudgetCycle {
+  return {
+    id: row.id as string,
+    fiscalYear: row.fiscal_year as string,
+    label: row.label as string,
+    jurisdiction: (row.jurisdiction as string) || "Transylvania County",
+    currentStage: row.current_stage as BudgetCycleStage,
+    cycleStart: row.cycle_start ? (row.cycle_start as string).slice(0, 10) : null,
+    adoptionDate: row.adoption_date ? (row.adoption_date as string).slice(0, 10) : null,
+    fiscalYearStart: row.fiscal_year_start ? (row.fiscal_year_start as string).slice(0, 10) : null,
+    isActive: row.is_active as boolean,
+  };
+}
+
+function dbRowToBudgetMilestone(row: Record<string, unknown>): BudgetMilestone {
+  return {
+    id: row.id as string,
+    cycleId: row.cycle_id as string,
+    milestoneDate: (row.milestone_date as string).slice(0, 10),
+    title: row.title as string,
+    description: (row.description as string) || null,
+    stage: (row.stage as BudgetCycleStage) || null,
+    isPublicInput: row.is_public_input as boolean,
+    isComplete: row.is_complete as boolean,
+    location: (row.location as string) || null,
+    livestreamUrl: (row.livestream_url as string) || null,
+    sortOrder: (row.sort_order as number) || 0,
+  };
+}
+
+function dbRowToBudgetDocument(row: Record<string, unknown>): BudgetDocument {
+  return {
+    id: row.id as string,
+    cycleId: row.cycle_id as string,
+    title: row.title as string,
+    docStatus: row.doc_status as BudgetDocumentStatus,
+    presentedDate: row.presented_date ? (row.presented_date as string).slice(0, 10) : null,
+    sourceUrl: (row.source_url as string) || null,
+    storagePath: (row.storage_path as string) || null,
+    plainSummary: (row.plain_summary as string) || null,
+    sortOrder: (row.sort_order as number) || 0,
+  };
+}
+
+function todayIsoDate(): string {
+  // Local timezone date in YYYY-MM-DD form to compare against milestone dates.
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function computeSnapshot(
+  cycle: BudgetCycle,
+  milestones: BudgetMilestone[],
+  documents: BudgetDocument[],
+): ActiveCycleSnapshot {
+  const today = todayIsoDate();
+  const upcoming = milestones
+    .filter((m) => m.milestoneDate >= today)
+    .sort((a, b) => a.milestoneDate.localeCompare(b.milestoneDate));
+  const nextPublicInput = upcoming.find((m) => m.isPublicInput) || null;
+  const nextMilestone = upcoming[0] || null;
+
+  let daysUntilAdoption: number | null = null;
+  if (cycle.adoptionDate) {
+    const adoption = new Date(cycle.adoptionDate + "T12:00:00").getTime();
+    const now = new Date(today + "T12:00:00").getTime();
+    const diff = Math.ceil((adoption - now) / (1000 * 60 * 60 * 24));
+    daysUntilAdoption = diff > 0 ? diff : null;
+  }
+
+  const stageIndex = STEPPER_STAGES.indexOf(cycle.currentStage);
+  return {
+    cycle,
+    milestones,
+    documents,
+    nextPublicInput,
+    nextMilestone,
+    daysUntilAdoption,
+    currentStageIndex: stageIndex >= 0 ? stageIndex : 0,
+  };
+}
+
+/**
+ * Returns the active budget cycle with milestones, documents, and derived fields.
+ * Safe to call from both client and server components.
+ * Returns null if Supabase is not configured or no active cycle exists.
+ */
+export async function getActiveBudgetCycleAsync(): Promise<ActiveCycleSnapshot | null> {
+  if (!isSupabaseEnabled() || !supabase) return null;
+
+  const { data: cycleRow, error: cycleError } = await supabase
+    .from("budget_cycles")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (cycleError) {
+    console.error("Supabase getActiveBudgetCycle (cycle) error:", cycleError);
+    return null;
+  }
+  if (!cycleRow) return null;
+
+  const cycle = dbRowToBudgetCycle(cycleRow);
+
+  const [milestonesRes, documentsRes] = await Promise.all([
+    supabase
+      .from("budget_cycle_milestones")
+      .select("*")
+      .eq("cycle_id", cycle.id)
+      .order("sort_order", { ascending: true }),
+    supabase
+      .from("budget_documents")
+      .select("*")
+      .eq("cycle_id", cycle.id)
+      .order("sort_order", { ascending: true }),
+  ]);
+
+  if (milestonesRes.error) console.error("Supabase milestones error:", milestonesRes.error);
+  if (documentsRes.error) console.error("Supabase documents error:", documentsRes.error);
+
+  const milestones = (milestonesRes.data || []).map(dbRowToBudgetMilestone);
+  const documents = (documentsRes.data || []).map(dbRowToBudgetDocument);
+
+  return computeSnapshot(cycle, milestones, documents);
 }

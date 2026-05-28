@@ -187,6 +187,15 @@ export default function BudgetExplorer() {
           )}
           <span>Last updated: {new Date(budget.lastUpdated + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
         </div>
+        <div className="mt-4">
+          <a
+            href="/budget/fy27"
+            className="inline-flex items-center gap-1 text-xs font-label font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity"
+          >
+            See the FY27 budget process
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
       </section>
 
       {!hasDepartments ? (

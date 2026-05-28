@@ -11,6 +11,7 @@ import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import UpcomingMeetingBanner from "@/components/UpcomingMeetingBanner";
+import BudgetCycleCard from "@/components/BudgetCycleCard";
 import { type FollowUpItem, type Meeting, isFollowUpOverdue } from "@/lib/types";
 import { announcements as announcementsData } from "@/data/announcements";
 
@@ -596,6 +597,10 @@ function DashboardContent() {
           <HeroStats meetings={allMeetings} ready={ready} />
         </div>
       </section>
+
+      {/* Budget cycle tracker — process card (no dollar figures) */}
+      {/* TODO(kate): confirm placement — currently between hero and recent updates */}
+      <BudgetCycleCard />
 
       {/* Recent Updates feed */}
       <RecentUpdates meetings={allMeetings} />
