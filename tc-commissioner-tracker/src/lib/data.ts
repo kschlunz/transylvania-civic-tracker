@@ -9,6 +9,11 @@ import {
   type BudgetDocumentStatus,
   type BudgetMilestone,
 } from "./budget-cycle-types";
+import type {
+  BreakdownType,
+  BudgetBreakdownData,
+  BudgetBreakdownRow,
+} from "./budget-breakdown-types";
 
 // ============================================
 // LOCAL JSON FALLBACK
@@ -550,4 +555,54 @@ export async function getActiveBudgetCycleAsync(): Promise<ActiveCycleSnapshot |
   const documents = (documentsRes.data || []).map(dbRowToBudgetDocument);
 
   return computeSnapshot(cycle, milestones, documents);
+}
+
+// ============================================
+// BUDGET BREAKDOWNS (charts)
+// ============================================
+
+function dbRowToBudgetBreakdown(row: Record<string, unknown>): BudgetBreakdownRow {
+  return {
+    id: row.id as string,
+    cycleId: row.cycle_id as string,
+    breakdownType: row.breakdown_type as BreakdownType,
+    category: row.category as string,
+    amount: Number(row.amount),
+    sortOrder: (row.sort_order as number) || 0,
+  };
+}
+
+/**
+ * Returns the breakdown rows for a given cycle + type, with each row's percentage
+ * computed from the sum of the returned rows (not from any external total).
+ * Safe to call from server components.
+ */
+export async function getBudgetBreakdownsAsync(
+  cycleId: string,
+  breakdownType: BreakdownType,
+): Promise<BudgetBreakdownData | null> {
+  if (!isSupabaseEnabled() || !supabase) return null;
+
+  const { data, error } = await supabase
+    .from("budget_breakdowns")
+    .select("*")
+    .eq("cycle_id", cycleId)
+    .eq("breakdown_type", breakdownType)
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error(`Supabase getBudgetBreakdowns (${breakdownType}) error:`, error);
+    return null;
+  }
+  if (!data || data.length === 0) return null;
+
+  const rows = data.map(dbRowToBudgetBreakdown);
+  const total = rows.reduce((s, r) => s + r.amount, 0);
+  const chartRows = rows.map((r) => ({
+    category: r.category,
+    amount: r.amount,
+    percentage: total > 0 ? (r.amount / total) * 100 : 0,
+  }));
+
+  return { rows: chartRows, total, breakdownType };
 }

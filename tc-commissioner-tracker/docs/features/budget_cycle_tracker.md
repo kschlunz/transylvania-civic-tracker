@@ -158,3 +158,91 @@ Then seed milestones and documents for FY28 with the new `cycle_id`.
   coming soon."
 - All milestone dates are stored as `date` (no time). Display uses
   `T12:00:00` parsing to avoid timezone off-by-one bugs.
+
+## Visualizations (added 2026-05-28)
+
+`/budget/fy27` now includes two horizontal-bar charts and a "Meetings about the
+budget" section, plus the dashboard card moved above the hero stats.
+
+### Data: `budget_breakdowns`
+
+Migration: `supabase/migrations/20260528_budget_breakdowns.sql`
+
+| Column | Notes |
+|---|---|
+| `cycle_id` | FK to `budget_cycles` |
+| `breakdown_type` | CHECK: `expense_by_function` or `revenue_by_category` |
+| `category` | Display label (e.g. "Property Tax") |
+| `amount` | Dollars, NUMERIC |
+| `sort_order` | Largest first, set in the seed |
+
+Public-read RLS, admin-only writes — same pattern as the other budget tables.
+
+### Where the numbers came from
+
+The 11 expense rows and 13 revenue rows in the seed come directly from the
+**FY27 Recommended Budget Book** presented May 26, 2026:
+
+- Expense sum = $82,536,222 (vs. headline $82,536,220 — $2 off due to county's
+  own rounding)
+- Revenue sum = $82,410,719 (vs. headline $82,536,220 — ~$125K short due to
+  county's own category grouping)
+
+**Do not "fix" these numbers to force an exact match.** They're shown as the
+county reported. Percentages on the charts are computed from the sum of the
+displayed rows so labels reconcile with bars.
+
+### Accuracy guardrails
+
+- No property tax **rate** appears anywhere in these charts (rates change with
+  every workshop; rendering one would erode trust). Dollar amounts only.
+- Every chart caption reads: *"Source: FY27 Recommended Budget, presented May
+  26, 2026 · Recommended — not yet adopted."*
+- Once the budget is adopted on June 22, update the captions in
+  [`src/components/BudgetBreakdownChart.tsx`](../../src/components/BudgetBreakdownChart.tsx)
+  to "Adopted — in effect July 1, 2026" (or similar) and consider seeding a
+  parallel set of `adopted_*` rows so both surfaces exist for history.
+
+### Chart implementation notes
+
+Plain HTML/CSS horizontal bars (not Recharts) — server-rendered, mobile-perfect,
+no YAxis-width gymnastics, no extra client bundle. Trade-off vs. the existing
+`/budget` page (which uses Recharts and hides on mobile): the new charts work
+across all viewports because long category labels stack above the bars on
+mobile. Single component, used twice.
+
+### "Meetings about the budget" matching
+
+Uses the existing `topic.categories.includes("fiscal")` signal — no text
+search. Pulled via `filterMeetings(allMeetings, { categories: ["fiscal"] })`
+in `app/budget/fy27/page.tsx`, capped at 6 most-recent. The June 22 public
+hearing (if it exists in the meetings table) gets a "Public Hearing" badge by
+date-matching against `cycle.adoption_date`. "See all fiscal meetings" links
+to `/topics/fiscal`.
+
+If a future cycle uses a different category, swap the filter in the page.
+
+### Dashboard reorder
+
+`BudgetCycleCard` now renders **inside** the hero section, between the title
+block and `HeroStats` (the three stat cards). When the
+`budgetCycleTracker` flag is off, the card returns `null` and the layout
+collapses cleanly to title → stats.
+
+### Seeding breakdowns for a future cycle (FY28+)
+
+When you spin up FY28, after inserting the cycle row, add breakdown rows in
+the same shape — keyed to the new `cycle_id` and with `sort_order` largest
+first:
+
+```sql
+INSERT INTO budget_breakdowns (cycle_id, breakdown_type, category, amount, sort_order)
+VALUES
+  ('<new-cycle-uuid>', 'expense_by_function', 'Public Safety & First Response', <amount>, 1),
+  -- ...
+ON CONFLICT DO NOTHING;
+```
+
+The chart components are data-driven — no code changes needed for a new
+fiscal year. Update the source caption text in `BudgetBreakdownChart.tsx` if
+the new cycle has a different presentation date.

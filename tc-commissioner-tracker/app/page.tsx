@@ -593,14 +593,13 @@ function DashboardContent() {
             </Link>
           </div>
 
+          {/* Budget cycle tracker — process card (no dollar figures) */}
+          <BudgetCycleCard />
+
           {/* Live stat cards */}
           <HeroStats meetings={allMeetings} ready={ready} />
         </div>
       </section>
-
-      {/* Budget cycle tracker — process card (no dollar figures) */}
-      {/* TODO(kate): confirm placement — currently between hero and recent updates */}
-      <BudgetCycleCard />
 
       {/* Recent Updates feed */}
       <RecentUpdates meetings={allMeetings} />

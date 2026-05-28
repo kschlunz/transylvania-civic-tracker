@@ -1,9 +1,16 @@
 import Link from "next/link";
-import { getActiveBudgetCycleAsync } from "@/lib/data";
+import {
+  getActiveBudgetCycleAsync,
+  getBudgetBreakdownsAsync,
+  getMeetingsAsync,
+} from "@/lib/data";
 import { STAGE_LABELS } from "@/lib/budget-cycle-types";
+import { filterMeetings } from "@/lib/filters";
 import BudgetCycleStepper from "@/components/BudgetCycleStepper";
 import BudgetCycleTimeline from "@/components/BudgetCycleTimeline";
 import BudgetDocumentList from "@/components/BudgetDocumentList";
+import BudgetBreakdownChart from "@/components/BudgetBreakdownChart";
+import BudgetMeetingsList from "@/components/BudgetMeetingsList";
 
 export const revalidate = 300;
 
@@ -18,6 +25,14 @@ function formatLongDate(iso: string): string {
 
 export default async function BudgetFy27Page() {
   const snapshot = await getActiveBudgetCycleAsync();
+
+  const [expenseBreakdown, revenueBreakdown, allMeetings] = await Promise.all([
+    snapshot ? getBudgetBreakdownsAsync(snapshot.cycle.id, "expense_by_function") : null,
+    snapshot ? getBudgetBreakdownsAsync(snapshot.cycle.id, "revenue_by_category") : null,
+    getMeetingsAsync(),
+  ]);
+
+  const budgetMeetings = filterMeetings(allMeetings, { categories: ["fiscal"] }).slice(0, 6);
 
   if (!snapshot || snapshot.cycle.fiscalYear.toLowerCase() !== "fy27") {
     return (
@@ -105,6 +120,41 @@ export default async function BudgetFy27Page() {
         </section>
       )}
 
+      {/* Where the money goes / comes from */}
+      {(expenseBreakdown || revenueBreakdown) && (
+        <section className="mb-16">
+          <h2 className="font-headline text-3xl text-primary mb-2">Where the money goes &amp; comes from</h2>
+          <p className="text-sm text-on-surface-variant mb-8 max-w-2xl leading-relaxed">
+            Here&apos;s how the recommended FY27 budget is proposed to be spent and where
+            the money is expected to come from. These are proposed figures — the budget
+            is not final until commissioners vote on{" "}
+            {snapshot.cycle.adoptionDate
+              ? new Date(snapshot.cycle.adoptionDate + "T12:00:00").toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                })
+              : "adoption night"}
+            .
+          </p>
+          <div className="space-y-6 md:space-y-8">
+            {expenseBreakdown && (
+              <BudgetBreakdownChart
+                title="Where the money goes"
+                subtitle="FY27 recommended spending by function"
+                data={expenseBreakdown}
+              />
+            )}
+            {revenueBreakdown && (
+              <BudgetBreakdownChart
+                title="Where the money comes from"
+                subtitle="FY27 recommended revenue by source"
+                data={revenueBreakdown}
+              />
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Timeline */}
       <section className="mb-16">
         <h2 className="font-headline text-3xl text-primary mb-2">Process Timeline</h2>
@@ -122,6 +172,28 @@ export default async function BudgetFy27Page() {
         </p>
         <BudgetDocumentList documents={documents} />
       </section>
+
+      {/* Meetings about the budget */}
+      {budgetMeetings.length > 0 && (
+        <section className="mb-16">
+          <h2 className="font-headline text-3xl text-primary mb-2">Meetings about the budget</h2>
+          <p className="text-sm text-on-surface-variant mb-8 max-w-2xl">
+            Follow the discussion across commissioner meetings. These meetings include
+            budget-related topics tagged with the Fiscal Policy &amp; Revenue category.
+          </p>
+          <BudgetMeetingsList
+            meetings={budgetMeetings}
+            publicHearingDate={snapshot.cycle.adoptionDate}
+          />
+          <Link
+            href="/topics/fiscal"
+            className="inline-flex items-center gap-1 mt-6 text-xs font-label font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity"
+          >
+            See all fiscal meetings
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </Link>
+        </section>
+      )}
 
       {/* Footer explanation */}
       <footer className="border-t border-outline-variant/20 pt-8 text-sm text-on-surface-variant leading-relaxed">
