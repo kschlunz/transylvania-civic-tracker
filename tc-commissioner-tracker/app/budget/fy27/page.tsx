@@ -11,6 +11,7 @@ import BudgetCycleTimeline from "@/components/BudgetCycleTimeline";
 import BudgetDocumentList from "@/components/BudgetDocumentList";
 import BudgetBreakdownChart from "@/components/BudgetBreakdownChart";
 import BudgetMeetingsList from "@/components/BudgetMeetingsList";
+import BudgetExplainer from "@/components/BudgetExplainer";
 
 export const revalidate = 300;
 
@@ -155,6 +156,15 @@ export default async function BudgetFy27Page() {
         </section>
       )}
 
+      {/* Understanding this budget — plain-language explainer */}
+      <section className="mb-16">
+        <BudgetExplainer
+          sourceUrl={
+            documents.find((d) => d.docStatus === "recommended" && d.sourceUrl)?.sourceUrl ?? null
+          }
+        />
+      </section>
+
       {/* Timeline */}
       <section className="mb-16">
         <h2 className="font-headline text-3xl text-primary mb-2">Process Timeline</h2>
@@ -165,7 +175,7 @@ export default async function BudgetFy27Page() {
       </section>
 
       {/* Documents */}
-      <section className="mb-16">
+      <section id="documents" className="mb-16 scroll-mt-24">
         <h2 className="font-headline text-3xl text-primary mb-2">Published Documents</h2>
         <p className="text-sm text-on-surface-variant mb-8 max-w-2xl">
           Each budget document is labeled with its status so you always know whether you&apos;re looking at a proposal or a final decision.
