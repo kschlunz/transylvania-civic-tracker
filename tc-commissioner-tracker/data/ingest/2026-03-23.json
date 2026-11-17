@@ -1,0 +1,896 @@
+{
+  "meeting": {
+    "id": "2026-03-23",
+    "date": "2026-03-23",
+    "type": "regular",
+    "time": "6:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "chappell",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 30,
+    "duration": "2 hours 16 minutes",
+    "tldr": "The Board heard the Sheriff's semi-annual report and the County Manager's FY 2027 budget overview, which covered mandated versus non-mandated spending, how property tax dollars are spent and the budget timeline, plus a monthly capital projects update. Commissioners unanimously approved the 2026 capital priorities advocacy letter with the new courthouse as the top request. They also approved a $135,921 DSS contract for temporary child welfare staffing and $320,000 for Balsam Grove Fire Department to buy land for a new station. Other approvals included fire district reserve disbursements, a new County website and app from Apptegy, an EMS software contract, a fiber agreement with Comporium and an updated computer use policy.",
+    "keyVotes": [
+      {
+        "description": "Approved the meeting agenda",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "dalton",
+        "background": "There were no agenda modifications.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 1
+      },
+      {
+        "description": "Approved the consent agenda, including minutes, tax releases of $4,528.88 and refunds of $1,208.70, and three proclamations",
+        "result": "Unanimous",
+        "mover": "consent agenda",
+        "seconder": "consent agenda",
+        "background": "The consent agenda included the February 23, 2026 minutes and the February 2026 tax discovery, release and settlement report. It also included notice of intent to donate a surplus inflatable slide to Young Life Transylvania County and Resolution #08-2026 supporting Blue Ridge Community College's use of the Detention Center for Detention Officer Certification Course training. Three proclamations were included: Month of the Young Child and Child Abuse Prevention Month, National Public Health Week, and National Public Safety Telecommunicators Week.",
+        "discussion": "",
+        "passed": true,
+        "consent": true,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 1
+      },
+      {
+        "description": "Appointed Jeffrey Haywood to a vacant seat on the Agricultural Advisory Board",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "chappell",
+        "background": "A resignation in October 2025 left a vacancy, and the Clerk received one application after advertising it. Agricultural Agent Bart Renner recommended Jeffrey Haywood to fill the unexpired term. The minutes record Commissioners Chappell and Dalton seconding the motion simultaneously.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 18
+      },
+      {
+        "description": "Approved the 2026 capital priorities advocacy letter to state and federal legislators, led by the $36 million courthouse",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "dalton",
+        "background": "The County Manager presented the annual list of capital priorities ahead of the General Assembly short session, following the Board's February 9 discussion. The list puts the new courthouse ($36 million) first, followed by the Blue Ridge Community College new campus ($68 million). It also includes school system needs ($30 million), industrial park items, municipal partner infrastructure such as City of Brevard wastewater ($90 million) and the Rosman water plant ($10 million), and departmental equipment needs. The letter also asks the State to fund a potential $1.2 million SNAP cost shift.",
+        "discussion": "Chairwoman McCall said the County has consistently advocated for municipal and school system needs, responding to public comments suggesting otherwise. Commissioner Dalton supported the list and suggested future advocacy include Solid Waste needs, noting that about $7 million in prior state funding went toward the roughly $9.5 million landfill cell expansion. Commissioner Chapman encouraged participation in NCACC Advocacy Days. Commissioner Chappell said the County's grant management experience and legislative relationships have helped secure funding. The Manager listed projects removed from the list after being funded.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 21
+      },
+      {
+        "description": "Reallocated $135,921 in DSS lapsed salaries for a three-month Allies 4 Outcomes child welfare staffing contract",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chappell",
+        "background": "Social Services Director Amanda Vanderoef reported that half of the Child Welfare positions are vacant and that the applicant pool is limited. The contract provides temporary, fully trained staff until three vacant positions are filled, with billing only for actual hours worked and costs covered by lapsed salaries. The motion requires attorney comments to be incorporated before the contract is signed.",
+        "discussion": "Commissioner Chappell asked whether the contract could be scaled back if positions were filled sooner. Ms. Vanderoef confirmed it could, since the County is billed only for services provided. Commissioner Chappell stressed keeping funds available for permanent hires and noted the liability risks of understaffing in Child Welfare.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 22
+      },
+      {
+        "description": "Approved $320,000 for Balsam Grove Fire Department to buy a 2.90-acre site for a new station",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chapman",
+        "background": "Fire Marshal Scott Justus reported that an architect found expansion of the current station feasible but not recommended because of space and septic constraints. The department identified a 2.90-acre Highway 215 property about half a mile away and asked for $300,000 for the purchase plus $20,000 for due diligence. Funding is $240,000 from the department's personnel line and $80,000 from the countywide fire service district tax reserve. The department has also applied for $3.8 million in Congressionally Directed Spending, which would require a 25% local match.",
+        "discussion": "Commissioners asked about property valuation, possible use of the existing station and funding strategies. Staff noted the property is assessed at $68,000 and that relocating too far could hurt fire protection ratings. Commissioners acknowledged the need to address facility limits in order to support staffing.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 22
+      },
+      {
+        "description": "Approved disbursement of remaining fire district reserve funds to Cedar Mountain ($4,894.30) and Rosman ($41,876.44) Fire Rescue",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "Fire Marshal Scott Justus presented the requests to use reserve funds left over from before the countywide fire tax took effect on July 1, 2025. Planned uses include firefighter physicals, equipment, wildfire response improvements and sleeping quarters to support 24-hour staffing, and staff recommended approval. The minutes record Commissioners Dalton and McKelvey seconding simultaneously.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Approved a new County website and mobile app from Apptegy: $10,700 setup and $10,900 annual subscription under a three-year contract",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "dalton",
+        "background": "IT Director Nathanael Carver said a staff committee selected Apptegy for an ADA-compliant website, mobile app, notifications and social media integration. Setup costs of $10,700 in FY 2026 come from contingency, and the $10,900 annual subscription begins in FY 2027.",
+        "discussion": "Commissioners expressed support for the project as a way to improve transparency and accessibility.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Approved a three-year Handtevy EMS medical management software contract with about 30% cost savings",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "mckelvey",
+        "background": "IT Director Nathanael Carver presented a negotiated three-year agreement for the EMS medical management platform. Staff said the agreement saves about 30% over the life of the contract.",
+        "discussion": "Commissioners expressed appreciation for the staff's efforts to improve services while reducing costs.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Approved a reciprocal agreement with Comporium for a second dark fiber route, pending County Attorney review",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chappell",
+        "background": "IT Director Nathanael Carver proposed giving Comporium rack space in the downtown data center. In exchange, Comporium would provide a second dark fiber connection to the Public Safety data center, improving redundancy. Any substantive changes from legal review are to come back to the Board.",
+        "discussion": "Commissioners stressed the importance of system resiliency, citing the failures during Hurricane Helene.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 24
+      },
+      {
+        "description": "Approved an updated Computer and Internet Use Policy replacing the 2001 policy",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "IT Director Nathanael Carver presented a revised policy that reflects current technology, cybersecurity risks, North Carolina law and state IT guidance. It was reviewed by the County Attorney and department heads and will be built into employee onboarding and training.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 24
+      },
+      {
+        "description": "Adjourned the meeting at 8:16 p.m.",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "dalton",
+        "background": "Motion to adjourn after all business was completed.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 25
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Opened the FY 2027 budget discussion and encouraged Commissioners to send questions or requests for information to the County Manager so those discussions could occur in a public and transparent manner.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted that some state-level discussions include pursuing a constitutional amendment to limit future legislative changes, and stated that none of the proposals had identified a sustainable replacement for property tax revenue, which remains the primary source for funding mandated services.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that if the State were to assume county responsibilities, it is unclear how service delivery would be maintained at the local level.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Clarified that once funding is allocated to external entities such as public education, the County does not retain authority over how those funds are spent.",
+            "categories": [
+              "fiscal",
+              "schools"
+            ]
+          },
+          {
+            "text": "Stated that Solid Waste is not optional in practice because of ongoing environmental and regulatory obligations, including long-term monitoring that would continue even if landfill operations ceased.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that the budget discussion highlighted the balance between mandated obligations and community-supported services, and that the Board's responsibility is to develop a balanced budget reflecting legal requirements and community expectations.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked about current enrollment and waitlist status at the New Adventure Learning Center.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that, given regional childcare shortages, the New Adventure Learning Center serves an important community need despite its subsidy level, and that access to childcare is essential for working families and workforce participation.",
+            "categories": [
+              "community",
+              "econ"
+            ]
+          },
+          {
+            "text": "Stated that the County has consistently included municipal partner and school system needs in its annual advocacy, responded to recent public comments suggesting otherwise, and said the Board will continue advocating for wastewater projects regardless of ownership.",
+            "categories": [
+              "infrastructure",
+              "governance"
+            ]
+          },
+          {
+            "text": "Thanked the Manager for her work on the budget process and reminded the public that the County Manager carries out the Board's direction and that concerns about decisions should be directed to the Board.",
+            "categories": [
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Stated that statewide discussions about limiting or eliminating property taxes are increasing, that no clearly defined replacement revenue source exists, and that the State would need to assume greater responsibility for mandated services if property taxes were reduced or eliminated.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that the New Adventure Learning Center is subsidized by the County at approximately $325,000 annually, operates at a significant deficit and competes with private childcare providers, and suggested the Board continue evaluating its long-term sustainability and ways to reduce reliance on County subsidy.",
+            "categories": [
+              "fiscal",
+              "community"
+            ]
+          },
+          {
+            "text": "Noted that the NCACC hosts annual Advocacy Days in Raleigh and encouraged Commissioners to participate when possible.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Reported on a recent NCACC Justice and Public Safety Committee discussion about limited regulation of vape shops, including concerns about product origins, unclear contents and the cost of testing for enforcement, and encouraged public awareness and communication with legislators.",
+            "categories": [
+              "safety",
+              "health"
+            ]
+          },
+          {
+            "text": "Expressed appreciation for the Manager's work on the budget.",
+            "categories": [
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 1,
+        "motionsSeconded": 1,
+        "externalRoles": []
+      },
+      "chappell": {
+        "topics": [
+          {
+            "text": "Stated that the budget discussion illustrated the complexity of the County budget and the large share of mandated or structurally required spending, and encouraged the public to consider the full scope of County responsibilities when evaluating budget decisions.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked for the total value of capital projects currently underway, how it compared to five years ago, and whether project staffing had increased proportionally.",
+            "categories": [
+              "infrastructure",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Thanked staff for their capital project work and emphasized the long-term benefit of the County's capital investments.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Echoed the Chair's remarks on the County's advocacy for municipal partners, stating that the County's grant management experience and relationships with the General Assembly have helped secure funding and that County project management and financial oversight requirements are needed to ensure compliance and future eligibility.",
+            "categories": [
+              "infrastructure",
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether the Allies 4 Outcomes contract would allow flexibility if Child Welfare positions were filled sooner than expected.",
+            "categories": [
+              "health"
+            ]
+          },
+          {
+            "text": "Emphasized maintaining flexibility so funds remain available for hiring permanent staff and noted the significant liability risks of understaffing in Child Welfare.",
+            "categories": [
+              "health"
+            ]
+          }
+        ],
+        "motionsMade": 2,
+        "motionsSeconded": 3,
+        "externalRoles": []
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Noted that at a recent NCACC Tax and Finance Committee meeting he learned several counties are publishing lists of unfunded state mandates, and asked whether most services the Manager outlined were state-required but not state-funded.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted that Medicaid hold harmless provisions were not included in the earlier budget discussion.",
+            "categories": [
+              "fiscal",
+              "health"
+            ]
+          },
+          {
+            "text": "Stated his understanding that the Board has direct discretion over $4 to $4.5 million of the budget, equating to five cents on the property tax rate, including the Library, Parks and Recreation and Economic Development.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that proposals to cap annual property tax increases could limit counties' ability to respond to unforeseen events such as natural disasters, and noted that legislative authority already exists to implement many proposed changes without a constitutional amendment.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that childcare shortages are also affecting the private sector, citing recent closures of childcare facilities in the region.",
+            "categories": [
+              "community",
+              "econ"
+            ]
+          },
+          {
+            "text": "Noted that staffing challenges affected pre-K programming in the school system, with one requested class unable to be staffed last year.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Expressed support for the capital priorities list and suggested future advocacy include Solid Waste needs as results of the ongoing study become available.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that prior advocacy secured approximately $7 million toward the roughly $9.5 million landfill cell expansion, avoiding an estimated ten-cent property tax increase, and that prior state funding exceeding $40 million benefited the County, the City of Brevard and the Town of Rosman.",
+            "categories": [
+              "environment",
+              "infrastructure",
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 4,
+        "motionsSeconded": 6,
+        "externalRoles": []
+      },
+      "mckelvey": {
+        "topics": [],
+        "motionsMade": 4,
+        "motionsSeconded": 1,
+        "externalRoles": []
+      }
+    },
+    "publicComments": [
+      {
+        "speaker": "Doug Powell",
+        "summary": "Reflected on the approaching 250th anniversary of the signing of the Declaration of Independence, described the atmosphere of its signing and the risks and sacrifices of the signers, and encouraged the community to remember its historical significance as Independence Day 2026 approaches."
+      }
+    ],
+    "staffActivity": [
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Presented the FY 2027 budget process update, explaining the complexity of North Carolina county budgeting, Dillon's Rule, restricted revenues and the difference between county and municipal structures.",
+          "Stated that staff will provide monthly updates throughout the budget cycle to improve transparency.",
+          "Reported that the County's cost allocation study shows an approximate 15% overhead rate based on FY 2025 actual expenditures.",
+          "Reviewed state-mandated county services, including administration, medical examiner services and Chapter 160D planning and inspection requirements.",
+          "Reported net costs of non-mandated cost-recovery services (Solid Waste $611,653, DMV Tag Office $50,572, Child Development $325,572), totaling about one cent on the tax rate, and stated this was not a recommendation to cut them.",
+          "Listed other non-mandated services funded as community priorities, including Blue Ridge Community College, the Library, Parks and Recreation, Economic Development, Cooperative Extension and external agency funding.",
+          "Reported that about 92% of FY 2025 expenditures were for mandated or essential services and 8% for non-mandated services.",
+          "Reported that federal SNAP changes could cost the County about $1 million in benefits and $200,000 in administrative costs in FY 2027, roughly one cent on the tax rate.",
+          "Presented how FY 2025 property tax revenue was distributed across education, public safety, health and human services, fire and rescue and other services, noting education is expected to rise with school bond debt service.",
+          "Outlined potential areas to reduce property tax impact (fee review of about one cent and non-mandated services of up to about five cents) and budget-balancing methods not recommended.",
+          "Presented the FY 2027 budget timeline, including an April capital workshop, a May 26 recommended budget, tentative June 2 and 4 workshops and June 22 public hearing and adoption.",
+          "Responded to Board questions that most services are state-required but primarily locally funded, that Medicaid changes are being monitored for impacts on EMS, Public Health and Social Services, and that the County has one of the lower property tax rates in the State.",
+          "Reported that the New Adventure Learning Center has about 55 enrolled children and a waitlist, that staffing shortages have caused temporary classroom closures, and that childcare availability affects employers and employee retention.",
+          "Presented the monthly capital update, including the school capital portion on behalf of Project Manager Beecher Allison, covering school projects, the BHS CTE wing, the new courthouse, the library amphitheater cover, landfill projects, the watershed study and water and sewer projects.",
+          "Reported approximately $220 million in active capital projects managed by the same staffing level, with over $10 million in grant-funded projects closed out in the prior year.",
+          "Presented the 2026 capital priorities advocacy letter, recommending the new courthouse ($36 million) as the top priority and recommending approval of the letter for submission to legislators.",
+          "Recommended including a request for the State to fund the additional SNAP-related mandated costs in the advocacy letter.",
+          "Reviewed projects removed from the priority list after being funded, including the BHS CTE wing, landfill cell expansion, infrastructure funding, radio replacements, two cell towers and two ambulances.",
+          "In the Manager's Report, shared condolences on the passing of Mike Clampitt, noted the Board would reconvene in three weeks, and highlighted a new FY 2027 Budget page on the County website."
+        ]
+      },
+      {
+        "name": "Chuck Owenby",
+        "role": "Sheriff",
+        "items": [
+          "Presented the Sheriff's Office semi-annual report, including Court Services restructuring, a detention center body scanner, a new narcotics investigator position, evidence technician reclassification, additional tasers and body cameras, and a Flock-equipped speed trailer.",
+          "Reported 2025 performance data, including a 5.2% decrease in reportable crime, a 1.7% increase in arrests, a 24% increase in traffic citations, detention and court security metrics, and about $784,000 in revenue.",
+          "Identified future needs including additional court security personnel for the planned courthouse, an expected $30,000 annual loss in jail phone revenue from an FCC ruling, recruitment and retention challenges, funding recruits through BLET, and vehicle mileage and wear."
+        ]
+      },
+      {
+        "name": "Amanda Vanderoef",
+        "role": "Social Services Director",
+        "items": [
+          "Presented a request to reallocate up to $135,921 in DSS lapsed salaries for a three-month Allies 4 Outcomes contract to provide temporary Child Welfare staffing while half of Child Welfare positions are vacant, noting billing is for actual hours and services can be scaled down as permanent staff are hired."
+        ]
+      },
+      {
+        "name": "Scott Justus",
+        "role": "Fire Marshal",
+        "items": [
+          "Presented the Balsam Grove Fire Department request to purchase a 2.90-acre Highway 215 property for $300,000 plus $20,000 in due diligence costs, funded from the department's personnel line and the countywide fire service district tax reserve, and reported the department's $3.8 million Congressionally Directed Spending application.",
+          "Presented requests from Cedar Mountain Fire Rescue ($4,894.30) and Rosman Fire Rescue ($41,876.44) to access remaining fire district reserve funds and recommended approval."
+        ]
+      },
+      {
+        "name": "Nathanael Carver",
+        "role": "Information Technology Director",
+        "items": [
+          "Presented a proposal for a new County website and mobile app from Apptegy, with $10,700 in FY 2026 setup costs from contingency and a $10,900 annual subscription under a three-year contract.",
+          "Presented a three-year contract for Handtevy EMS medical management software expected to save about 30% over the contract term.",
+          "Presented an agreement with Comporium to provide a second dark fiber connection between County data centers in exchange for rack space, recommending approval pending County Attorney review.",
+          "Presented an updated Computer and Internet Use Policy replacing the 2001 policy, reviewed by the County Attorney and department heads."
+        ]
+      },
+      {
+        "name": "Bart Renner",
+        "role": "Agricultural Agent",
+        "items": [
+          "Recommended the appointment of Jeffrey Haywood to fill an unexpired term on the Agricultural Advisory Board."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-03-23-fu-1",
+        "dateRaised": "2026-03-23",
+        "owner": "Jaime Laughter",
+        "description": "Provide monthly public updates throughout the FY 2027 budget cycle and maintain the dedicated FY 2027 Budget information page on the County website.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "fiscal",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-2",
+        "dateRaised": "2026-03-23",
+        "owner": "Jaime Laughter",
+        "description": "Hold an April capital workshop with Commissioners as part of the FY 2027 budget timeline.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-3",
+        "dateRaised": "2026-03-23",
+        "owner": "Jaime Laughter",
+        "description": "Present the FY 2027 recommended budget (target May 26, 2026), with tentative budget workshops June 2 and 4 and the public hearing and adoption on June 22, 2026.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-4",
+        "dateRaised": "2026-03-23",
+        "owner": "Jaime Laughter",
+        "description": "Engage Commissioners on balancing the budget, including a possible fee discussion at a Commissioner meeting in April/May.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-5",
+        "dateRaised": "2026-03-23",
+        "owner": "Jaime Laughter",
+        "description": "Return to the Board with a refined new courthouse budget; final construction documents are expected late summer/early fall 2026.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "safety",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-6",
+        "dateRaised": "2026-03-23",
+        "owner": "Nathanael Carver",
+        "description": "Bring back to the Board any substantive changes to the Comporium reciprocal use agreement resulting from the County Attorney's legal review.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "infrastructure",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      },
+      {
+        "id": "2026-03-23-fu-7",
+        "dateRaised": "2026-03-23",
+        "owner": "Nathanael Carver",
+        "description": "Incorporate the updated Computer and Internet Use Policy into employee onboarding and support it with departmental training.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "governance"
+        ],
+        "relatedMeetingId": "2026-03-23"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-03-23%20reg%20mtg.pdf",
+    "agendaUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/agendas/2026-03-23%20BOC%20Agenda.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-03-09-fu-2",
+      "status": "resolved",
+      "resolution": "Sheriff Chuck Owenby presented the Sheriff's Office semi-annual departmental report as part of the FY 2027 budget kickoff."
+    },
+    {
+      "id": "2026-02-09-fu-3",
+      "status": "resolved",
+      "resolution": "The Board unanimously approved the advocacy letter of capital priorities, with the courthouse as top priority followed by the BRCC campus and the list organized by project type."
+    },
+    {
+      "id": "2026-01-12-fu-3",
+      "status": "in_progress",
+      "resolution": "The Manager said staff will provide monthly updates throughout the budget cycle and reported adding a dedicated FY 2027 Budget information page to the County website."
+    },
+    {
+      "id": "2024-04-22-fu-1",
+      "status": "in_progress",
+      "resolution": "The Manager provided the monthly capital update covering school and countywide capital projects."
+    },
+    {
+      "id": "2024-06-24-fu-1",
+      "status": "in_progress",
+      "resolution": "The monthly capital update was given at the Board's second monthly meeting, and the Manager referred the public to the Updated Five-Year Education Capital Funding Plan on the County website."
+    },
+    {
+      "id": "2025-05-12-fu-5",
+      "status": "in_progress",
+      "resolution": "Beecher Allison was attending the Board of Education meeting, so the Manager delivered the school capital update on his behalf."
+    },
+    {
+      "id": "2026-03-09-fu-3",
+      "status": "in_progress",
+      "resolution": "The Manager reported the County is working with regional and state partners to identify funding for remaining Azalea/Rhododendron connection gaps, and is awaiting confirmation of remaining funding for Calvert Road water and sewer before executing the MOU."
+    },
+    {
+      "id": "2025-12-08-fu-4",
+      "status": "in_progress",
+      "resolution": "The Manager reported the watershed study engineering team is preparing submission materials for state review."
+    },
+    {
+      "id": "2025-06-23-fu-5",
+      "status": "in_progress",
+      "resolution": "RHS retaining wall work remains in GMP 2 planning, with budget adjustments to be finalized once complete GMP 2 figures are available."
+    },
+    {
+      "id": "2025-12-08-fu-7",
+      "status": "in_progress",
+      "resolution": "The BHS Scope #2 GMP 1 package for 2026 work was approved by the subcommittee, with GMP 2 confirmation expected in July and Rosman GMP 2 construction expected in fall 2026."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "annual-capital-priorities-advocacy",
+      "title": "Annual Capital Priorities State and Federal Advocacy",
+      "categories": [
+        "fiscal",
+        "governance"
+      ],
+      "summary": "The Board unanimously approved the 2026 advocacy letter listing capital priorities led by the $36 million courthouse and $68 million BRCC campus, municipal partner infrastructure needs, departmental equipment, and a request for the State to fund new SNAP-related mandated costs."
+    },
+    {
+      "id": "balsam-grove-fire-station-relocation",
+      "title": "Balsam Grove Fire Department New Station Site",
+      "categories": [
+        "safety"
+      ],
+      "summary": "After an architect found expansion of the existing station feasible but not recommended, the Board unanimously approved $320,000 to purchase a 2.90-acre Highway 215 site, funded from the department's personnel line and the countywide fire tax reserve; the department has applied for $3.8 million in Congressionally Directed Spending."
+    },
+    {
+      "id": "dss-child-welfare-staffing",
+      "title": "DSS Child Welfare Staffing Shortage",
+      "categories": [
+        "health"
+      ],
+      "summary": "The Board unanimously approved reallocating $135,921 in DSS lapsed salaries for a three-month Allies 4 Outcomes contract to provide temporary Child Welfare staffing while three vacant positions are filled, with signing contingent on incorporating attorney comments."
+    },
+    {
+      "id": "county-website-redesign-apptegy",
+      "title": "New County Website and Mobile App (Apptegy)",
+      "categories": [
+        "governance"
+      ],
+      "summary": "The Board unanimously approved $10,700 in FY 2026 setup costs and a three-year Apptegy contract ($10,900 annually from FY 2027) for an ADA-compliant County website and mobile app."
+    },
+    {
+      "id": "new-adventure-learning-center-subsidy",
+      "title": "New Adventure Learning Center Childcare Subsidy",
+      "categories": [
+        "fiscal",
+        "health"
+      ],
+      "summary": "During budget discussion, Commissioner Chapman suggested evaluating reduced reliance on the roughly $325,000 annual County subsidy, while the Manager reported about 55 enrolled children with a waitlist and staffing-related classroom closures, and Chairwoman McCall cited regional childcare shortages."
+    },
+    {
+      "id": "snap-cost-shift",
+      "title": "Federal SNAP Changes and County Cost Impact",
+      "categories": [
+        "health",
+        "fiscal"
+      ],
+      "summary": "The Manager reported federal SNAP changes could cost the County about $1 million in benefits and $200,000 in administration in FY 2027 (about one cent on the tax rate), and a request for State funding of these costs was included in the advocacy letter."
+    },
+    {
+      "id": "landfill-cell-expansion",
+      "title": "Landfill Cell Expansion",
+      "categories": [
+        "environment",
+        "infrastructure"
+      ],
+      "summary": "The Manager reported construction remains on schedule with substantial completion around July 29 and a recent change order for unexpected rock; Commissioner Dalton noted about $7 million in state funding toward the roughly $9.5 million project."
+    },
+    {
+      "id": "bhs-cte-wing",
+      "title": "Brevard High School CTE Wing Expansion",
+      "categories": [
+        "schools"
+      ],
+      "summary": "The Manager reported the state-grant-funded CTE wing addition at Brevard High School is in the programming phase, with school staff working with the architect on schematic design."
+    },
+    {
+      "id": "watershed-study",
+      "title": "Watershed Study",
+      "categories": [
+        "environment"
+      ],
+      "summary": "The Manager reported the engineering team is preparing submission materials for state review."
+    },
+    {
+      "id": "library-amphitheater-cover",
+      "title": "Library Amphitheater Cover",
+      "categories": [
+        "community"
+      ],
+      "summary": "The Manager reported structural installation is complete, site grading, concrete and rock work are underway, drainage issues are being addressed, and completion is estimated in late April."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "fy27-budget-development",
+      "summary": "The Sheriff presented his semi-annual report as part of budget kickoff, and the Manager presented on structural budgeting challenges, mandated versus non-mandated FY 2025 spending (about 92% vs 8%), and the FY 2027 budget timeline leading to June 22 adoption."
+    },
+    {
+      "id": "property-tax-alternatives",
+      "summary": "Commissioners Chapman and Dalton and Chairwoman McCall discussed statewide property tax reform proposals including caps and a possible constitutional amendment, noting no replacement revenue source had been identified."
+    },
+    {
+      "id": "education-capital-projects",
+      "summary": "The Manager gave the monthly school capital update, reporting BHS Scope #2 GMP 1 approved by the subcommittee, Rosman shoring complete, storage tank work underway, and BHS softball lighting nearing completion; Public School Phase 2 needs ($30 million) were included in the advocacy letter."
+    },
+    {
+      "id": "courthouse-renovation-project",
+      "summary": "The Manager reported design at about 50% with budget refinement underway before returning to the Board, and the $36 million courthouse was approved as the top item on the 2026 advocacy letter."
+    },
+    {
+      "id": "blue-ridge-community-college-campus",
+      "summary": "The $68 million BRCC new campus was listed as the second priority in the approved 2026 capital advocacy letter."
+    },
+    {
+      "id": "solid-waste-rate-study",
+      "summary": "The Manager reported Solid Waste operated at a net cost of $611,653 in FY 2025, and Commissioner Dalton suggested future advocacy include Solid Waste needs as results of the ongoing study become available."
+    },
+    {
+      "id": "single-fire-service-district",
+      "summary": "Following the countywide fire tax implemented July 1, 2025, the Board unanimously approved disbursing remaining district reserve balances to Cedar Mountain Fire Rescue ($4,894.30) and Rosman Fire Rescue ($41,876.44)."
+    },
+    {
+      "id": "rosman-infrastructure-projects",
+      "summary": "The Rosman Water Treatment Plant ($10 million) and Woodruff area water and sewer extension ($4.5 million) were included in the approved advocacy letter."
+    },
+    {
+      "id": "pisgah-labs-utility-expansion",
+      "summary": "The Manager reported an RFQ has been issued for engineering services for the water/sewer extension in partnership with the City of Brevard."
+    },
+    {
+      "id": "infrastructure-grant-allocation",
+      "summary": "The Manager reported the City intends to fund the remaining Azalea/Rhododendron gap and the County is working with regional and state partners on remaining connection gaps, while the Calvert Road MOU awaits confirmation of remaining funding."
+    },
+    {
+      "id": "rosman-gym-structural-issues",
+      "summary": "The Manager reported temporary structural shoring at Rosman facilities is complete and buildings have returned to full use, with remaining work to begin in summer."
+    },
+    {
+      "id": "brevard-hs-gym-renovation-decision",
+      "summary": "The Manager reported the BHS old gym renovation is nearing final closeout, with warranty and closeout documentation to be delivered to the school system."
+    },
+    {
+      "id": "housing-study-implementation",
+      "summary": "The Manager reported the HAC, Habitat, and Azalea housing infrastructure projects on the Brevard system are in preliminary stages."
+    },
+    {
+      "id": "bookmobile-generator-replacement",
+      "summary": "A $500,000 library bookmobile replacement was included among departmental capital needs in the approved advocacy letter."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-17T16:36:04.199Z",
+    "revised": false,
+    "warnings": [
+      "Check — followUpUpdates[id=2026-02-09-fu-3]: The item is marked resolved, but the commitment was for the letter to be 'finalized and sent'. The minutes show the Board approved the letter for submission. They do not show that it was actually sent, so 'in_progress' may be more accurate. (minutes: \"Commissioner McKelvey moved to approve the advocacy letter containing the list of capital priorities for seeking funding support...\" (p. 21); the Manager \"recommended approval of the advocacy letter for submission to state and federal legislators in advance of the upcoming legislative session\" (p. 20))",
+      "Check — threadUpdates[id=bookmobile-generator-replacement]: The existing thread tracks a bookmobile generator replacement. The minutes list replacing the whole library bookmobile for $500,000. These may be different items, so linking this to the generator thread may be inaccurate. (minutes: \"Library bookmobile replacement – $500,000\" (p. 19))",
+      "Check — newFollowUps[2]: Presenting the recommended budget, holding workshops and adopting the budget on June 22 are statutory, scheduled steps that are certain to happen. Under the record's conventions these are likely routine next steps rather than follow-ups. (minutes: \"5/26/2026 Recommended Budget ... 6/22/2026 Public Hearing and Budget Adoption* Adoption same night ... 7/1/2026 Statute* Deadline for a balanced budget\" (p. 13))",
+      "Check — newFollowUps[1]: A new follow-up was created for the April capital workshop. Several open follow-ups already track a capital planning workshop with Commissioners (2025-08-25-fu-5, 2025-06-23-fu-6, 2025-04-28-fu-2). This may belong as a followUpUpdate on one of those rather than as a duplicate new item. (minutes: \"April Capital Discussion Capital Workshop with Commissioners\" (p. 13))",
+      "Check — newFollowUps[6]: The minutes do not name an owner for building the policy into onboarding and training; it is stated in the passive voice. It is also a routine implementation step for an adopted policy rather than a checkable commitment. (minutes: \"It will be incorporated into employee onboarding and supported by departmental training.\" (p. 24))"
+    ]
+  }
+}

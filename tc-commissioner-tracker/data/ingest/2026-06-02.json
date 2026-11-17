@@ -1,0 +1,615 @@
+{
+  "meeting": {
+    "id": "2026-06-02",
+    "date": "2026-06-02",
+    "type": "workshop",
+    "time": "6:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "chappell",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 4,
+    "duration": "1 hour 53 minutes",
+    "tldr": "The Board held a budget workshop on the FY 2027 recommended budget: an $82.5 million General Fund, 1.47% above FY 2026, with no property tax increase. The County Manager and commissioners discussed the County's fee structure and solid waste funding, possible future tax pressures (SNAP cost shifts, state teacher pay and a planned employee compensation study), non-mandated services, education funding and outside agency funding. No budget decisions were voted on. The Board said it did not need a second workshop, and the budget public hearing remains set for June 22, 2026.",
+    "keyVotes": [
+      {
+        "description": "Approved the meeting agenda",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "chapman",
+        "background": "Approval of the agenda at the start of the June 2, 2026 budget workshop on the FY 2027 recommended budget.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 1
+      },
+      {
+        "description": "Adjourned the budget workshop at 7:53 p.m.",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "dalton",
+        "background": "The County Manager offered the option of recessing and reconvening on June 4 at 6:00 p.m. for a second workshop, or proceeding to advertise the June 22 public hearing. The Board indicated no additional workshop was needed.",
+        "discussion": "Commissioners expressed appreciation to the Manager and staff for their preparation and work on the budget.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 21
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Confirmed that the Board would revisit parks and recreation fee options later in the year.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that the Board of Health had reviewed public health fees about two years earlier and found them comparable to those of surrounding counties.",
+            "categories": [
+              "health",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked what causes a fire marshal reinspection, given the reported drop in reinspections after the reinspection fee was adopted.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked about the previously proposed solid waste parcel fee and recalled that it was not well received, leading the Board instead to raise the sticker fee, which had not been raised in about 20 years.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Suggested that solid waste sticker fees be revisited periodically, such as every three to five years.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that solid waste is a mandated service and said the Board would need to make solid waste funding decisions with significant cost implications.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that without grant funding secured by staff, opening the new landfill cell would have required a seven-cent property tax increase.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked about turnover within the Sheriff's Office.",
+            "categories": [
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked about the timeline for the compensation study.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Said county governments are often constrained by state requirements while still being expected to provide essential public services.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Commended the Manager and staff for long-term financial planning and said the County compares favorably with neighboring jurisdictions that are considering larger tax increases, service district taxes or more use of fund balance.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said that discussing non-mandated services raises the question of which services to reduce or eliminate, and emphasized that services such as the DMV license plate agency, Child Development, the Library, Parks and Recreation and the Rosman Pool are widely used and valued.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Noted that services such as Parks and Recreation may warrant periodic review of user fees.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Agreed that County support for education is significant but expressed concern about the long-term sustainability of increasing local commitments as enrollment and state-funded positions decline.",
+            "categories": [
+              "schools",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that local government cannot indefinitely replace every state-funded school position lost through declining enrollment, and encouraged continued discussion of enrollment trends, efficiencies and educational quality.",
+            "categories": [
+              "schools",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said the County has limited direct control over outside agency allocations once funded, citing the Land of Sky Regional Council and noting that practical oversight is limited despite statutory audit authority.",
+            "categories": [
+              "governance",
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Asked about the General Fund supplement to the Solid Waste Enterprise Fund.",
+            "categories": [
+              "fiscal",
+              "environment"
+            ]
+          },
+          {
+            "text": "Asked about the effectiveness of the employee wellness clinic.",
+            "categories": [
+              "fiscal",
+              "health"
+            ]
+          },
+          {
+            "text": "Observed that the County faces significant uncertainty from state and federal policy decisions and potential restrictions on local property tax authority.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted concerns about fraud in public assistance programs and asked whether additional oversight measures were being implemented in response to new federal SNAP requirements.",
+            "categories": [
+              "health",
+              "governance"
+            ]
+          },
+          {
+            "text": "Requested information on unfunded mandates imposed on counties for use in upcoming meetings with state legislators.",
+            "categories": [
+              "governance",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Added that many potential cost pressures remain uncertain and depend on future state and federal decisions.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Emphasized increasing public awareness of the County's subsidy of non-mandated services such as the Rosman Pool and community centers.",
+            "categories": [
+              "community",
+              "governance"
+            ]
+          },
+          {
+            "text": "Highlighted the approximately $3,000 annual County contribution to the Honor Guard for uniforms and said the program is highly regarded by families served.",
+            "categories": [
+              "community"
+            ]
+          }
+        ],
+        "motionsMade": 1,
+        "motionsSeconded": 1,
+        "externalRoles": []
+      },
+      "chappell": {
+        "topics": [
+          {
+            "text": "Recalled that a 2016 field usage fee recommendation based on individual reservations was not supported and expressed support for exploring fees for tournaments and other large events.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that the County's projected health insurance cost increase is significantly lower than that of many other local governments, underscoring the wellness clinic's value.",
+            "categories": [
+              "fiscal",
+              "health"
+            ]
+          },
+          {
+            "text": "Expressed concern that compensation study salary data could be outdated before implementation, citing Henderson County's detention center expansion and Buncombe County's countywide fire service transition.",
+            "categories": [
+              "fiscal",
+              "safety"
+            ]
+          },
+          {
+            "text": "Stated that compensation alone may not address workforce challenges and encouraged consideration of longevity incentives, retention programs and benefit enhancements.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Said potential new state and federal mandates show the importance of a healthy fund balance and asked whether the County could absorb significant unforeseen costs.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that prior Board actions, including the FY 2026 tax increase and the long-term debt management strategy, were intended to proactively address future obligations.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Emphasized sharing education funding information with the public, highlighting $4.9 million for 71 locally funded school positions and more than $3.2 million for teacher supplements.",
+            "categories": [
+              "schools",
+              "governance"
+            ]
+          },
+          {
+            "text": "Stated that citizens should be proud of the County's investment in education beyond state requirements.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Expressed concern that counties are criticized for property tax increases while being expected to absorb costs of unfunded or underfunded state mandates.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted that participation in services such as Cooperative Extension and community college funding creates ongoing local funding obligations.",
+            "categories": [
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Agreed that unfunded mandates should be a focus of discussions with legislators, noting that limits on local revenue options make it hard to meet increasing service demands.",
+            "categories": [
+              "governance",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Requested clarification on the North Carolina Forest Service contract.",
+            "categories": [
+              "environment",
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 1,
+        "externalRoles": []
+      },
+      "mckelvey": {
+        "topics": [
+          {
+            "text": "Asked about building inspection fees and how they compare to neighboring counties.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked about EMS billing rates.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Acknowledged that solid waste fee increases have been controversial, noted a modest increase could generate about $300,000, and asked what the goal and a realistic target are for fee revenue.",
+            "categories": [
+              "fiscal",
+              "environment"
+            ]
+          },
+          {
+            "text": "Asked whether a revised solid waste fee structure was anticipated for the FY 2028 budget year.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked what realistic increase in the roughly $3.3 million in fee revenue might offset property tax reliance, and calculated that a 5% increase would equal about $160,000.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that there is currently no long-term funding plan in place for solid waste.",
+            "categories": [
+              "environment",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked whether compensation study implementation costs could exceed the approximately $2 million cost of the 2023 study.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked whether compensation studies evaluate opportunities to improve efficiency through technology or process improvements.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted that the tax pressure projections did not include future solid waste funding needs, new courthouse staffing or potential future capital projects.",
+            "categories": [
+              "fiscal",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Questioned whether the Board should take proactive steps to prepare for anticipated financial pressures and expressed concern that future Boards may face significant challenges if preparations are delayed.",
+            "categories": [
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 1,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      }
+    },
+    "publicComments": [],
+    "staffActivity": [
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Outlined the workshop process and noted the June 22, 2026 public hearing, the requirement to adopt a budget before July 1, and the availability of budget materials on the County website.",
+          "Summarized the FY 2027 recommended budget, including an $82.5 million General Fund, a 1.47% increase over FY 2026, and no property tax increase.",
+          "Reviewed capital and equipment recommendations, including vehicle and ambulance replacements, chiller replacements, an evidence incinerator and a smart-key system for the Public Safety Facility.",
+          "Reviewed personnel recommendations of no new positions, one net position reduction and six reclassifications with a County fund impact of about $7,640, plus a projected health plan cost increase of about 8%.",
+          "Summarized the approximately $4.1 million Solid Waste Enterprise Fund, its $720,000 General Fund subsidy, the consultant's recommendations, and the staff recommendation for public meetings during FY 2027.",
+          "Summarized fire department budgets totaling $6.9 million, including 2% revenue growth, a 2.7% cost-of-living adjustment and continued assistance to Balsam Grove with grant opportunities.",
+          "Reviewed the County fee structure, reporting about $3.3 million in annual fees and explaining state limits on fees for mandated and non-mandated services.",
+          "Reported that re-inspections have been eliminated since the Fire Marshal re-inspection fee was adopted, and explained that the fee applies only when a second reinspection is required.",
+          "Recommended researching Parks and Recreation field-use fees and holding community meetings on the solid waste fee study and disposal options.",
+          "Reported that staff is researching field fees in other jurisdictions and will work with the Parks and Recreation Commission and partner organizations, noting that fees could be implemented outside the budget cycle.",
+          "Reported that the total property tax impact of solid waste services, including capital needs, continues to exceed $1 million annually.",
+          "Reported that wellness clinic services would have cost $500,000 with traditional providers, compared with clinic operating costs under $250,000, and confirmed that the City of Brevard pays its proportional share.",
+          "Reported that building inspection fees are consistent with regional rates and that EMS fees are significantly higher than Medicare reimbursement rates.",
+          "Explained that parcel-based solid waste fees are the most common peer approach, recalled a previously proposed $125–$130 per-parcel range, and confirmed that a revised fee structure is anticipated for FY 2028.",
+          "Estimated that a 5% increase in fee revenue is realistic and said she had not recommended sticker fee increases this year because staff anticipates a more comprehensive solid waste solution.",
+          "Presented tax increase pressures, including SNAP cost shifts of about $1.2 million (1 cent), teacher pay increases of about $1.2 million (1 cent), and compensation study implementation, previously $2 million or about 1.6 cents.",
+          "Explained the compensation study timeline, with a request for services expected in the fall and recommendations in early 2028 for the FY 2028 budget, and said the study will include a benefits comparison.",
+          "Reported that two Sheriff's Office officers left employment in the previous week and that Henderson County plans to hire detention staff before its new facility opens.",
+          "Described County technology investments, including Munis and NeoGov, and openness to using artificial intelligence and automation where they improve service delivery.",
+          "Explained state and federal oversight and audit requirements for SNAP administration.",
+          "Stated that the County is well positioned to absorb unforeseen costs because of conservative financial management and multi-year budgeting.",
+          "Reported that about 92% of the County budget supports mandated services and 90% of property tax revenues are tied to mandated responsibilities.",
+          "Confirmed that future solid waste needs, courthouse staffing and capital requests such as potential Blue Ridge Community College facilities were not included in the tax pressure estimates, and cautioned that grant availability may decline.",
+          "Presented non-mandated services costs of about $4.08 million, or $4.69 million with estimated overhead, and about $15 million in related 10-year capital maintenance needs, for a cumulative property tax equivalent of about 4.9 cents.",
+          "Stated that staff will continue efforts to educate the public about County services and their costs.",
+          "Presented Transylvania County Schools personnel data showing 71 locally funded positions, $4.89 million in locally funded payroll and benefits, and a $3.2 million teacher supplement.",
+          "Thanked Superintendent Dr. Lisa Fletcher and Finance Director Michelle Mullinax for sharing information and working with County staff.",
+          "Presented outside agency funding of $18.8 million, equal to 23% of General Fund expenditures and 37% of property tax-supported spending, with 24% growth from FY 2022 to FY 2027.",
+          "Explained the North Carolina Forest Service agreement providing local forestry personnel and equipment for wildfire prevention and response.",
+          "Reported that the County funds about 47% of the City of Brevard Fire Department budget for Sylvan Valley coverage, that Sylvan Valley accounts for about 25% of that department's call volume, and that three departments respond to about 87% of calls in the district.",
+          "Offered the Board an additional workshop on June 4 or the option to proceed with advertising the June 22 public hearing, and noted where hard copies of the recommended budget are available."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-06-02-fu-1",
+        "dateRaised": "2026-06-02",
+        "owner": "Jaime Laughter",
+        "description": "Research how other jurisdictions structure Parks and Recreation field reservation and tournament-use fees, and work with the Parks and Recreation Commission and partner organizations to bring recommendations back to the Board later in the year.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "fiscal",
+          "community"
+        ],
+        "relatedMeetingId": "2026-06-02"
+      },
+      {
+        "id": "2026-06-02-fu-2",
+        "dateRaised": "2026-06-02",
+        "owner": "Jaime Laughter",
+        "description": "Conduct a comprehensive compensation and classification study, including a benefits comparison, by an independent consultant. The request for services is to be issued in the fall, with recommendations expected in early 2028 for the FY 2028 budget.",
+        "status": "open",
+        "type": "long_term",
+        "categories": [
+          "fiscal",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-02"
+      },
+      {
+        "id": "2026-06-02-fu-3",
+        "dateRaised": "2026-06-02",
+        "owner": "staff",
+        "description": "Continue assisting Balsam Grove fire department with grant opportunities and project development for its new station.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "safety"
+        ],
+        "relatedMeetingId": "2026-06-02"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-06-02%20Budget%20Workshop.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-05-26-fu-1",
+      "status": "resolved",
+      "resolution": "The June 2 budget workshop covered fee structure, tax increase pressures including teacher personnel costs, non-mandated services, education funding with teacher supplement figures, and outside agency funding."
+    },
+    {
+      "id": "2026-03-23-fu-3",
+      "status": "in_progress",
+      "resolution": "The recommended budget was presented May 26 and the June 2 workshop was held. The Board indicated no need for the June 4 workshop, and the public hearing remains scheduled for June 22."
+    },
+    {
+      "id": "2026-03-23-fu-4",
+      "status": "resolved",
+      "resolution": "The Manager led a fee structure review at the June 2 budget workshop, covering mandated and non-mandated service fees and realistic fee revenue increases."
+    },
+    {
+      "id": "2026-03-23-fu-1",
+      "status": "in_progress",
+      "resolution": "The Manager noted that budget presentations, supporting materials, the recommended budget and the Schools' budget request were posted on the County website."
+    },
+    {
+      "id": "2026-01-12-fu-3",
+      "status": "in_progress",
+      "resolution": "The Manager noted that budget materials were made available on the County website to promote transparency and public engagement throughout the budget process."
+    },
+    {
+      "id": "2026-05-26-fu-2",
+      "status": "in_progress",
+      "resolution": "The Manager said staff are refining a solid waste fee proposal ahead of future community engagement sessions, and confirmed that a revised fee structure is anticipated for FY 2028."
+    },
+    {
+      "id": "2026-05-11-fu-2",
+      "status": "in_progress",
+      "resolution": "The Manager reported that staff are continuing to refine the solid waste proposal in preparation for future community engagement sessions."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "county-compensation-study",
+      "title": "County Employee Compensation and Classification Study",
+      "categories": [
+        "fiscal",
+        "governance"
+      ],
+      "summary": "The FY 2027 recommended budget funds a third-party compensation study comparing the County with at least 17 jurisdictions. The RFP is expected in the fall and recommendations in early 2028. The Manager said implementation cost is expected to be at least comparable to the roughly $2 million cost of the 2023 study."
+    },
+    {
+      "id": "parks-recreation-field-use-fees",
+      "title": "Parks and Recreation Field-Use Fees",
+      "categories": [
+        "fiscal",
+        "community"
+      ],
+      "summary": "Staff recommended researching field reservation and tournament-use fees. Commissioner Chappell supported fees for tournaments and large events, and Chairwoman McCall confirmed that the Board would revisit the options later in the year."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "fy27-budget-development",
+      "summary": "The Board held a budget workshop on fees, tax pressures, non-mandated services, education and outside agency funding for the $82.5 million recommended General Fund budget, which has no tax increase. The Board declined an additional June 4 workshop and proceeded toward the June 22 public hearing."
+    },
+    {
+      "id": "solid-waste-rate-study",
+      "summary": "The Manager reviewed consultant recommendations for a parcel-based availability fee (previously $125–$130 per parcel at the low end), elimination of bag fees and community meetings in FY 2027, with a revised fee structure anticipated for FY 2028. Commissioner McKelvey noted that there is no long-term solid waste funding plan."
+    },
+    {
+      "id": "snap-cost-shift",
+      "summary": "Staff estimated that federal SNAP administrative and benefit cost-sharing changes could cost the County about $1.2 million annually, or about one cent on the tax rate, if passed through by the State. The Manager described state and federal oversight of the program in response to Commissioner Chapman's question on fraud."
+    },
+    {
+      "id": "balsam-grove-fire-station-relocation",
+      "summary": "The fire budget continues to support future staffing at the Balsam Grove station once construction is complete. Staff will continue assisting with grant opportunities, and there are indications that grant funding may be available."
+    },
+    {
+      "id": "courthouse-renovation-project",
+      "summary": "The $38 million courthouse project was listed among major capital initiatives. Commissioner McKelvey noted that staffing needs for the new courthouse were not included in the tax pressure projections."
+    },
+    {
+      "id": "education-capital-projects",
+      "summary": "The budget summary listed a $164 million school capital improvement plan and a 42% increase in annual school capital funding."
+    },
+    {
+      "id": "county-facility-assessments",
+      "summary": "Staff reported that the 10-year capital maintenance plan identifies about $15 million (39%) in non-mandated facility needs. The Veterans Museum and the White House/Old Elections building were rated below average, and the White House is being assessed structurally."
+    },
+    {
+      "id": "debt-service-long-term-strategy",
+      "summary": "The Manager cited the 10-year debt payment strategy and the planned use of assigned fund balance to smooth debt payments for the school, courthouse and EMS base projects."
+    },
+    {
+      "id": "property-tax-alternatives",
+      "summary": "The Manager reported that County fees generate about $3.3 million annually and estimated that a realistic fee revenue increase is about 5%, or roughly $160,000. She noted that state law limits local revenue options beyond property tax."
+    },
+    {
+      "id": "blue-ridge-community-college-campus",
+      "summary": "The Manager noted that potential future Blue Ridge Community College facility requests could require significant additional local funding and were not included in the tax pressure estimates."
+    },
+    {
+      "id": "lead-for-nc-fellowship-2026",
+      "summary": "The FY 2027 recommended budget includes funding for the previously approved LEAD for North Carolina Fellow position, reporting to the County Clerk."
+    },
+    {
+      "id": "landfill-cell-expansion",
+      "summary": "Chairwoman McCall noted that without grant funding secured by staff, opening the new landfill cell would have required a seven-cent property tax increase."
+    },
+    {
+      "id": "solid-waste-transfer-station",
+      "summary": "Consultants recommended evaluating a future transfer station model instead of constructing additional landfill cells."
+    },
+    {
+      "id": "sylvan-valley-fire-staffing",
+      "summary": "The Manager reported that the County funds about 47% of the City of Brevard Fire Department budget for Sylvan Valley coverage, which accounts for about 25% of that department's call volume. She said about three departments respond to about 87% of the district's calls."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-17T16:38:42.424Z",
+    "revised": false,
+    "warnings": [
+      "Check — threadUpdates[solid-waste-rate-study].summary: The summary lists community meetings in FY 2027 among the consultant recommendations. The minutes attribute that recommendation to staff; the consultants recommended eliminating bag fees, an availability fee with tipping fees, and evaluating a transfer station. The $125–$130 figure is also the Board's earlier parcel-fee proposal, not part of the current consultant recommendation. (minutes: \"Consultants recommended eliminating bag fees, implementing an availability fee combined with tipping fees... Staff recommend conducting a series of public meetings during FY 2027\" (p. 5); \"previously proposed solid waste parcel fee... $125–$130 per parcel\" (p. 9))",
+      "Check — followUpUpdates[2026-03-23-fu-4].status: The item is marked resolved, but the commitment was to engage Commissioners on balancing the budget, including a possible fee discussion in April/May. The fee review took place on June 2 and the budget has not yet been adopted, so in_progress may be more accurate. A human should confirm. (minutes: \"FEE STRUCTURE REVIEW The Manager reviewed the County's fee structure...\" (p. 6); \"a budget must be adopted before July 1\" (p. 1))"
+    ]
+  }
+}
