@@ -31,3 +31,15 @@ describe("describeKeySetup", () => {
     expect(describeKeySetup(URL_A, "sb_secret_x").join()).toMatch(/spaces or line breaks.*quotes/);
   });
 });
+
+import { describeAnthropicKey } from "../claude";
+
+describe("describeAnthropicKey", () => {
+  it("names the kind of value configured without revealing it", () => {
+    expect(describeAnthropicKey("sk-ant-api03-abcdef").join()).toMatch(/looks like an Anthropic API key \(19 characters\)/);
+    expect(describeAnthropicKey("sk-ant-admin01-x").join()).toMatch(/Admin API key/);
+    expect(describeAnthropicKey("sk-proj-abc").join()).toMatch(/different AI provider/);
+    expect(describeAnthropicKey(' "sk-ant-api03-abc"\n').join()).toMatch(/spaces or line breaks.*quotes/);
+    expect(describeAnthropicKey("hello").join()).not.toMatch(/hello/);
+  });
+});

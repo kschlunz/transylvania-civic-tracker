@@ -9,6 +9,29 @@ export function resolveModel(): string {
   return process.env.TRACKER_MODEL?.trim() || DEFAULT_MODEL;
 }
 
+/**
+ * Explain why Anthropic might reject the key, without revealing it
+ * (workflow logs are public).
+ */
+export function describeAnthropicKey(raw: string | undefined): string[] {
+  if (!raw) return ["ANTHROPIC_API_KEY is empty."];
+  const notes: string[] = [];
+  if (raw !== raw.trim()) notes.push("The key had spaces or line breaks around it (now trimmed).");
+  if (/^["']|["']$/.test(raw.trim())) notes.push("The key was wrapped in quotes (now removed).");
+  const key = cleanKey(raw) ?? "";
+  if (key.startsWith("sk-ant-api")) notes.push(`The key looks like an Anthropic API key (${key.length} characters), so it has most likely been revoked, mistyped, or belongs to an organization without API access.`);
+  else if (key.startsWith("sk-ant-admin")) notes.push("The key is an Admin API key. Use a regular API key (sk-ant-api...).");
+  else if (key.startsWith("sk-ant-oat") || key.startsWith("sk-ant-ort")) notes.push("The key is an OAuth token, not an API key. Create an API key in the Anthropic Console.");
+  else if (key.startsWith("sk-")) notes.push(`The key starts with "sk-" but not "sk-ant-": it is probably a key for a different AI provider (${key.length} characters).`);
+  else notes.push(`The key does not look like an Anthropic API key, which starts with "sk-ant-api" (${key.length} characters).`);
+  return notes;
+}
+
+function cleanKey(value: string | undefined): string | undefined {
+  const v = value?.trim().replace(/^["']|["']$/g, "").trim();
+  return v || undefined;
+}
+
 export interface Usage {
   requests: number;
   inputTokens: number;
@@ -26,13 +49,14 @@ export function createClaudeLlm(options: { model?: string; client?: Anthropic; l
   model: string;
 } {
   const model = options.model ?? resolveModel();
-  const client = options.client ?? new Anthropic({ maxRetries: 4 });
+  const client = options.client ?? new Anthropic({ apiKey: cleanKey(process.env.ANTHROPIC_API_KEY), maxRetries: 4 });
   const log = options.log ?? ((line: string) => console.log(line));
   const usage: Usage = { requests: 0, inputTokens: 0, cachedInputTokens: 0, outputTokens: 0 };
 
   const llm: Llm = async (request) => {
     const started = Date.now();
-    const message = await client.messages
+    const message = await requestWithKeyHelp(() =>
+      client.messages
       .stream({
         model,
         max_tokens: 64000,
@@ -52,7 +76,8 @@ export function createClaudeLlm(options: { model?: string; client?: Anthropic; l
           },
         ],
       })
-      .finalMessage();
+      .finalMessage(),
+    );
 
     usage.requests += 1;
     usage.inputTokens += message.usage.input_tokens + (message.usage.cache_creation_input_tokens ?? 0);
@@ -77,4 +102,16 @@ export function createClaudeLlm(options: { model?: string; client?: Anthropic; l
   };
 
   return { llm, usage, model };
+}
+
+async function requestWithKeyHelp<T>(send: () => Promise<T>): Promise<T> {
+  try {
+    return await send();
+  } catch (error) {
+    if (error instanceof Anthropic.AuthenticationError) {
+      const notes = describeAnthropicKey(process.env.ANTHROPIC_API_KEY);
+      throw new Error(`Anthropic rejected ANTHROPIC_API_KEY (${error.message}).\nAbout the configured key:\n${notes.map((n) => `  - ${n}`).join("\n")}`);
+    }
+    throw error;
+  }
 }
