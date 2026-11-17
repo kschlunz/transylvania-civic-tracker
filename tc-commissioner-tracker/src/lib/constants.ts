@@ -40,7 +40,14 @@ export const CATEGORY_ICONS: Record<string, string> = {
 export const ELECTION_INFO = {
   nextElection: "November 2026",
   openSeats: 2,
-  note: "Dalton and McKelvey are not running for re-election.",
+  note: "Democrats Owen Carson and Bryan O'Neill won the two seats left open by Jake Dalton and Chase McKelvey, who did not seek re-election. They take office at the organizational meeting on December 7, 2026.",
   gopNominees: ["Howell", "Sutherland"],
   demNominees: ["Carson", "O'Neill"],
+  /** Winners as "Name (Party)". Leave empty before results are reported. */
+  winners: ["Owen Carson (D)", "Bryan O'Neill (D)"],
+  /** Candidates who were not elected, as "Name (Party)". */
+  notElected: ["Kevin Howell (R)", "George Sutherland (R)"],
+  /** Set to true once the county canvass certifies the results; until then they are shown as unofficial. */
+  certified: false,
+  resultsUrl: "https://transylvaniaelections.org/",
 };
