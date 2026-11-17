@@ -87,7 +87,7 @@ export function fakeLlm(answers: { extract?: Extraction[]; revise?: Extraction[]
     const queue = queues[task as keyof typeof queues];
     const answer = queue.length > 0 ? (part && part !== "followUps" ? queue[0] : queue.shift()) : task === "review" ? { issues: [] } : undefined;
     if (answer === undefined) throw new Error(`fakeLlm: no answer queued for "${request.task}"`);
-    return request.schema.parse(answer);
+    return request.tool.schema.parse(answer);
   };
   /** The sequence of tasks with the three parts of an extraction counted once. */
   const steps = () => calls.map((c) => c.task.split(":")[0]).filter((t, i, all) => !(t !== "review" && all[i - 1] === t));

@@ -112,15 +112,24 @@ describe("extractMeeting", () => {
   });
 });
 
-describe("extraction schema", () => {
-  it("stays small enough for the API: no unions and only short fixed enums", async () => {
-    const { zodOutputFormat } = await import("@anthropic-ai/sdk/helpers/zod");
-    const { extractionSchema } = await import("../extraction");
-    const json = JSON.stringify(zodOutputFormat(extractionSchema()).schema);
-    expect(json).not.toMatch(/anyOf|"type":\["/);
-    const enums = json.match(/"enum":\[[^\]]*\]/g) ?? [];
-    expect(enums.length).toBeLessThanOrEqual(3);
-    expect(enums.join()).not.toMatch(/mccall|fiscal/);
+describe("response tools", () => {
+  it("every request for a meeting sends the same toolset and system prompt", async () => {
+    const { llm, calls } = fakeLlm({ extract: [extraction()], review: [{ issues: [] }] });
+    const seen: unknown[] = [];
+    const spy: typeof llm = (request) => {
+      seen.push({ system: request.system, toolset: request.toolset.map((t) => t.name) });
+      return llm(request);
+    };
+    await extractMeeting({ llm: spy, model: "m", pdf: PDF, listed: listed("2026-03-09"), openFollowUps: [], activeThreads: [], roster: ROSTER });
+    expect(calls.map((c) => c.task)).toEqual(["extract:meeting", "extract:people", "extract:followUps", "review"]);
+    expect(new Set(seen.map((s) => JSON.stringify(s))).size).toBe(1);
+  });
+
+  it("covers the whole extraction between the three part tools", async () => {
+    const { responseTools, extractionSchema } = await import("../extraction");
+    const tools = responseTools();
+    const keys = [tools.meeting, tools.people, tools.followUps].flatMap((t) => Object.keys((t.schema as unknown as { shape: object }).shape));
+    expect(keys.sort()).toEqual(Object.keys(extractionSchema().shape).sort());
   });
 });
 
