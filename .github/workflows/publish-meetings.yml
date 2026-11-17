@@ -1,0 +1,59 @@
+name: Publish meetings
+
+# When reviewed meeting records are merged into main, applies them to
+# Supabase so they appear on the site. Can also be run by hand to republish
+# specific records.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tc-commissioner-tracker/data/ingest/**"
+  workflow_dispatch:
+    inputs:
+      dates:
+        description: "Meeting dates to republish (YYYY-MM-DD, space separated)"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-meetings
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tc-commissioner-tracker
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tc-commissioner-tracker/package-lock.json
+      - run: npm ci
+      - name: Work out which records to publish
+        id: files
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT_DATES: ${{ inputs.dates }}
+        run: |
+          if [ -n "$INPUT_DATES" ]; then
+            files=$(for d in $INPUT_DATES; do echo "data/ingest/$d.json"; done)
+          else
+            files=$(git diff --name-only --diff-filter=AM "$BEFORE" "$GITHUB_SHA" -- data/ingest | grep '\.json$' | sed 's#^tc-commissioner-tracker/##' || true)
+          fi
+          echo "$files"
+          echo "files=$(echo $files)" >> "$GITHUB_OUTPUT"
+      - name: Publish to Supabase
+        if: steps.files.outputs.files != ''
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx tsx scripts/publish-meetings.ts ${{ steps.files.outputs.files }} | tee -a "$GITHUB_STEP_SUMMARY"

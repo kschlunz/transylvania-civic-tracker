@@ -61,7 +61,8 @@ export default function MeetingDetail() {
   }
 
   const dateStr = new Date(meeting.date + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-  const passedVotes = meeting.keyVotes.length;
+  const failedVotes = meeting.keyVotes.filter((v) => v.passed === false).length;
+  const passedVotes = meeting.keyVotes.length - failedVotes;
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-16">
@@ -127,7 +128,7 @@ export default function MeetingDetail() {
           <div className="flex items-center justify-between">
             <h3 className="font-headline text-3xl font-bold text-primary">Major Motions &amp; Votes</h3>
             <span className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
-              {passedVotes} Passed | 0 Failed
+              {passedVotes} Passed | {failedVotes} Failed
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">

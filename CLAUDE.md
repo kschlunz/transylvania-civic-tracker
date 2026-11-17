@@ -19,7 +19,8 @@ A non-partisan civic accountability tool tracking Transylvania County Board of C
 - scripts/ — one-off scripts for resyncing data
 
 ## Key Concepts
-- Meetings are processed through /admin/intake by pasting raw minutes text
+- New minutes are picked up automatically: the "Ingest minutes" GitHub workflow checks the county's meetings page daily, extracts each new meeting from its PDF with Claude (a second pass checks the draft against the PDF), and opens a pull request with the records in tc-commissioner-tracker/data/ingest/. Merging runs "Publish meetings", which writes them to Supabase. Code: tc-commissioner-tracker/scripts/ingest/
+- Meetings can also be processed by hand through /admin/intake by pasting raw minutes text
 - Claude extracts commissioner activity, votes, follow-ups, staff activity, and topic threads
 - Follow-ups track commitments made in meetings with open/resolved status and days-open counters
 - Topic threads connect specific recurring items across multiple meetings
@@ -35,6 +36,7 @@ A non-partisan civic accountability tool tracking Transylvania County Board of C
 - Non-partisan tone — present facts, no editorial scores or political spectrum ratings
 
 ## Commissioners
+- The board on a given date is defined in tc-commissioner-tracker/scripts/ingest/roster.ts (used by the pipeline); keep COMMISSIONERS in src/lib/constants.ts in step with it
 - Teresa McCall (Chair, since 2020)
 - Larry Chapman (Vice-Chair, since 2010)
 - Jason Chappell (Commissioner, since 2004)
