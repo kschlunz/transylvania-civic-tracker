@@ -12,14 +12,29 @@ import { ROSTER, seatedRoster, type RosterEntry } from "./roster";
 
 export const CATEGORY_IDS = CATEGORIES.map((c) => c.id) as [string, ...string[]];
 
-/** One structured request to the model about one PDF. */
+/** A tool the model answers with; its input is the answer. */
+export interface ResponseTool<T = unknown> {
+  name: string;
+  description: string;
+  schema: z.ZodType<T>;
+}
+
+/** One request to the model about one PDF. */
 export interface LlmRequest<T> {
-  /** Short name for logs: "extract", "review" or "revise". */
+  /** Short name for logs, e.g. "extract:meeting", "review". */
   task: string;
   system: string;
   pdf: Buffer;
   instructions: string;
-  schema: z.ZodType<T>;
+  /** The tool the model must answer with. */
+  tool: ResponseTool<T>;
+  /**
+   * Every tool used for this PDF, sent unchanged with each request. Tools,
+   * system prompt and PDF then form the same prefix every time, so the API
+   * reads them from its cache after the first request instead of charging
+   * for the whole PDF again.
+   */
+  toolset: ResponseTool[];
 }
 export type Llm = <T>(request: LlmRequest<T>) => Promise<T>;
 
@@ -39,17 +54,16 @@ export interface ActiveThread {
 /**
  * What the model returns. Ids, dates and links are added by the pipeline, never by the model.
  *
- * Kept deliberately plain (no enums, no nullable fields): the API compiles the
- * schema into a grammar with a size limit, and commissioner and category ids
- * repeated as enums across many fields exceeded it. Ids are checked and
- * normalised in code instead (normaliseExtraction and checkRecord).
+ * Kept plain (no enums, no nullable fields): commissioner and category ids are
+ * checked and normalised in code instead (normaliseExtraction and checkRecord),
+ * which also tolerates a name where an id was expected.
  */
 export function extractionSchema() {
   const parts = extractionParts();
   return z.object({ ...parts.meeting.shape, ...parts.people.shape, ...parts.followUps.shape });
 }
 
-/** The extraction split into three smaller schemas, used if the full one is too large for the API. */
+/** The extraction split into three parts, one request each. */
 export function extractionParts() {
   const commissioner = z.string().describe("A commissioner id from the list in the instructions.");
   const category = z.string().describe("A category id from the list in the instructions.");
@@ -140,6 +154,18 @@ export const ReviewSchema = z.object({
   ),
 });
 export type Review = z.infer<typeof ReviewSchema>;
+
+/** The tools the model answers with: one per part of the record, and one for the review. */
+export function responseTools() {
+  const parts = extractionParts();
+  const tool = <T>(name: string, description: string, schema: z.ZodType<T>): ResponseTool<T> => ({ name, description, schema });
+  return {
+    meeting: tool("record_meeting", "Submit the meeting details and votes part of the record.", parts.meeting),
+    people: tool("record_people", "Submit the commissioner activity, public comment and staff activity part of the record.", parts.people),
+    followUps: tool("record_follow_ups", "Submit the follow-ups and topic threads part of the record.", parts.followUps),
+    review: tool("submit_review", "Submit the problems found in a draft record.", ReviewSchema),
+  };
+}
 
 export function buildSystemPrompt(meetingDate: string, roster: RosterEntry[] = ROSTER): string {
   return `You help maintain Civic Ledger, a public, non-partisan record of the Transylvania County (North Carolina) Board of Commissioners. Residents use it to see how their commissioners vote and whether commitments made in meetings are kept, so accuracy matters more than completeness: every statement in the record must be supported by the official minutes you are given. When the minutes are silent or ambiguous, leave the field empty or null rather than inferring.
@@ -406,7 +432,8 @@ export async function extractMeeting(input: {
   const seatedIds = seatedRoster(listed.date, roster).map((r) => r.id);
   if (seatedIds.length === 0) throw new Error(`No commissioners in the roster were seated on ${listed.date}. Update scripts/ingest/roster.ts.`);
   const seated = seatedRoster(listed.date, roster);
-  const parts = extractionParts();
+  const tools = responseTools();
+  const toolset = Object.values(tools) as ResponseTool[];
   const system = buildSystemPrompt(listed.date, roster);
   const openIds = new Set(openFollowUps.map((f) => f.id));
   const threadIds = new Set(activeThreads.map((t) => t.id));
@@ -423,26 +450,29 @@ export async function extractMeeting(input: {
       task: "review",
       system,
       pdf,
-      schema: ReviewSchema,
+      tool: tools.review,
+      toolset,
       instructions: `${meetingLine(listed)} Below is a draft record of this meeting prepared from them. Check the draft against the minutes and report every place where it is wrong or unsupported: a vote that is missing or invented, a wrong mover, seconder or roll call, a statement attributed to the wrong person, a figure that differs from the minutes, a public speaker or staff presenter missed or misnamed, a follow-up that is not really a commitment, or an earlier follow-up or thread marked as discussed without clear support. Read the minutes page by page rather than sampling. Report only real discrepancies; an empty list is the right answer for an accurate draft.
 
 ${context}
 ${problems.length > 0 ? `\nAutomated consistency checks already flagged:\n${problems.map((p) => `- ${p}`).join("\n")}\n` : ""}
 Draft record:
-${JSON.stringify(extraction, null, 2)}`,
+${JSON.stringify(extraction, null, 2)}
+
+Answer by calling ${tools.review.name}.`,
     });
 
   /**
-   * Produce a full record in three requests, one per part of the schema: the
-   * API rejects the whole schema in one go as too large. The PDF is cached,
-   * so the second and third requests mostly reuse it.
+   * Produce a full record in three requests, one per part, so each answer
+   * stays focused. The PDF is read from the API's cache after the first
+   * request, so the extra requests add little cost.
    */
   const produce = async (task: "extract" | "revise", instructions: string): Promise<Extraction> => {
-    const [meeting, people, followUps] = [
-      await llm({ task: `${task}:meeting`, system, pdf, schema: parts.meeting, instructions: `${instructions}\n\nFor this request, return only the meeting details and votes part of the record.` }),
-      await llm({ task: `${task}:people`, system, pdf, schema: parts.people, instructions: `${instructions}\n\nFor this request, return only the commissioner activity, public comment and staff activity part of the record.` }),
-      await llm({ task: `${task}:followUps`, system, pdf, schema: parts.followUps, instructions: `${instructions}\n\nFor this request, return only the follow-ups and topic threads part of the record.` }),
-    ];
+    const part = <T>(name: string, tool: ResponseTool<T>, what: string) =>
+      llm({ task: `${task}:${name}`, system, pdf, tool, toolset, instructions: `${instructions}\n\nFor this request, call ${tool.name} with only ${what} part of the record.` });
+    const meeting = await part("meeting", tools.meeting, "the meeting details and votes");
+    const people = await part("people", tools.people, "the commissioner activity, public comment and staff activity");
+    const followUps = await part("followUps", tools.followUps, "the follow-ups and topic threads");
     return { ...meeting, ...people, ...followUps };
   };
 
