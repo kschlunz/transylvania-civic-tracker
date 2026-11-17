@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tc-commissioner-tracker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tc-commissioner-tracker/package-lock.json
+      - run: npm ci
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Unit tests
+        run: npx vitest run
+      - name: Validate meeting records waiting to publish
+        run: |
+          shopt -s nullglob
+          files=(data/ingest/*.json)
+          if [ ${#files[@]} -gt 0 ]; then npx tsx scripts/publish-meetings.ts --dry-run "${files[@]}"; fi
+      - name: Build
+        run: npm run build

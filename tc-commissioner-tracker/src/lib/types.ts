@@ -32,6 +32,13 @@ export interface KeyVote {
   seconder: string;
   background?: string;
   discussion?: string;
+  /** Set by the automated pipeline; older records do not have these. */
+  passed?: boolean;
+  consent?: boolean;
+  /** How each commissioner voted, when the minutes say. */
+  votes?: { ayes: string[]; nays: string[]; abstained: string[]; absent: string[] } | null;
+  /** 1-indexed page of the minutes PDF where the vote is recorded. */
+  page?: number | null;
 }
 
 export interface PublicComment {
