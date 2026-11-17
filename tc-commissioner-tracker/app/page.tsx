@@ -4,14 +4,11 @@ import { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { COMMISSIONERS, CATEGORIES, CATEGORY_ICONS, ELECTION_INFO } from "@/lib/constants";
-import budgetJson from "@/data/budget-fy26.json";
-import type { BudgetData } from "@/lib/budget-types";
 import { useMeetings } from "@/lib/meetings-context";
 import { parseFiltersFromParams, filterMeetings } from "@/lib/filters";
 import { getFollowUpsAsync } from "@/lib/data";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import UpcomingMeetingBanner from "@/components/UpcomingMeetingBanner";
-import BudgetCycleCard from "@/components/BudgetCycleCard";
 import { type FollowUpItem, type Meeting, isFollowUpOverdue } from "@/lib/types";
 import { announcements as announcementsData } from "@/data/announcements";
 
@@ -88,24 +85,12 @@ function HeroStats({ meetings, ready }: { meetings: Meeting[]; ready: boolean })
   const ongoingCount = followUps.filter((f) => (f.status === "open" || f.status === "in_progress") && f.type === "ongoing").length;
   const overdueCount = followUps.filter((f) => isFollowUpOverdue(f)).length;
 
-  const budgetTotal = budget.departments.reduce((s, d) => s + d.totalsByYear.fy26Projection, 0);
-
-  function fmt(val: number) {
-    if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(0)}M`;
-    return `$${(val / 1_000).toFixed(0)}K`;
-  }
-
   const NumberSkeleton = ({ width = "w-20" }: { width?: string }) => (
     <div className={`h-9 md:h-10 ${width} bg-on-surface/10 rounded animate-pulse`} />
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-      <Link href="/budget" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
-        <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">FY26 County Budget</p>
-        <p className="font-headline text-3xl md:text-4xl text-primary">{fmt(budgetTotal)}</p>
-        <p className="text-xs text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Explore where it goes →</p>
-      </Link>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
       <Link href="/follow-ups" className="bg-surface-container-low p-5 rounded-lg hover:bg-surface-container-high transition-colors group">
         <p className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary mb-1">Open Commitments</p>
         {loading ? (
@@ -486,73 +471,6 @@ function RecentUpdates({ meetings }: { meetings: Meeting[] }) {
   );
 }
 
-const budget = budgetJson as BudgetData;
-
-function BudgetSnapshot() {
-  const departments = budget.departments;
-  if (departments.length === 0) return null;
-
-  const sorted = [...departments].sort((a, b) => b.totalsByYear.fy26Projection - a.totalsByYear.fy26Projection).slice(0, 6);
-  const maxVal = sorted[0]?.totalsByYear.fy26Projection || 1;
-  const grandTotal = departments.reduce((s, d) => s + d.totalsByYear.fy26Projection, 0);
-
-  function fmt(val: number) {
-    if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(1)}M`;
-    if (val >= 1_000) return `$${(val / 1_000).toFixed(0)}K`;
-    return `$${val.toFixed(0)}`;
-  }
-
-  return (
-    <section>
-      <div className="flex items-end justify-between border-b border-outline-variant/30 pb-4 mb-8">
-        <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-secondary">account_balance</span>
-          <Link href="/budget" className="font-headline text-3xl hover:text-primary/80 transition-colors">Where Your Tax Dollars Go</Link>
-        </div>
-        <span className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
-          {fmt(grandTotal)} Total · FY26
-        </span>
-      </div>
-      <div className="space-y-3">
-        {sorted.map((dept) => {
-          const pct = (dept.totalsByYear.fy26Projection / maxVal) * 100;
-          const up = dept.percentChange > 1;
-          const down = dept.percentChange < -1;
-          return (
-            <Link
-              key={dept.department}
-              href={`/budget?dept=${encodeURIComponent(dept.department)}`}
-              className="flex items-center gap-4 group min-h-[44px]"
-            >
-              <span className="text-sm font-medium text-on-surface w-40 md:w-52 truncate group-hover:text-primary transition-colors">{dept.department}</span>
-              <div className="flex-1 h-5 bg-surface-container-high rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-primary/70 rounded-full transition-all group-hover:bg-primary"
-                  style={{ width: `${pct}%` }}
-                />
-              </div>
-              <span className="text-sm font-bold tabular-nums w-16 text-right">{fmt(dept.totalsByYear.fy26Projection)}</span>
-              <span className={`text-[10px] font-bold w-10 text-right ${up ? "text-error" : down ? "text-secondary" : "text-on-surface-variant"}`}>
-                {up ? "▲" : down ? "▼" : "—"}
-                {Math.abs(dept.percentChange) >= 1 ? `${Math.abs(dept.percentChange).toFixed(0)}%` : ""}
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-      <div className="mt-4">
-        <Link
-          href="/budget"
-          className="text-xs font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-opacity flex items-center gap-1"
-        >
-          Explore full budget
-          <span className="material-symbols-outlined text-sm">arrow_forward</span>
-        </Link>
-      </div>
-    </section>
-  );
-}
-
 function DashboardContent() {
   const { meetings: allMeetings, ready } = useMeetings();
   const searchParams = useSearchParams();
@@ -593,22 +511,19 @@ function DashboardContent() {
             </Link>
           </div>
 
-          {/* Budget cycle tracker — process card (no dollar figures) */}
-          <BudgetCycleCard />
-
           {/* Live stat cards */}
           <HeroStats meetings={allMeetings} ready={ready} />
         </div>
       </section>
+
+      {/* Election results */}
+      <ElectionCard />
 
       {/* Recent Updates feed */}
       <RecentUpdates meetings={allMeetings} />
 
       {/* Recent Meetings — 3 most recent, first expanded */}
       <RecentDeliberations meetings={meetings} />
-
-      {/* Budget Snapshot */}
-      <BudgetSnapshot />
 
       {/* Accountability Tracker — Open Items */}
       <OpenItemsSummary meetings={meetings} />
@@ -718,60 +633,63 @@ function DashboardContent() {
           </div>
         </div>
       </div>
+    </div>
+    </div>
+  );
+}
 
-      {/* Election Card — Bottom */}
-      <section>
-        <div className="bg-primary-container text-on-primary-container p-8 rounded-xl border border-primary/20 shadow-xl relative overflow-hidden group max-w-2xl">
-          <div className="relative z-10 flex flex-col h-full justify-between">
-            <div>
-              <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">
-                {ELECTION_INFO.winners.length > 0 ? `${ELECTION_INFO.nextElection} Election Results` : "Upcoming Election"}
-              </span>
-              <h3 className="font-headline text-3xl font-bold leading-tight text-white mb-4">
-                {ELECTION_INFO.nextElection} — {ELECTION_INFO.openSeats} Open Seats
-              </h3>
-              {ELECTION_INFO.winners.length > 0 && (
-                <p className="text-[10px] font-label font-extrabold uppercase tracking-widest text-primary-fixed mb-3">
-                  {ELECTION_INFO.certified ? "Results certified" : "Unofficial results — pending certification"}
-                </p>
-              )}
-              <p className="text-sm font-body text-primary-fixed-dim leading-relaxed mb-4">
-                {ELECTION_INFO.note}
+function ElectionCard() {
+  return (
+    <section>
+      <div className="bg-primary-container text-on-primary-container p-8 rounded-xl border border-primary/20 shadow-xl relative overflow-hidden group max-w-2xl">
+        <div className="relative z-10 flex flex-col h-full justify-between">
+          <div>
+            <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">
+              {ELECTION_INFO.winners.length > 0 ? `${ELECTION_INFO.nextElection} Election Results` : "Upcoming Election"}
+            </span>
+            <h3 className="font-headline text-3xl font-bold leading-tight text-white mb-4">
+              {ELECTION_INFO.nextElection} — {ELECTION_INFO.openSeats} Open Seats
+            </h3>
+            {ELECTION_INFO.winners.length > 0 && (
+              <p className="text-[10px] font-label font-extrabold uppercase tracking-widest text-primary-fixed mb-3">
+                {ELECTION_INFO.certified ? "Results certified" : "Unofficial results — pending certification"}
               </p>
-              <div className="space-y-2 text-sm text-primary-fixed-dim mb-8">
-                {ELECTION_INFO.winners.length > 0 ? (
-                  <>
-                    <p><span className="font-bold text-primary-fixed">Elected:</span> {ELECTION_INFO.winners.join(", ")}</p>
-                    {ELECTION_INFO.notElected.length > 0 && (
-                      <p><span className="font-bold text-primary-fixed">Also ran:</span> {ELECTION_INFO.notElected.join(", ")}</p>
-                    )}
-                    <p>
-                      <a href={ELECTION_INFO.resultsUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-fixed">
-                        Transylvania County Board of Elections
-                      </a>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p><span className="font-bold text-primary-fixed">GOP:</span> {ELECTION_INFO.gopNominees.join(", ")}</p>
-                    <p><span className="font-bold text-primary-fixed">Dem:</span> {ELECTION_INFO.demNominees.join(", ")}</p>
-                  </>
-                )}
-              </div>
+            )}
+            <p className="text-sm font-body text-primary-fixed-dim leading-relaxed mb-4">
+              {ELECTION_INFO.note}
+            </p>
+            <div className="space-y-2 text-sm text-primary-fixed-dim mb-8">
+              {ELECTION_INFO.winners.length > 0 ? (
+                <>
+                  <p><span className="font-bold text-primary-fixed">Elected:</span> {ELECTION_INFO.winners.join(", ")}</p>
+                  {ELECTION_INFO.notElected.length > 0 && (
+                    <p><span className="font-bold text-primary-fixed">Also ran:</span> {ELECTION_INFO.notElected.join(", ")}</p>
+                  )}
+                  <p>
+                    <a href={ELECTION_INFO.resultsUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-fixed">
+                      Transylvania County Board of Elections
+                    </a>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p><span className="font-bold text-primary-fixed">GOP:</span> {ELECTION_INFO.gopNominees.join(", ")}</p>
+                  <p><span className="font-bold text-primary-fixed">Dem:</span> {ELECTION_INFO.demNominees.join(", ")}</p>
+                </>
+              )}
             </div>
-            <Link
-              href="/commissioners"
-              className="text-primary-fixed font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all underline decoration-primary-fixed/30 underline-offset-8"
-            >
-              Review commissioner profiles
-              <span className="material-symbols-outlined text-sm">arrow_forward</span>
-            </Link>
           </div>
-          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+          <Link
+            href="/commissioners"
+            className="text-primary-fixed font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all underline decoration-primary-fixed/30 underline-offset-8"
+          >
+            Review commissioner profiles
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </Link>
         </div>
-      </section>
-    </div>
-    </div>
+        <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      </div>
+    </section>
   );
 }
 
