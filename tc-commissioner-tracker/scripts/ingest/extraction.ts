@@ -406,7 +406,7 @@ export async function extractMeeting(input: {
   const seatedIds = seatedRoster(listed.date, roster).map((r) => r.id);
   if (seatedIds.length === 0) throw new Error(`No commissioners in the roster were seated on ${listed.date}. Update scripts/ingest/roster.ts.`);
   const seated = seatedRoster(listed.date, roster);
-  const schema = extractionSchema();
+  const parts = extractionParts();
   const system = buildSystemPrompt(listed.date, roster);
   const openIds = new Set(openFollowUps.map((f) => f.id));
   const threadIds = new Set(activeThreads.map((t) => t.id));
@@ -432,25 +432,30 @@ Draft record:
 ${JSON.stringify(extraction, null, 2)}`,
     });
 
-  let extraction = await llm({
-    task: "extract",
-    system,
-    pdf,
-    schema,
-    instructions: `${meetingLine(listed)} Read them in full and produce the record of this meeting.\n\n${context}`,
-  });
+  /**
+   * Produce a full record in three requests, one per part of the schema: the
+   * API rejects the whole schema in one go as too large. The PDF is cached,
+   * so the second and third requests mostly reuse it.
+   */
+  const produce = async (task: "extract" | "revise", instructions: string): Promise<Extraction> => {
+    const [meeting, people, followUps] = [
+      await llm({ task: `${task}:meeting`, system, pdf, schema: parts.meeting, instructions: `${instructions}\n\nFor this request, return only the meeting details and votes part of the record.` }),
+      await llm({ task: `${task}:people`, system, pdf, schema: parts.people, instructions: `${instructions}\n\nFor this request, return only the commissioner activity, public comment and staff activity part of the record.` }),
+      await llm({ task: `${task}:followUps`, system, pdf, schema: parts.followUps, instructions: `${instructions}\n\nFor this request, return only the follow-ups and topic threads part of the record.` }),
+    ];
+    return { ...meeting, ...people, ...followUps };
+  };
+
+  let extraction = await produce("extract", `${meetingLine(listed)} Read them in full and produce the record of this meeting.\n\n${context}`);
   let current = finish(extraction);
   let issues = (await review(extraction, current.problems)).issues;
   let revised = false;
 
   if (current.problems.length > 0 || issues.some((i) => i.severity === "error")) {
     revised = true;
-    extraction = await llm({
-      task: "revise",
-      system,
-      pdf,
-      schema,
-      instructions: `${meetingLine(listed)} Below is a draft record of this meeting and a list of problems a reviewer found in it. Produce the corrected, complete record. Check each reported problem against the minutes yourself: fix the ones that are right, and leave the draft as it is where the reviewer was mistaken.
+    extraction = await produce(
+      "revise",
+      `${meetingLine(listed)} Below is a draft record of this meeting and a list of problems a reviewer found in it. Produce the corrected, complete record. Check each reported problem against the minutes yourself: fix the ones that are right, and leave the draft as it is where the reviewer was mistaken.
 
 ${context}
 
@@ -459,7 +464,7 @@ ${[...current.problems, ...issues.map(describeIssue)].map((p) => `- ${p}`).join(
 
 Draft record:
 ${JSON.stringify(extraction, null, 2)}`,
-    });
+    );
     current = finish(extraction);
     issues = (await review(extraction, current.problems)).issues;
   }

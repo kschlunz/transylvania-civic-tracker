@@ -18,7 +18,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { checkSchema, createClaudeLlm, resolveModel } from "./ingest/claude";
-import { ReviewSchema, extractionParts, extractionSchema } from "./ingest/extraction";
+import { ReviewSchema, extractionParts } from "./ingest/extraction";
 import { downloadPdf, listMeetings } from "./ingest/county";
 import { recordIds, writeRecord } from "./ingest/files";
 import { buildReport, planIngest, runIngest, type IngestOptions } from "./ingest/ingest";
@@ -50,8 +50,9 @@ async function main() {
   if (values["check-schema"]) {
     // One tiny request per schema; no Supabase or PDFs involved.
     const parts = extractionParts();
+    // The extraction is sent in these three parts; the full schema in one
+    // request is too large for the API (checked 2026-11-17).
     const candidates = [
-      ["full extraction", extractionSchema()],
       ["part: meeting and votes", parts.meeting],
       ["part: commissioners, public and staff", parts.people],
       ["part: follow-ups and threads", parts.followUps],

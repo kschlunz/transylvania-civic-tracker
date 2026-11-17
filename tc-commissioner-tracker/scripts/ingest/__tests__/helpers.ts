@@ -78,14 +78,20 @@ export function emptyState(overrides: Partial<PipelineState> = {}): PipelineStat
 export function fakeLlm(answers: { extract?: Extraction[]; revise?: Extraction[]; review?: Review[] }) {
   const calls: { task: string; instructions: string; system: string }[] = [];
   const queues = { extract: [...(answers.extract ?? [])], revise: [...(answers.revise ?? [])], review: [...(answers.review ?? [])] };
+  // Extraction comes in three part requests ("extract:meeting", "extract:people",
+  // "extract:followUps"); each part reads the same queued answer, which moves on
+  // after the last part.
   const llm: Llm = async (request) => {
     calls.push({ task: request.task, instructions: request.instructions, system: request.system });
-    const queue = queues[request.task as keyof typeof queues];
-    const answer = queue.length > 0 ? queue.shift() : request.task === "review" ? { issues: [] } : undefined;
+    const [task, part] = request.task.split(":");
+    const queue = queues[task as keyof typeof queues];
+    const answer = queue.length > 0 ? (part && part !== "followUps" ? queue[0] : queue.shift()) : task === "review" ? { issues: [] } : undefined;
     if (answer === undefined) throw new Error(`fakeLlm: no answer queued for "${request.task}"`);
     return request.schema.parse(answer);
   };
-  return { llm, calls };
+  /** The sequence of tasks with the three parts of an extraction counted once. */
+  const steps = () => calls.map((c) => c.task.split(":")[0]).filter((t, i, all) => !(t !== "review" && all[i - 1] === t));
+  return { llm, calls, steps };
 }
 
 export const PDF = Buffer.from("%PDF-1.7 test");

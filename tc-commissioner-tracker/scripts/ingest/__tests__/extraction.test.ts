@@ -71,9 +71,9 @@ describe("extractMeeting", () => {
   });
 
   it("extracts and reviews, passing open follow-ups and threads", async () => {
-    const { llm, calls } = fakeLlm({ extract: [extraction()] });
+    const { llm, calls, steps } = fakeLlm({ extract: [extraction()] });
     const { record, warnings } = await extractMeeting({ llm, model: "m", pdf: PDF, listed: listed("2026-03-09"), openFollowUps: open, activeThreads: threads, roster: ROSTER });
-    expect(calls.map((c) => c.task)).toEqual(["extract", "review"]);
+    expect(steps()).toEqual(["extract", "review"]);
     expect(calls[0].instructions).toMatch(/\[2026-02-09-fu-1\] raised 2026-02-09, owner staff, currently open: Hire a planner\./);
     expect(calls[0].instructions).toMatch(/\[new-courthouse-project\] New Courthouse Project/);
     expect(warnings).toEqual([]);
@@ -83,7 +83,7 @@ describe("extractMeeting", () => {
   it("revises once when the review finds an error and keeps what is unresolved", async () => {
     const wrong = extraction();
     wrong.keyVotes[1] = { ...wrong.keyVotes[1], mover: "dalton", seconder: "chapman" };
-    const { llm, calls } = fakeLlm({
+    const { llm, calls, steps } = fakeLlm({
       extract: [wrong],
       review: [
         { issues: [{ severity: "error", where: "keyVotes[1].mover", problem: "Chapman made the motion.", evidence: '"Commissioner Chapman moved" (p. 4)' }] },
@@ -92,8 +92,8 @@ describe("extractMeeting", () => {
       revise: [extraction()],
     });
     const { record, warnings } = await extractMeeting({ llm, model: "m", pdf: PDF, listed: listed("2026-03-09"), openFollowUps: [], activeThreads: [], roster: ROSTER });
-    expect(calls.map((c) => c.task)).toEqual(["extract", "review", "revise", "review"]);
-    expect(calls[2].instructions).toMatch(/Chapman made the motion/);
+    expect(steps()).toEqual(["extract", "review", "revise", "review"]);
+    expect(calls.find((c) => c.task.startsWith("revise"))!.instructions).toMatch(/Chapman made the motion/);
     expect(record.meeting.keyVotes[1].mover).toBe("chapman");
     expect(record.extraction.revised).toBe(true);
     expect(warnings).toEqual(["Check — newFollowUps[0]: May be routine."]);
@@ -139,9 +139,9 @@ describe("normaliseExtraction", () => {
   });
 
   it("flags an unknown commissioner so the record is revised", async () => {
-    const { llm, calls } = fakeLlm({ extract: [extraction({ attendees: ["mccall", "chapman", "dalton", "smith"] })], revise: [extraction()] });
+    const { llm, calls, steps } = fakeLlm({ extract: [extraction({ attendees: ["mccall", "chapman", "dalton", "smith"] })], revise: [extraction()] });
     await extractMeeting({ llm, model: "m", pdf: PDF, listed: listed("2026-03-09"), openFollowUps: [], activeThreads: [], roster: ROSTER });
-    expect(calls.map((c) => c.task)).toEqual(["extract", "review", "revise", "review"]);
-    expect(calls[2].instructions).toMatch(/"smith" was not on the board/);
+    expect(steps()).toEqual(["extract", "review", "revise", "review"]);
+    expect(calls.find((c) => c.task.startsWith("revise"))!.instructions).toMatch(/"smith" was not on the board/);
   });
 });

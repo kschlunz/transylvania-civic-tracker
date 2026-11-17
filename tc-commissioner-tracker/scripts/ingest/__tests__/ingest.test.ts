@@ -48,7 +48,7 @@ describe("runIngest", () => {
 
     expect(run.stopped).toBeUndefined();
     expect(saved.map((r) => r.meeting.id)).toEqual(["2026-06-08", "2026-06-22"]);
-    const second = calls.filter((c) => c.task === "extract")[1].instructions;
+    const second = calls.filter((c) => c.task.startsWith("extract:"))[3].instructions;
     expect(second).toMatch(/\[2026-06-08-fu-1\] raised 2026-06-08, owner staff, currently open: Bring back a sidewalk plan\./);
     expect(second).toMatch(/\[sidewalk-plan\] Sidewalk Plan/);
     expect(saved[1].resolvedFollowUps).toEqual([{ id: "2026-06-08-fu-1", status: "resolved", resolution: "Staff presented the plan." }]);
