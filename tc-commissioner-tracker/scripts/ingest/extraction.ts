@@ -36,21 +36,28 @@ export interface ActiveThread {
   title: string;
 }
 
-/** What the model returns. Ids, dates and links are added by the pipeline, never by the model. */
-export function extractionSchema(commissionerIds: [string, ...string[]]) {
-  const commissioner = z.enum(commissionerIds);
-  const category = z.enum(CATEGORY_IDS);
+/**
+ * What the model returns. Ids, dates and links are added by the pipeline, never by the model.
+ *
+ * Kept deliberately plain (no enums, no nullable fields): the API compiles the
+ * schema into a grammar with a size limit, and commissioner and category ids
+ * repeated as enums across many fields exceeded it. Ids are checked and
+ * normalised in code instead (normaliseExtraction and checkRecord).
+ */
+export function extractionSchema() {
+  const commissioner = z.string().describe("A commissioner id from the list in the instructions.");
+  const category = z.string().describe("A category id from the list in the instructions.");
   return z.object({
-    duration: z.string().nullable().describe('Length of the meeting, e.g. "2 hours 40 minutes", from the stated start and adjournment times. Null if the minutes do not give both.'),
-    audienceSize: z.number().int().nullable().describe("Number of members of the public present, only if the minutes state it. Otherwise null."),
+    duration: z.string().describe('Length of the meeting, e.g. "2 hours 40 minutes", from the stated start and adjournment times. Empty string if the minutes do not give both.'),
+    audienceSize: z.number().int().describe("Number of members of the public present, only if the minutes state it. Otherwise 0."),
     attendees: z.array(commissioner).describe("Commissioners recorded as present."),
     tldr: z.string().describe("Two to four plain sentences a resident could read to know what happened: the decisions made and the main subjects discussed."),
     keyVotes: z.array(
       z.object({
         description: z.string().describe("What was decided, as a short headline with the key figure if there is one."),
         consent: z.boolean().describe("True if this was approved as part of the consent agenda."),
-        mover: commissioner.nullable(),
-        seconder: commissioner.nullable(),
+        mover: z.string().describe('Commissioner id of the mover, or "" if the minutes name nobody.'),
+        seconder: z.string().describe('Commissioner id of the seconder, or "" if the minutes name nobody.'),
         ayes: z.array(commissioner),
         nays: z.array(commissioner),
         abstained: z.array(commissioner).describe("Commissioners present but recused or abstaining."),
@@ -59,7 +66,7 @@ export function extractionSchema(commissionerIds: [string, ...string[]]) {
         passed: z.boolean(),
         background: z.string().describe("Two or three sentences: why the item was on the agenda, who presented it, the key facts and figures."),
         discussion: z.string().describe("What commissioners said or asked before voting. Empty string if there was no discussion."),
-        page: z.number().int().nullable().describe("1-indexed page of the PDF where the vote is recorded."),
+        page: z.number().int().describe("1-indexed page of the PDF where the vote is recorded, or 0 if unsure."),
       }),
     ),
     commissionerActivity: z.array(
@@ -170,6 +177,47 @@ function resultLabel(v: Extraction["keyVotes"][number]): string {
   return v.nays.length === 0 ? "Unanimous" : `${v.ayes.length}-${v.nays.length}`;
 }
 
+/** Map what the model wrote to a seated commissioner id where it is unambiguous: "McCall", "Teresa McCall", "mccall " → "mccall". */
+export function toCommissionerId(value: string, roster: RosterEntry[]): string {
+  const v = value.trim().toLowerCase();
+  if (!v) return "";
+  if (roster.some((r) => r.id === v)) return v;
+  const plain = v.replace(/^(commissioner|chair(man|woman)?|vice[- ]chair(man|woman)?)\s+/, "").replace(/[^a-z' ]/g, "").trim();
+  const matches = roster.filter((r) => {
+    const name = r.name.toLowerCase();
+    const last = name.split(" ").at(-1)!;
+    return plain === name || plain === last || plain.replace(/'/g, "") === r.id;
+  });
+  return matches.length === 1 ? matches[0].id : v;
+}
+
+/** Normalise ids and drop unknown categories, so the checks see the record as the site would. */
+export function normaliseExtraction(extraction: Extraction, roster: RosterEntry[]): Extraction {
+  const id = (v: string) => toCommissionerId(v, roster);
+  const ids = (vs: string[]) => [...new Set(vs.map(id).filter(Boolean))];
+  const cats = (vs: string[]) => [...new Set(vs.map((c) => c.trim().toLowerCase()).filter((c) => (CATEGORY_IDS as string[]).includes(c)))];
+  return {
+    ...extraction,
+    attendees: ids(extraction.attendees),
+    keyVotes: extraction.keyVotes.map((v) => ({
+      ...v,
+      mover: id(v.mover),
+      seconder: id(v.seconder),
+      ayes: ids(v.ayes),
+      nays: ids(v.nays),
+      abstained: ids(v.abstained),
+      absent: ids(v.absent),
+    })),
+    commissionerActivity: extraction.commissionerActivity.map((a) => ({
+      ...a,
+      commissioner: id(a.commissioner),
+      topics: a.topics.map((t) => ({ ...t, categories: cats(t.categories) })),
+    })),
+    newFollowUps: extraction.newFollowUps.map((f) => ({ ...f, owner: roster.some((r) => r.id === id(f.owner)) ? id(f.owner) : f.owner, categories: cats(f.categories) })),
+    newThreads: extraction.newThreads.map((t) => ({ ...t, categories: cats(t.categories) })),
+  };
+}
+
 function slugify(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "thread";
 }
@@ -185,8 +233,8 @@ export function toRecord(
     description: v.description,
     result: resultLabel(v),
     // The site's convention: consent agenda items carry "consent agenda" in place of a mover and seconder.
-    mover: v.consent ? "consent agenda" : (v.mover ?? ""),
-    seconder: v.consent ? "consent agenda" : (v.seconder ?? ""),
+    mover: v.consent ? "consent agenda" : v.mover,
+    seconder: v.consent ? "consent agenda" : v.seconder,
     background: v.background,
     discussion: v.discussion,
     passed: v.passed,
@@ -223,8 +271,8 @@ export function toRecord(
       type: listed.type,
       time: listed.time,
       attendees: extraction.attendees,
-      audienceSize: extraction.audienceSize ?? 0,
-      duration: extraction.duration ?? "",
+      audienceSize: Math.max(0, extraction.audienceSize),
+      duration: extraction.duration,
       tldr: extraction.tldr,
       keyVotes,
       commissionerActivity: activity,
@@ -345,14 +393,15 @@ export async function extractMeeting(input: {
   const roster = input.roster ?? ROSTER;
   const seatedIds = seatedRoster(listed.date, roster).map((r) => r.id);
   if (seatedIds.length === 0) throw new Error(`No commissioners in the roster were seated on ${listed.date}. Update scripts/ingest/roster.ts.`);
-  const schema = extractionSchema(seatedIds as [string, ...string[]]);
+  const seated = seatedRoster(listed.date, roster);
+  const schema = extractionSchema();
   const system = buildSystemPrompt(listed.date, roster);
   const openIds = new Set(openFollowUps.map((f) => f.id));
   const threadIds = new Set(activeThreads.map((t) => t.id));
   const context = formatContext(openFollowUps, activeThreads);
 
-  const finish = (extraction: Extraction) => {
-    const record = toRecord(extraction, listed, model, threadIds);
+  const finish = (raw: Extraction) => {
+    const record = toRecord(normaliseExtraction(raw, seated), listed, model, threadIds);
     const problems = checkRecord(record, { openFollowUpIds: openIds, activeThreadIds: threadIds, roster });
     return { record, problems };
   };

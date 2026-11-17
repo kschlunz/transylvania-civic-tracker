@@ -24,7 +24,7 @@ export function listed(date: string, overrides: Partial<ListedMeeting> = {}): Li
 export function extraction(overrides: Partial<Extraction> = {}): Extraction {
   return {
     duration: "2 hours",
-    audienceSize: null,
+    audienceSize: 0,
     attendees: ["mccall", "chapman", "dalton"],
     tldr: "The board approved a paving contract and heard a budget update.",
     keyVotes: [

@@ -111,3 +111,37 @@ describe("extractMeeting", () => {
     ]);
   });
 });
+
+describe("extraction schema", () => {
+  it("stays small enough for the API: no unions and only short fixed enums", async () => {
+    const { zodOutputFormat } = await import("@anthropic-ai/sdk/helpers/zod");
+    const { extractionSchema } = await import("../extraction");
+    const json = JSON.stringify(zodOutputFormat(extractionSchema()).schema);
+    expect(json).not.toMatch(/anyOf|"type":\["/);
+    const enums = json.match(/"enum":\[[^\]]*\]/g) ?? [];
+    expect(enums.length).toBeLessThanOrEqual(3);
+    expect(enums.join()).not.toMatch(/mccall|fiscal/);
+  });
+});
+
+describe("normaliseExtraction", () => {
+  it("maps names to ids and drops unknown categories", async () => {
+    const { normaliseExtraction, toCommissionerId } = await import("../extraction");
+    expect(toCommissionerId("Commissioner McCall", ROSTER)).toBe("mccall");
+    expect(toCommissionerId("Larry Chapman", ROSTER)).toBe("chapman");
+    expect(toCommissionerId(" Dalton ", ROSTER)).toBe("dalton");
+    expect(toCommissionerId("Someone Else", ROSTER)).toBe("someone else");
+    const raw = extraction({ attendees: ["McCall", "chapman", "Jake Dalton"] });
+    raw.commissionerActivity[0] = { commissioner: "Chair McCall", topics: [{ text: "x", categories: ["Fiscal", "made-up"] }], externalRoles: [] };
+    const n = normaliseExtraction(raw, ROSTER);
+    expect(n.attendees).toEqual(["mccall", "chapman", "dalton"]);
+    expect(n.commissionerActivity[0]).toMatchObject({ commissioner: "mccall", topics: [{ categories: ["fiscal"] }] });
+  });
+
+  it("flags an unknown commissioner so the record is revised", async () => {
+    const { llm, calls } = fakeLlm({ extract: [extraction({ attendees: ["mccall", "chapman", "dalton", "smith"] })], revise: [extraction()] });
+    await extractMeeting({ llm, model: "m", pdf: PDF, listed: listed("2026-03-09"), openFollowUps: [], activeThreads: [], roster: ROSTER });
+    expect(calls.map((c) => c.task)).toEqual(["extract", "review", "revise", "review"]);
+    expect(calls[2].instructions).toMatch(/"smith" was not on the board/);
+  });
+});

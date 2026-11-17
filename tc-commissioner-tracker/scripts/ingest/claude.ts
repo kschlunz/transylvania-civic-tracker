@@ -104,6 +104,27 @@ export function createClaudeLlm(options: { model?: string; client?: Anthropic; l
   return { llm, usage, model };
 }
 
+/**
+ * Confirm the API accepts a schema for structured output (it compiles each
+ * schema into a grammar and rejects ones that are too large) with one small,
+ * cheap request that needs no PDF.
+ */
+export async function checkSchema(name: string, schema: import("zod").ZodType, options: { model?: string; client?: Anthropic } = {}): Promise<string> {
+  const model = options.model ?? resolveModel();
+  const client = options.client ?? new Anthropic({ apiKey: cleanKey(process.env.ANTHROPIC_API_KEY), maxRetries: 2 });
+  const message = await requestWithKeyHelp(() =>
+    client.messages
+      .stream({
+        model,
+        max_tokens: 4000,
+        output_config: { effort: "low", format: zodOutputFormat(schema) },
+        messages: [{ role: "user", content: "This is a format check. Return the smallest valid response: empty strings, zeros, false and empty lists." }],
+      })
+      .finalMessage(),
+  );
+  return `${name}: accepted (${message.usage.input_tokens} input, ${message.usage.output_tokens} output tokens)`;
+}
+
 async function requestWithKeyHelp<T>(send: () => Promise<T>): Promise<T> {
   try {
     return await send();
