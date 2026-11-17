@@ -552,7 +552,7 @@
     },
     {
       "id": "solid-waste-rate-study",
-      "summary": "The Manager reviewed consultant recommendations for a parcel-based availability fee (previously $125–$130 per parcel at the low end), elimination of bag fees and community meetings in FY 2027, with a revised fee structure anticipated for FY 2028. Commissioner McKelvey noted that there is no long-term solid waste funding plan."
+      "summary": "The Manager reviewed the solid waste consultants' recommendations: eliminate bag fees, adopt an availability fee combined with tipping fees, and evaluate a transfer station instead of building more landfill cells. Staff recommended public meetings during FY 2027, with a revised fee structure anticipated for FY 2028. Chairwoman McCall asked about the earlier $125–$130 per-parcel fee proposal, and Commissioner McKelvey noted that there is no long-term funding plan for solid waste."
     },
     {
       "id": "snap-cost-shift",
@@ -608,7 +608,6 @@
     "extractedAt": "2026-11-17T16:38:42.424Z",
     "revised": false,
     "warnings": [
-      "Check — threadUpdates[solid-waste-rate-study].summary: The summary lists community meetings in FY 2027 among the consultant recommendations. The minutes attribute that recommendation to staff; the consultants recommended eliminating bag fees, an availability fee with tipping fees, and evaluating a transfer station. The $125–$130 figure is also the Board's earlier parcel-fee proposal, not part of the current consultant recommendation. (minutes: \"Consultants recommended eliminating bag fees, implementing an availability fee combined with tipping fees... Staff recommend conducting a series of public meetings during FY 2027\" (p. 5); \"previously proposed solid waste parcel fee... $125–$130 per parcel\" (p. 9))",
       "Check — followUpUpdates[2026-03-23-fu-4].status: The item is marked resolved, but the commitment was to engage Commissioners on balancing the budget, including a possible fee discussion in April/May. The fee review took place on June 2 and the budget has not yet been adopted, so in_progress may be more accurate. A human should confirm. (minutes: \"FEE STRUCTURE REVIEW The Manager reviewed the County's fee structure...\" (p. 6); \"a budget must be adopted before July 1\" (p. 1))"
     ]
   }
