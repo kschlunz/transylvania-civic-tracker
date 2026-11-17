@@ -74,6 +74,7 @@ jobs:
           INPUT_LIMIT: ${{ inputs.limit }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
         run: |
+          set -o pipefail
           args=()
           if [ -n "$INPUT_DATES" ]; then args+=(--date "$INPUT_DATES"); fi
           if [ -n "$INPUT_LIMIT" ]; then args+=(--limit "$INPUT_LIMIT"); fi
