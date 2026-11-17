@@ -25,6 +25,10 @@ on:
         description: "Only list what is missing; do not call Claude"
         type: boolean
         default: false
+      check_schema:
+        description: "Only check that the API accepts the output schemas (one tiny request each)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -73,12 +77,14 @@ jobs:
           INPUT_DATES: ${{ inputs.dates }}
           INPUT_LIMIT: ${{ inputs.limit }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
+          INPUT_CHECK_SCHEMA: ${{ inputs.check_schema }}
         run: |
           set -o pipefail
           args=()
           if [ -n "$INPUT_DATES" ]; then args+=(--date "$INPUT_DATES"); fi
           if [ -n "$INPUT_LIMIT" ]; then args+=(--limit "$INPUT_LIMIT"); fi
           if [ "$INPUT_DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ "$INPUT_CHECK_SCHEMA" = "true" ]; then args+=(--check-schema); fi
           npx tsx scripts/ingest-minutes.ts "${args[@]}" | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Open a pull request

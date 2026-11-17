@@ -5,6 +5,7 @@
  *   npx tsx scripts/ingest-minutes.ts --dry-run          # show what is missing
  *   npx tsx scripts/ingest-minutes.ts                    # extract up to 3 new meetings
  *   npx tsx scripts/ingest-minutes.ts --date 2026-06-08  # one meeting, e.g. to fill a gap
+ *   npx tsx scripts/ingest-minutes.ts --check-schema     # confirm the API accepts the output schemas (a few cents)
  *
  * Needs NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (to read what is
  * on the site) and ANTHROPIC_API_KEY. Nothing is written to Supabase: merge the
@@ -16,7 +17,8 @@ import { config } from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { createClaudeLlm, resolveModel } from "./ingest/claude";
+import { checkSchema, createClaudeLlm, resolveModel } from "./ingest/claude";
+import { ReviewSchema, extractionParts } from "./ingest/extraction";
 import { downloadPdf, listMeetings } from "./ingest/county";
 import { recordIds, writeRecord } from "./ingest/files";
 import { buildReport, planIngest, runIngest, type IngestOptions } from "./ingest/ingest";
@@ -31,6 +33,7 @@ const { values } = parseArgs({
     date: { type: "string", multiple: true },
     since: { type: "string" },
     "dry-run": { type: "boolean", default: false },
+    "check-schema": { type: "boolean", default: false },
   },
 });
 
@@ -44,6 +47,29 @@ if (!Number.isInteger(limit) || limit < 1) throw new Error("--limit must be a po
 const options: IngestOptions = { limit, only: dates.length > 0 ? dates : undefined };
 
 async function main() {
+  if (values["check-schema"]) {
+    // One tiny request per schema; no Supabase or PDFs involved.
+    const parts = extractionParts();
+    // The extraction is sent in these three parts; the full schema in one
+    // request is too large for the API (checked 2026-11-17).
+    const candidates = [
+      ["part: meeting and votes", parts.meeting],
+      ["part: commissioners, public and staff", parts.people],
+      ["part: follow-ups and threads", parts.followUps],
+      ["review", ReviewSchema],
+    ] as const;
+    let failed = false;
+    for (const [name, schema] of candidates) {
+      try {
+        console.log(await checkSchema(name, schema));
+      } catch (error) {
+        failed = true;
+        console.log(`${name}: REJECTED (${error instanceof Error ? error.message.slice(0, 200) : error})`);
+      }
+    }
+    if (failed) process.exitCode = 1;
+    return;
+  }
   const store = supabaseStore(supabaseFromEnv({ write: false }));
   const [stored, openFollowUps, activeThreads] = await Promise.all([store.meetingIds(), store.openFollowUps(), store.activeThreads()]);
   const pending = recordIds();
