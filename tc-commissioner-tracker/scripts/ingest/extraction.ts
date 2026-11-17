@@ -45,9 +45,16 @@ export interface ActiveThread {
  * normalised in code instead (normaliseExtraction and checkRecord).
  */
 export function extractionSchema() {
+  const parts = extractionParts();
+  return z.object({ ...parts.meeting.shape, ...parts.people.shape, ...parts.followUps.shape });
+}
+
+/** The extraction split into three smaller schemas, used if the full one is too large for the API. */
+export function extractionParts() {
   const commissioner = z.string().describe("A commissioner id from the list in the instructions.");
   const category = z.string().describe("A category id from the list in the instructions.");
-  return z.object({
+  return {
+    meeting: z.object({
     duration: z.string().describe('Length of the meeting, e.g. "2 hours 40 minutes", from the stated start and adjournment times. Empty string if the minutes do not give both.'),
     audienceSize: z.number().int().describe("Number of members of the public present, only if the minutes state it. Otherwise 0."),
     attendees: z.array(commissioner).describe("Commissioners recorded as present."),
@@ -69,6 +76,8 @@ export function extractionSchema() {
         page: z.number().int().describe("1-indexed page of the PDF where the vote is recorded, or 0 if unsure."),
       }),
     ),
+    }),
+    people: z.object({
     commissionerActivity: z.array(
       z.object({
         commissioner,
@@ -84,6 +93,8 @@ export function extractionSchema() {
         items: z.array(z.string()).describe("Every topic they presented, reported on or recommended, one sentence each."),
       }),
     ),
+    }),
+    followUps: z.object({
     newFollowUps: z.array(
       z.object({
         owner: z.string().describe('A commissioner id, the full name of a staff member, or "staff" if no individual is named.'),
@@ -113,7 +124,8 @@ export function extractionSchema() {
         summary: z.string().describe("What happened with this item at this meeting, one or two sentences."),
       }),
     ),
-  });
+    }),
+  };
 }
 export type Extraction = z.infer<ReturnType<typeof extractionSchema>>;
 

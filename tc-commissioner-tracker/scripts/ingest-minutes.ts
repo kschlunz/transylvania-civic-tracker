@@ -18,7 +18,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { checkSchema, createClaudeLlm, resolveModel } from "./ingest/claude";
-import { ReviewSchema, extractionSchema } from "./ingest/extraction";
+import { ReviewSchema, extractionParts, extractionSchema } from "./ingest/extraction";
 import { downloadPdf, listMeetings } from "./ingest/county";
 import { recordIds, writeRecord } from "./ingest/files";
 import { buildReport, planIngest, runIngest, type IngestOptions } from "./ingest/ingest";
@@ -49,9 +49,24 @@ const options: IngestOptions = { limit, only: dates.length > 0 ? dates : undefin
 async function main() {
   if (values["check-schema"]) {
     // One tiny request per schema; no Supabase or PDFs involved.
-    for (const [name, schema] of [["extraction", extractionSchema()], ["review", ReviewSchema]] as const) {
-      console.log(await checkSchema(name, schema));
+    const parts = extractionParts();
+    const candidates = [
+      ["full extraction", extractionSchema()],
+      ["part: meeting and votes", parts.meeting],
+      ["part: commissioners, public and staff", parts.people],
+      ["part: follow-ups and threads", parts.followUps],
+      ["review", ReviewSchema],
+    ] as const;
+    let failed = false;
+    for (const [name, schema] of candidates) {
+      try {
+        console.log(await checkSchema(name, schema));
+      } catch (error) {
+        failed = true;
+        console.log(`${name}: REJECTED (${error instanceof Error ? error.message.slice(0, 200) : error})`);
+      }
     }
+    if (failed) process.exitCode = 1;
     return;
   }
   const store = supabaseStore(supabaseFromEnv({ write: false }));
