@@ -724,16 +724,39 @@ function DashboardContent() {
         <div className="bg-primary-container text-on-primary-container p-8 rounded-xl border border-primary/20 shadow-xl relative overflow-hidden group max-w-2xl">
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
-              <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">Upcoming Election</span>
+              <span className="font-label text-[10px] uppercase tracking-widest text-primary-fixed-dim/80 mb-4 block font-extrabold">
+                {ELECTION_INFO.winners.length > 0 ? `${ELECTION_INFO.nextElection} Election Results` : "Upcoming Election"}
+              </span>
               <h3 className="font-headline text-3xl font-bold leading-tight text-white mb-4">
                 {ELECTION_INFO.nextElection} — {ELECTION_INFO.openSeats} Open Seats
               </h3>
+              {ELECTION_INFO.winners.length > 0 && (
+                <p className="text-[10px] font-label font-extrabold uppercase tracking-widest text-primary-fixed mb-3">
+                  {ELECTION_INFO.certified ? "Results certified" : "Unofficial results — pending certification"}
+                </p>
+              )}
               <p className="text-sm font-body text-primary-fixed-dim leading-relaxed mb-4">
                 {ELECTION_INFO.note}
               </p>
               <div className="space-y-2 text-sm text-primary-fixed-dim mb-8">
-                <p><span className="font-bold text-primary-fixed">GOP:</span> {ELECTION_INFO.gopNominees.join(", ")}</p>
-                <p><span className="font-bold text-primary-fixed">Dem:</span> {ELECTION_INFO.demNominees.join(", ")}</p>
+                {ELECTION_INFO.winners.length > 0 ? (
+                  <>
+                    <p><span className="font-bold text-primary-fixed">Elected:</span> {ELECTION_INFO.winners.join(", ")}</p>
+                    {ELECTION_INFO.notElected.length > 0 && (
+                      <p><span className="font-bold text-primary-fixed">Also ran:</span> {ELECTION_INFO.notElected.join(", ")}</p>
+                    )}
+                    <p>
+                      <a href={ELECTION_INFO.resultsUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-fixed">
+                        Transylvania County Board of Elections
+                      </a>
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p><span className="font-bold text-primary-fixed">GOP:</span> {ELECTION_INFO.gopNominees.join(", ")}</p>
+                    <p><span className="font-bold text-primary-fixed">Dem:</span> {ELECTION_INFO.demNominees.join(", ")}</p>
+                  </>
+                )}
               </div>
             </div>
             <Link
