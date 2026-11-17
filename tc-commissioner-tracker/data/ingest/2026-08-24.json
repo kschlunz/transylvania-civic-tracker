@@ -1,0 +1,1236 @@
+{
+  "meeting": {
+    "id": "2026-08-24",
+    "date": "2026-08-24",
+    "type": "regular",
+    "time": "6:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "chappell",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 30,
+    "duration": "3 hours 42 minutes",
+    "tldr": "The Board approved a contract change for Connestee Fire Rescue. For at least 18 months, the department will be paid back each month based on its records instead of getting quarterly payments. The Board also adopted the Comprehensive Transportation Plan with the Wilson Road Extension in place of the Railroad Avenue Connector. It accepted $2.3 million in grants for two new public safety radio towers, adding $397,860 in County money, and approved $29,600 for Tyler Technologies software, including the public Open Finance spending portal. Other business included the FY 2026 fourth-quarter budget amendments and financial report, a capital projects update, board appointments, and a closed session on a possible economic development project. Two residents raised concerns about the Sheriff's Office's Flock license plate cameras, and two commissioners supported asking the Sheriff to present on how the cameras are used.",
+    "keyVotes": [
+      {
+        "description": "Approved the meeting agenda as submitted",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "mckelvey",
+        "background": "There were no agenda modifications. The Board voted to approve the agenda as submitted.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 3
+      },
+      {
+        "description": "Approved the consent agenda, including minutes, July 2026 tax report, two proclamations, policy and bylaw revisions, and transportation grant application",
+        "result": "Unanimous",
+        "mover": "consent agenda",
+        "seconder": "consent agenda",
+        "background": "The consent agenda covered several items. These included the June 22 sealed closed session minutes and July 13 regular meeting minutes, and the July 2026 Discovery, Release & Monthly Settlement Report ($13,072.44 released, $7,310.26 refunded). It also included proclamations for Constitution Week (#29-2026) and National Preparedness Month (#30-2026), revisions to the Computer and Internet Use Policy, and revised Council on Aging bylaws. Further items were the FY 2028 Public Transportation Program application and resolution, a $10,000 St. Philip's grant application for senior medical transportation, use of up to $25,000 in Soil & Water Special Projects funds for EWP engineering costs, a $286.20 Health Department bad debt write-off, and higher flu vaccine fees ($25 standard, $125 high-dose). The rest were notice of intent to donate surplus AV equipment to Transylvania County Schools, a park-and-ride maintenance agreement with NCDOT, closure of the DSS offices on the afternoon of September 24, and use of the Commissioners' Chambers for court during the 2026 General Election.",
+        "discussion": "Chair McCall noted that the Constitution Week and National Preparedness Month proclamations would be read aloud after approval because of their significance. Vice Chair Chapman read the Constitution Week proclamation and Commissioner Chappell read the National Preparedness Month proclamation.",
+        "passed": true,
+        "consent": true,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 3
+      },
+      {
+        "description": "Appointed Lisa Sheffield, Amber Webb and Shane Hooper to the Personnel Board",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "mckelvey",
+        "background": "The Personnel Board had three vacancies, and it will support the upcoming salary and compensation study. Human Resources Director Sheila Cozart recommended three appointments: Lisa Sheffield as Member-at-Large, Amber Webb as Member-of-Business and Shane Hooper as Employee member.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Reappointed Kae Parker, Brenda Skeffington, Mary Shore and Debra Yunker to the Council on Aging",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "chappell",
+        "background": "The four members' terms expire at the end of August, and all were eligible and willing to serve again. Staff recommended reappointing them.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Adopted Resolution #31-2026 appointing County Planner Sierra Lawing as a Review Officer",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "N.C.G.S. 47-30.2 requires counties to name Review Officers to certify maps and plats presented to the Register of Deeds. The resolution adds County Planner Sierra Lawing so that the review can be done as part of the existing subdivision review process.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Affirmed Chair McCall's nomination to the NCACC Tax and Finance Steering Committee",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "mckelvey",
+        "background": "NCACC invited counties to submit nominations for its steering committees and Legislative Goals Committee. Chair McCall had been nominated to the Tax and Finance Steering Committee.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 14
+      },
+      {
+        "description": "Approved terms for a Connestee Fire Rescue contract amendment: monthly payment based on records for at least 18 months",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "In June, Connestee Fire Rescue's third-party audit ended in a disclaimer of opinion because transaction records were insufficient. Finance Director Meagan O'Neal reported that staff had met with CFR twice since then. She recommended replacing quarterly payments with monthly repayment of documented expenses for at least 18 months, along with an unmodified (clean) audit opinion, before quarterly payments resume. The parameters go to the County Attorney to draft the formal amendment, which returns to the Board on September 28, 2026.",
+        "discussion": "Commissioner Chappell asked whether one unmodified audit opinion would be enough. Ms. O'Neal said it was realistic given the timing and that she would monitor compliance monthly. Commissioner McKelvey asked whether the process could finish sooner than 18 months, and agreed with the 18-month recommendation after Ms. O'Neal explained the audit backlog. Chair McCall confirmed that FY 2027 would be CFR's first full year with its new accounting firm. Commissioner Dalton asked about the effect on CFR's cash flow. Vice Chair Chapman expressed appreciation for the County's proactive approach and noted the State Auditor's attention to similar matters. Chair McCall noted that CFR had been cooperative.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 16
+      },
+      {
+        "description": "Adopted the Comprehensive Transportation Plan as modified by Brevard and Rosman, replacing the Railroad Avenue Connector with the Wilson Road Extension",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "mckelvey",
+        "background": "Daniel Sellers of NCDOT and Vicki Eastland of the Land of Sky RPO presented the draft plan earlier in the meeting. The City of Brevard and the Town of Rosman had replaced Project 17 (Railroad Avenue Connector) with Project 64 (Wilson Road Extension). The plan next goes to the Land of Sky RPO in September and the NCDOT Board of Transportation in October.",
+        "discussion": "During the presentation, Vice Chair Chapman expressed frustration with how long transportation projects take. Commissioner Chappell asked about public involvement in the project substitution, and Commissioner McKelvey asked whether the TAC, Brevard and Rosman agreed with the modified plan. Commissioner Dalton asked about the status of the US 64 widening, and Chair McCall asked about funding prospects for the Wilson Road Extension.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 16
+      },
+      {
+        "description": "Approved FY 2026 fourth-quarter budget amendments 60 through 77",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "Jennifer Wright, Director of Budget and Internal Projects, presented the amendments. They included moving money within department budgets and budgeting a $10,000 Youth Sports Grant and a $42,764 StRAP grant. Amendment 73 moved $571,478 from Assigned Fund Balance for two ambulances, and Amendment 74 created a new Enterprise Capital Fund for the landfill cell project. The rest were year-end cleanup actions.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 17
+      },
+      {
+        "description": "Received the FY 2026 fourth-quarter financial report",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "Finance Director Meagan O'Neal presented unaudited results: General Fund revenues of about $76.6 million and expenditures of about $72.7 million. She also reported on the Solid Waste Enterprise Fund and the Education Capital Fund, and on a State Auditor data request about Hurricane Helene spending. Courthouse financing through limited obligation bonds is scheduled for December 1, 2026. The County Manager said the roughly $4 million surplus was expected under the 10-year capital plan and is to be moved to assigned fund balance, with that formal action coming back to the Board.",
+        "discussion": "Vice Chair Chapman asked whether the courthouse financing timeline could push construction to spring. The County Manager said staff was proceeding as planned but could pause the project until spring, depending on the bids received and any financing concerns.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 20
+      },
+      {
+        "description": "Approved $29,600 for Tyler Technologies fund conversions and the Open Finance transparency portal",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "mckelvey",
+        "background": "Finance Director Meagan O'Neal asked for an $8,000 one-time fee to convert the Disaster Response and Opioid Settlement funds to multi-year funds. She also asked for $5,600 to set up the Open Finance public spending portal plus a $16,000 annual subscription. The total FY 2027 budget amendment of $29,600 comes from unassigned fund balance.",
+        "discussion": "Board members expressed support, citing greater financial transparency and administrative efficiency.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 20
+      },
+      {
+        "description": "Accepted $2.3 million in grants for two public safety communication towers and allocated $397,860 from assigned fund balance",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "Communications Director Cameron Sexton presented the item. The two grants are $1.5 million from USDA Rural Development for construction and $800,000 from Bureau of Justice Assistance discretionary funds for equipment. The total estimated project cost is $2,697,860, and the County's share comes from assigned fund balance set aside for this purpose.",
+        "discussion": "Commissioner Chappell asked whether the towers could also support HAM or GMRS radio for the public, and how long the project would take. Mr. Sexton estimated two to three years. Commissioner Dalton asked about tower locations; Mr. Sexton said they are expected to be on existing public lands, with agreements not yet finalized.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 21
+      },
+      {
+        "description": "Entered closed session for attorney consultation, economic development and real property negotiations",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "dalton",
+        "background": "The motion cited N.C.G.S. 143-318.11(a)(3), (a)(4) and (a)(5) and followed a 10-minute recess. The closed session began at 9:30 p.m. The Board received information on a potential economic development project, consulted the County Attorney, and directed staff on negotiations.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Left closed session",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "dalton",
+        "background": "The Board voted to end the closed session and return to open session.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Sealed the closed session minutes",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chappell",
+        "background": "The minutes are sealed until opening them would no longer frustrate the purpose of the closed session.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      },
+      {
+        "description": "Adjourned the meeting at 9:42 p.m.",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chappell",
+        "background": "With no further business, the Board adjourned at 9:42 p.m.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 23
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Asked about the prospects for funding the Wilson Road Extension.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Thanked Mr. Hodges and the Transylvania Economic Alliance for their work on behalf of the County.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Agreed with Vice Chair Chapman that the County cannot keep relying on the same solid waste solutions.",
+            "categories": [
+              "environment",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Pointed to the Manager's report of about $8.8 million in new grant funding and said the County's ability to win more grants reflects effective management and use of earlier awards.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Confirmed that FY 2027 would be Connestee Fire Rescue's first full year with its new accounting firm and revised processes.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that Connestee Fire Rescue representatives had cooperated throughout the process and had suggested improvements themselves.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Confirmed that the Connestee Fire Rescue contract parameters would go to the County Attorney, and the formal amendment would return to the Board on September 28, 2026.",
+            "categories": [
+              "safety",
+              "governance"
+            ]
+          },
+          {
+            "text": "Raised the concern that SNAP error rates are not considered county by county, so high-error counties pull down the state average and cost well-performing counties such as Transylvania.",
+            "categories": [
+              "health",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Encouraged all County residents, not only City residents, to attend and give input on the Downtown Brevard Circulation Study, saying it will inform a real decision about how traffic moves through downtown.",
+            "categories": [
+              "infrastructure"
+            ]
+          }
+        ],
+        "motionsMade": 4,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Read the Constitution Week proclamation aloud.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Expressed frustration with how long transportation projects take to advance.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Welcomed Ms. Eastland's offer to give the Board a presentation on the State's transportation project prioritization process.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked about the potential for data center development in the County, noting that data centers already exist locally and that he had recently attended an NCACC conference presentation on their economic impact.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Stressed the need for long-term landfill planning, saying planning for future solid waste needs should begin now, and referred to an NCACC conference session on solid waste challenges.",
+            "categories": [
+              "environment",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Said the County's professional recognition across several departments reflects the overall quality of County staff.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Expressed appreciation for the County's proactive approach to the Connestee Fire Rescue audit issue and noted the State Auditor's attention to similar matters involving public funds.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked about the timeline for courthouse financing, noting that earlier plans expected a fall groundbreaking, and asked whether current circumstances could push construction to spring.",
+            "categories": [
+              "fiscal",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Offered context on a Benjamin Franklin quote used in public comment, citing research suggesting Franklin's 'essential liberty' referred to a collective legislative right on taxation rather than individual civil liberties.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Supported the call for the Sheriff to present to the Board on how Flock cameras are used in the County, including data-sharing arrangements and safeguards. He said both the benefits and the limits of the technology should be understood before any policy decision.",
+            "categories": [
+              "safety",
+              "governance"
+            ]
+          },
+          {
+            "text": "Reported a call about a paraglider taking off and landing at the Gallimore Road airstrip, which is not a permitted use and led to a confrontation with another citizen. He asked the County Manager to follow up with the Sheriff's Office on enforcement.",
+            "categories": [
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 3,
+        "motionsSeconded": 2,
+        "externalRoles": []
+      },
+      "chappell": {
+        "topics": [
+          {
+            "text": "Commented on the relatively small local match required for the public transportation program.",
+            "categories": [
+              "infrastructure",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Read the National Preparedness Month proclamation aloud.",
+            "categories": [
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked about public involvement in the decision to replace the Railroad Avenue Connector with the Wilson Road Extension in the Comprehensive Transportation Plan.",
+            "categories": [
+              "infrastructure",
+              "governance"
+            ]
+          },
+          {
+            "text": "Noted that although the Board had not met in a month, a great deal of work and communication had continued, especially on grant issues and on making sure municipal and other project partners had the information they needed to make decisions.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Praised the IT department, citing its ongoing cybersecurity upgrades and website improvements.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Stressed the importance of properly documenting taxpayer funds and asked whether one unmodified audit opinion would be enough for Connestee Fire Rescue.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked whether the new communication towers could also support HAM or GMRS radio for the public, noting the need for different types of communication during COVID-19 and other emergencies.",
+            "categories": [
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked how long the communication tower project would take to complete.",
+            "categories": [
+              "safety",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Read President George W. Bush's September 11, 2001 address to the nation ahead of the anniversary, saying he has done so at the meeting before the anniversary for many years.",
+            "categories": [
+              "community"
+            ]
+          }
+        ],
+        "motionsMade": 6,
+        "motionsSeconded": 3,
+        "externalRoles": [
+          "National Association of Counties Rural Action Caucus"
+        ]
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Noted that the public transportation program serves elderly residents and other County residents through the TIM buses.",
+            "categories": [
+              "infrastructure",
+              "health"
+            ]
+          },
+          {
+            "text": "Asked about the status of the proposed US 64 widening from Israel Road toward Brevard.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Thanked the Transylvania Economic Alliance and stressed promoting the variety and sophistication of existing local industries, including aerospace, pharmaceutical, agricultural and high-technology companies, as the community rebuilds its economic base after losing several major employers.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Asked how blockages in the French Broad River could be addressed.",
+            "categories": [
+              "environment",
+              "recovery"
+            ]
+          },
+          {
+            "text": "Noted the IT department's work at the Lake Toxaway Community Center.",
+            "categories": [
+              "governance",
+              "community"
+            ]
+          },
+          {
+            "text": "Asked how the monthly reimbursement process would affect Connestee Fire Rescue's cash flow.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked where the proposed communication towers would be located.",
+            "categories": [
+              "safety",
+              "infrastructure"
+            ]
+          }
+        ],
+        "motionsMade": 2,
+        "motionsSeconded": 5,
+        "externalRoles": []
+      },
+      "mckelvey": {
+        "topics": [
+          {
+            "text": "Asked whether the TAC, the City of Brevard and the Town of Rosman agreed with the modified Comprehensive Transportation Plan.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Expressed personal gratitude for the IT department's transparency, resourcefulness and commitment to taxpayers.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether Connestee Fire Rescue could complete the audit process in less than 18 months. After the explanation, he agreed with the 18-month recommendation.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said he had heard from many constituents with concerns about Flock cameras and agreed that hearing from the Sheriff would be appropriate. He added that, based on his personal values on liberty and the Constitution, he would be predisposed to vote against any Flock camera expansion that came before the Board.",
+            "categories": [
+              "safety",
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 5,
+        "externalRoles": []
+      }
+    },
+    "publicComments": [
+      {
+        "speaker": "Samantha Jones",
+        "summary": "Spoke about the deaths of her son and another young man about two years earlier and said she believed the investigation was incomplete. She said the state trooper acknowledged to her that not going to the house where the young men had come from was a mistake. Sheriff Owenby had told her the case fell under the trooper's jurisdiction because an ATV was involved, but she believed the county should also have investigated. She questioned the delay in the 911 call after the young men were found and asked the Board for help getting answers."
+      },
+      {
+        "speaker": "Ashley Hart",
+        "summary": "Raised concerns about the Sheriff's Office's Flock Safety automatic license plate reader system: collection and retention of vehicle and location data, including on people not suspected of crimes; the County's participation in a data-sharing network; the lack of a public transparency portal; and who has access to the data. She said she supports law enforcement and could not determine whether the cameras had helped solve crimes. She asked the Board to review the materials she provided and reconsider using Flock cameras."
+      },
+      {
+        "speaker": "Robert Jazowski",
+        "summary": "Raised concerns that automatic license plate reader systems can work as vehicle-tracking systems and may capture identifying features beyond plate numbers. He cited examples of people he said were detained or otherwise affected by misidentification, referred to public concerns about Flock cameras in other communities and raised Fourth Amendment concerns."
+      },
+      {
+        "speaker": "Doug Powell",
+        "summary": "Spoke ahead of Constitution Week (September 17–23, 2026) on the history of the Fourth Amendment, including James Otis's 1761 arguments against writs of assistance and John Adams's later reference to them. He discussed elected officials' responsibility to protect individual rights and cited statements attributed to Thomas Jefferson and Benjamin Franklin on balancing liberty and safety."
+      },
+      {
+        "speaker": "Karen Gleasman",
+        "summary": "Referred to an earlier statement by Commissioner Dalton that she understood to mean a data center would not be located in the County. Given his upcoming departure from the Board, she asked the Board for a formal written statement on whether that is the Board's official position."
+      },
+      {
+        "speaker": "Ashley Hart",
+        "summary": "In the second public comment period, she praised the courage of the mother who spoke earlier and urged the Board to act on her behalf."
+      }
+    ],
+    "staffActivity": [
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Introduced the presenters for the transportation application, the Comprehensive Transportation Plan, the TEA annual report, the capital update, the IT award, the Connestee Fire Rescue amendment, the budget amendments and the communication tower grants.",
+          "Asked Ms. Eastland to give an update on the Downtown Brevard Circulation Study.",
+          "Gave the capital project update: the two grant-funded communication towers are in early site-securing, and bids for the Courthouse Public Safety Complex were set to be released that week.",
+          "Reported that the landfill leachate pretreatment project is on hold after DEQ comments while the County considers future landfill options, and its grant-funded study is being closed out.",
+          "Reported that, under State guidance, the City of Brevard and Town of Rosman must carry out the Azalea/Rhododendron sewer and Calvert Road water and sewer projects. These will come off the County's capital project list in September, though the County will keep funding Azalea design through the Dogwood Grant.",
+          "Reported that the landfill cell expansion remains on schedule for completion by the end of September, with staff working with DEQ, the contractor and the engineer on stormwater issues.",
+          "Reported that the watershed study and the Boys & Girls Club/Gallimore Road sewer extension are underway, an RFQ has been issued for the Pisgah Labs water and sewer extension, and engineering contracts for the Brevard system housing projects are being reassigned.",
+          "Reported that the Brevard High School sewer line and pump station needs about $1 million more in construction funding and that staff is working with Representative Anna Ferguson to identify sources.",
+          "Reported new grants and allocations: $2 million for EMS and Fire, $2 million for the Transylvania Campus of Blue Ridge Community College, $2.5 million in StRAP funds for riverway and streambank work, and $2.3 million in USDA and Department of Justice funding for communication towers.",
+          "Explained that StRAP funds and the Soil and Water Conservation District budget can be used to clear French Broad River blockages and encouraged residents to report blockages to the District office.",
+          "Said the one-audit requirement for Connestee Fire Rescue would be a chance to confirm the new processes work as intended.",
+          "Explained that the action on the Comprehensive Transportation Plan was to adopt it as received or as modified by the City of Brevard and Town of Rosman.",
+          "Clarified that the roughly $4 million General Fund surplus at the end of FY 2026 was expected under the 10-year capital payment plan and will be transferred to assigned fund balance, with formal action brought back to the Board.",
+          "Reported on the meeting with the State Auditor's Office about its Hurricane Helene funding data request and a planned call with NCACC and other county managers.",
+          "Said courthouse bid requests had gone out and staff was proceeding as scheduled, but the project could be paused until spring depending on the bids and any financing concerns.",
+          "Reminded the Board that $18 million in school bond funding must be sold by fall 2028 and that the Joint School Bond Project Committee is expected to begin planning the next phase in 2027.",
+          "Called the Open Finance platform an important investment in financial transparency that had been planned before Hurricane Helene and delayed by recovery work.",
+          "Confirmed that the $397,860 County share for the communication towers had been specifically set aside in assigned fund balance.",
+          "Reported a revised SNAP cost impact of about $381,000 a year ($172,640 administrative and $208,741 benefit costs), equal to about 0.31 cents on the property tax rate, down from the one cent cited earlier.",
+          "Announced the public input meeting for the Downtown Brevard Circulation Study, with a local officials meeting beforehand.",
+          "Congratulated Commissioner Chappell on his appointment to the NACo Rural Action Caucus and Vice Chair Chapman on reaching Laureate status in the Local Elected Leaders Academy.",
+          "Noted the meeting was the first to use the new AV system and that the September 14 meeting was canceled, with the next meeting on September 28.",
+          "Summarized NCACC conference topics: property tax and levy limits, SNAP impacts, trends in fire protection staffing, rural health care, data centers and zoning, FEMA changes and landfill challenges.",
+          "Encouraged residents to prepare for 72 hours without power or the ability to leave home and pointed them to ready.gov."
+        ]
+      },
+      {
+        "name": "Ashley Minery",
+        "role": "Planning, Community Development, and Transportation Director",
+        "items": [
+          "Presented the FY 2028 Public Transportation Program application. It requests $166,689 for 5311 Administration ($25,003 local match), $125,000 for Combined Capital ($12,500 local match) and $110,000 for 5310 Operating, whose $55,000 match comes from ROAP funding.",
+          "Said County Transportation complies with all NCDOT and FTA requirements, including reporting."
+        ]
+      },
+      {
+        "name": "Daniel Sellers",
+        "role": "NCDOT Planning Office",
+        "items": [
+          "Presented the draft Comprehensive Transportation Plan, including its purpose, public input process and proposed highway, bicycle, pedestrian and transit projects.",
+          "Reported that the City of Brevard and the Town of Rosman replaced the Railroad Avenue Connector (Project 17) with the Wilson Road Extension (Project 64), and that the plan would go next to the Land of Sky RPO in September and the NCDOT Board of Transportation in October.",
+          "Said no specific public comments on the Railroad Avenue project had been received during CTP engagement, apart from comments on safety signage."
+        ]
+      },
+      {
+        "name": "Vicki Eastland",
+        "role": "Land of Sky Rural Planning Organization",
+        "items": [
+          "Explained the State's transportation prioritization process and gave timelines for local projects: Pisgah Forest intersection (completion expected fall 2028), Wilson Road (advertising September 2028), Asheville Highway (October 2029) and Cedar Mountain (completion expected summer 2027).",
+          "Said Railroad Avenue had consistently ranked as the most opposed project in public surveys and described Wilson Road as a two-lane community connector rather than a bypass.",
+          "Gave an update on the 90% NCDOT-funded Downtown Brevard Circulation Study, including a public meeting and a local officials meeting.",
+          "Reported that the US 64 widening from Israel Road remains unfunded after scoring 19, below the competitive threshold of 35, and offered to present on the prioritization process.",
+          "Noted that about 45% of the projects in the 2007 CTP have been built."
+        ]
+      },
+      {
+        "name": "Burton Hodges",
+        "role": "Executive Director, Transylvania Economic Alliance",
+        "items": [
+          "Presented TEA's annual report, covering its structure, funding and focus areas.",
+          "Reported progress on agreements to extend infrastructure to Pisgah Labs and a Custom Tube Products expansion expected to create 15 jobs.",
+          "Reported workforce programs reaching nearly 100 high school upperclassmen and more than 110 recruitment leads, and identified the shortage of large Class A and B industrial buildings as the main constraint.",
+          "Reported a letter of intent for the 40,000-square-foot Sylvan Valley Center expansion with a tenant expected to create up to 27 jobs averaging more than $87,000 a year, with a target lease start of October 2026.",
+          "Gave an update on the Rural Development Authority, now administered by the Land of Sky Regional Council, with a focus on redeveloping the former Ecusta property.",
+          "Reported IMPLAN estimates for TEA's first 10 years and estimated about $33 in new tax revenue per $1 of County funding over the past two years.",
+          "Said the County lacks the large sites and utility capacity that major data center operators generally require."
+        ]
+      },
+      {
+        "name": "Beecher Allison",
+        "role": "Project Manager",
+        "items": [
+          "Reported that Blum Construction delivered formal pricing on August 19 for the Brevard High School Additions & Renovations grant project, now under review to keep the design within budget.",
+          "Reported that drawings for the Brevard High School Infrastructure Project are complete, with bidding and construction targeted for fall 2026.",
+          "Reported on GMP 1 summer work: roof replacement at Brevard Middle School, gutter and metal work at Brevard High School, and foundation geofoam injections at Rosman Elementary School.",
+          "Reported that the Rosman High School fuel tank replacement is operational and nearing close-out.",
+          "Reported that construction on the Rosman Area Schools project is expected to begin in late October or November and that all bond work is expected to be finished by the end of 2028."
+        ]
+      },
+      {
+        "name": "Meagan O'Neal",
+        "role": "Finance Director",
+        "items": [
+          "Presented the proposed Connestee Fire Rescue contract amendment: monthly reimbursement based on documentation for at least 18 months plus an unmodified audit opinion before quarterly payments resume.",
+          "Explained the timing of Connestee Fire Rescue's audits and the cash-flow arrangements, including the July 1 quarterly payment already made and the fund balance available to the department.",
+          "Presented the unaudited FY 2026 fourth-quarter financial summary: General Fund revenues of about $76.6 million and expenditures of about $72.7 million.",
+          "Reported that the Solid Waste Enterprise Fund showed a net gain of about $730,000 but is expected to end the year at a loss without a General Fund transfer once year-end accruals are recorded.",
+          "Reported more than $130 million in active Education Capital funding and the status of project close-outs.",
+          "Reported on the remaining FEMA Hurricane Helene projects and the State Auditor's Office data request on Helene-related spending.",
+          "Explained that the County-level Capital Fund summary was left out of the packet while grant allocations and the new Enterprise Capital Fund are finalized.",
+          "Recognized Christy Stansel for 40 years of service with the County.",
+          "Reported that interim FY 2026 audit fieldwork was completed and final fieldwork is set for the week of October 26.",
+          "Reported that courthouse financing through limited obligation bonds is scheduled to close on December 1, 2026.",
+          "Presented the Tyler Technologies requests: an $8,000 conversion of the Disaster Response and Opioid Settlement funds to multi-year designations, and the Open Finance transparency portal at $5,600 to implement plus $16,000 a year, for a total of $29,600."
+        ]
+      },
+      {
+        "name": "Jennifer Wright",
+        "role": "Director of Budget and Internal Projects",
+        "items": [
+          "Presented the FY 2026 fourth-quarter budget amendments (numbers 60 through 77), including a $571,478 transfer from assigned fund balance for two ambulances and the creation of an Enterprise Capital Fund for Solid Waste."
+        ]
+      },
+      {
+        "name": "Cameron Sexton",
+        "role": "Communications Director",
+        "items": [
+          "Presented the public safety communication tower grants, explaining the radio coverage problems caused by the terrain and the increase in construction costs since 2019.",
+          "Reported $1.5 million from USDA Rural Development and $800,000 from the Bureau of Justice Assistance toward a total project cost of $2,697,860.",
+          "Said he is exploring public HAM/GMRS use of the towers and a possible State Highway Patrol VIPER equipment partnership.",
+          "Said the towers are expected to be on existing public land, with locations still to be finalized, and estimated the project would take two to three years."
+        ]
+      },
+      {
+        "name": "Sheila Cozart",
+        "role": "Human Resources Director",
+        "items": [
+          "Recommended appointing Lisa Sheffield, Amber Webb and Shane Hooper to the three Personnel Board vacancies."
+        ]
+      },
+      {
+        "name": "Elaine Russell",
+        "role": "Public Health Director",
+        "items": [
+          "Recommended writing off $286.20 in Health Department bad debt, with accounts totaling $245.20 to be sent to the NC Tax Debt Setoff Program."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-08-24-fu-1",
+        "dateRaised": "2026-08-24",
+        "owner": "staff",
+        "description": "Prepare the formal Connestee Fire Rescue contract amendment based on the approved parameters (temporary monthly reimbursement with documentation for at least 18 months, plus an unmodified audit opinion) and bring it back to the Board for approval at the September 28, 2026 meeting.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "safety",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-2",
+        "dateRaised": "2026-08-24",
+        "owner": "Meagan O'Neal",
+        "description": "Do a full review of Connestee Fire Rescue's finalized fiscal policies before the contract amendment is executed, then monitor CFR's compliance with the monthly reimbursement documentation each month.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "safety",
+          "fiscal",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-3",
+        "dateRaised": "2026-08-24",
+        "owner": "staff",
+        "description": "Bring a resolution approving the donation of surplus audiovisual equipment to Transylvania County Schools to the September 28, 2026 meeting, after the required statutory notice is posted.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "schools",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-4",
+        "dateRaised": "2026-08-24",
+        "owner": "Vicki Eastland",
+        "description": "Give the Board a presentation on the State's transportation project prioritization process. Ms. Eastland offered this and Vice Chair Chapman welcomed it.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "infrastructure"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-5",
+        "dateRaised": "2026-08-24",
+        "owner": "staff",
+        "description": "Have the Sheriff come before the Board to present how Flock license plate reader cameras are used in Transylvania County, including data-sharing arrangements and operational safeguards. Vice Chair Chapman seconded the call for this and Commissioner McKelvey agreed.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "safety",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-6",
+        "dateRaised": "2026-08-24",
+        "owner": "Jaime Laughter",
+        "description": "Follow up with the Sheriff's Office to enforce against unpermitted paraglider takeoffs and landings at the Gallimore Road airstrip, as Vice Chair Chapman requested.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "safety"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-7",
+        "dateRaised": "2026-08-24",
+        "owner": "Jaime Laughter",
+        "description": "Bring back to the Board for approval the formal action to transfer the roughly $4 million FY 2026 General Fund surplus to assigned fund balance, as part of the audit process.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-8",
+        "dateRaised": "2026-08-24",
+        "owner": "Cameron Sexton",
+        "description": "Tell the Board the exact locations of the two new public safety communication towers and give further project updates once site agreements and permitting are finalized.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "safety",
+          "infrastructure"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-9",
+        "dateRaised": "2026-08-24",
+        "owner": "Meagan O'Neal",
+        "description": "Include a more complete County-level Capital Fund summary in the next quarterly financial report. It was left out of the FY 2026 fourth-quarter packet while grant funding and project allocations were being finalized.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-10",
+        "dateRaised": "2026-08-24",
+        "owner": "Meagan O'Neal",
+        "description": "Compile and submit the County's response to the State Auditor's data request on all Hurricane Helene-related funding. The initial deadline was October 13, and an extension may be granted.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "recovery",
+          "fiscal",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      },
+      {
+        "id": "2026-08-24-fu-11",
+        "dateRaised": "2026-08-24",
+        "owner": "staff",
+        "description": "The Joint School Bond Project Committee is to begin planning, expected in 2027, for the next phase of school projects to be funded by the remaining $18 million in school bonds, which must be sold by fall 2028. This includes reviewing the Axias reports for projects beyond Step One.",
+        "status": "open",
+        "type": "long_term",
+        "categories": [
+          "schools",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-08-24"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-08-24%20reg%20mtg%20_%20PH.pdf",
+    "agendaUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/agendas/2024-08-24%20BOC%20Agenda.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-05-11-fu-5",
+      "status": "resolved",
+      "resolution": "The Board approved HR Director Sheila Cozart's recommendations to fill all three Personnel Board vacancies: Lisa Sheffield (Member-at-Large), Amber Webb (Member-of-Business) and Shane Hooper (Employee)."
+    },
+    {
+      "id": "2026-06-02-fu-2",
+      "status": "in_progress",
+      "resolution": "The Personnel Board vacancies were filled as preparations begin for the upcoming salary and compensation study, in which the Personnel Board is to provide input."
+    },
+    {
+      "id": "2024-08-26-fu-1",
+      "status": "resolved",
+      "resolution": "The Board approved $29,600, including Tyler Technologies' Open Finance public financial transparency portal ($5,600 implementation and a $16,000 annual subscription). The Manager noted the project had been planned before Hurricane Helene and delayed by recovery work."
+    },
+    {
+      "id": "2026-05-26-fu-5",
+      "status": "resolved",
+      "resolution": "The Manager reported that this meeting was the first use of the new AV system in the Commissioners' Chambers. The Board also authorized notice of intent to donate the decommissioned equipment to Transylvania County Schools."
+    },
+    {
+      "id": "2026-06-22-fu-3",
+      "status": "in_progress",
+      "resolution": "Staff held two meetings with Connestee Fire Rescue representatives. The Board approved the parameters of a contract amendment requiring monthly documented reimbursement; the formal amendment is to return on September 28, 2026."
+    },
+    {
+      "id": "2026-06-22-fu-4",
+      "status": "in_progress",
+      "resolution": "Interim fieldwork for the FY 2026 audit was completed the week of August 3. Final fieldwork is scheduled for the week of October 26."
+    },
+    {
+      "id": "2026-06-22-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the landfill cell expansion remains on schedule for completion by the end of September. Staff are working with DEQ, the contractor and the engineer on several stormwater-related issues."
+    },
+    {
+      "id": "2026-06-22-fu-6",
+      "status": "in_progress",
+      "resolution": "Four streambank restoration projects were confirmed for EWP funding. On the consent agenda, the Board approved using up to $25,000 in Soil & Water Special Projects funds to cover EWP engineering costs above the 10% allowed."
+    },
+    {
+      "id": "2026-06-22-fu-7",
+      "status": "in_progress",
+      "resolution": "Engineering is underway on the Brevard High School sewer line and pump station, which needs about $1 million more in construction funding; staff is working with Representative Ferguson to find sources. The County will continue funding Azalea Sewer Extension design through the Dogwood grant."
+    },
+    {
+      "id": "2026-06-22-fu-8",
+      "status": "in_progress",
+      "resolution": "The Manager reported that, based on State guidance, the Town of Rosman must undertake design and construction of the Calvert Road Water and Sewer project and will apply directly for funding. The project will be removed from the County's capital project list in September."
+    },
+    {
+      "id": "2026-07-13-fu-4",
+      "status": "in_progress",
+      "resolution": "The Manager reported that, based on State guidance, the City of Brevard must undertake construction of the Azalea Sewer Extension and will apply directly for construction funding. The County will continue funding design, and the engineer's proposal is under review."
+    },
+    {
+      "id": "2026-07-13-fu-5",
+      "status": "in_progress",
+      "resolution": "TEA reported that agreements among Pisgah Labs, the City of Brevard and the County to extend public infrastructure are nearing completion. The Manager reported that an RFQ has been issued and the County is working to execute a contract."
+    },
+    {
+      "id": "2026-07-13-fu-7",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the leachate pretreatment project is on hold while the County considers future landfill options, and the grant-funded study is being closed out."
+    },
+    {
+      "id": "2025-10-13-fu-2",
+      "status": "in_progress",
+      "resolution": "Ms. O'Neal reported that the County is preparing for the two- to three-month limited obligation bond financing process for the courthouse, including meetings with the Local Government Commission. Financing is scheduled for December 1, 2026."
+    },
+    {
+      "id": "2026-03-23-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that courthouse bids are being advertised, with the bid release scheduled for the week of the meeting. She noted the project could be paused until spring depending on the bids and financing."
+    },
+    {
+      "id": "2024-04-22-fu-1",
+      "status": "in_progress",
+      "resolution": "The monthly capital update was given, covering school projects, County capital projects and capital grants."
+    },
+    {
+      "id": "2024-06-24-fu-1",
+      "status": "in_progress",
+      "resolution": "The Manager gave the monthly capital update at the Board's second-monthly meeting slot, including changes to the County capital project list."
+    },
+    {
+      "id": "2025-05-12-fu-5",
+      "status": "in_progress",
+      "resolution": "Beecher Allison gave the monthly update on the Fixing Transylvania County Schools projects."
+    },
+    {
+      "id": "2025-12-08-fu-7",
+      "status": "in_progress",
+      "resolution": "Blum Construction provided formal pricing on August 19 for the Brevard High School Additions & Renovations project, which the County, school staff and LS3P are reviewing."
+    },
+    {
+      "id": "2026-03-09-fu-3",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the City of Brevard and Town of Rosman will apply directly for construction funding for the Azalea and Calvert Road sewer extensions. State Representative Anna Ferguson has been in direct contact with both about funding options."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "flock-license-plate-reader-cameras",
+      "title": "Sheriff's Office Flock License Plate Reader Cameras",
+      "categories": [
+        "safety",
+        "governance"
+      ],
+      "summary": "Two public commenters raised concerns about the Sheriff's Office Flock ALPR system: Ashley Hart questioned data collection, data sharing and transparency and asked the Board to reconsider its use, and Robert Jazowski raised misidentification and Fourth Amendment concerns. Vice Chair Chapman and Commissioner McKelvey supported having the Sheriff present to the Board, and McKelvey said he would be predisposed to vote against any expansion."
+    },
+    {
+      "id": "comprehensive-transportation-plan",
+      "title": "Comprehensive Transportation Plan",
+      "categories": [
+        "infrastructure"
+      ],
+      "summary": "NCDOT and the Land of Sky RPO presented the draft CTP. The Board unanimously adopted it as modified by the City of Brevard and Town of Rosman, replacing the Railroad Avenue Connector with the Wilson Road Extension. The plan goes next to the RPO in September and the NCDOT Board of Transportation in October."
+    },
+    {
+      "id": "downtown-brevard-circulation-study",
+      "title": "Downtown Brevard Circulation Study",
+      "categories": [
+        "infrastructure"
+      ],
+      "summary": "Ms. Eastland reported that the NCDOT-funded (90%) study of the Broad Street and Caldwell Street corridors held focus groups and is entering its public input phase, with a public meeting and a local officials meeting scheduled. Chair McCall encouraged all County residents to take part."
+    },
+    {
+      "id": "public-safety-communication-towers",
+      "title": "Public Safety Communication Towers",
+      "categories": [
+        "safety",
+        "infrastructure"
+      ],
+      "summary": "The Board accepted $2.3 million in grants for two new public safety communication towers: $1.5 million from USDA and $800,000 from the Bureau of Justice Assistance. It allocated $397,860 from assigned fund balance toward the $2,697,860 total cost. Sites are expected on existing public lands, and the project is estimated to take two to three years."
+    },
+    {
+      "id": "open-finance-transparency-portal",
+      "title": "Open Finance Public Financial Transparency Portal",
+      "categories": [
+        "governance",
+        "fiscal"
+      ],
+      "summary": "The Board approved $29,600 for Tyler Technologies services. This covers converting two funds to multi-year designations and implementing the Open Finance portal, which will let the public search County expenditures back to 2019 in real time."
+    },
+    {
+      "id": "helene-streambank-restoration",
+      "title": "Hurricane Helene Streambank Restoration (EWP/StRAP)",
+      "categories": [
+        "recovery",
+        "environment"
+      ],
+      "summary": "Four streambank restoration projects were confirmed for EWP funding ($30,000 for engineering, $284,681 for construction). The Board approved using up to $25,000 in Soil & Water Special Projects funds for engineering costs above that, and the Manager reported $2.5 million in StRAP funds for riverway work and the four projects."
+    },
+    {
+      "id": "data-center-development",
+      "title": "Data Center Development in Transylvania County",
+      "categories": [
+        "econ",
+        "environment"
+      ],
+      "summary": "A public commenter asked the Board for a formal written statement on whether a data center would be located in the County. In response to Vice Chair Chapman, TEA's Burton Hodges said the County lacks the large-acreage sites and utility capacity major data center operators generally require."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "connestee-fire-rescue-contract",
+      "summary": "Finance Director O'Neal reported progress after two meetings with CFR. The Board unanimously approved amendment parameters that replace quarterly payments with monthly documented reimbursement for at least 18 months and require an unmodified audit opinion; the formal amendment returns September 28, 2026."
+    },
+    {
+      "id": "pisgah-labs-utility-expansion",
+      "summary": "TEA reported that agreements among Pisgah Labs, the City of Brevard and the County to extend infrastructure are nearing completion. The Manager reported that an RFQ has been issued for the water and sewer extension and a contract is being executed."
+    },
+    {
+      "id": "rosman-infrastructure-projects",
+      "summary": "Based on State guidance, the Town of Rosman must undertake design and construction of the Calvert Road Water and Sewer project and will apply directly for funding. The project will be removed from the County capital list in September."
+    },
+    {
+      "id": "infrastructure-grant-allocation",
+      "summary": "Three projects tied to the $10 million S.L. 2023 allocation remain unfunded. The City of Brevard and Town of Rosman will apply directly for the Azalea and Calvert Road sewer extensions, and the Brevard High School pump station needs about $1 million more, which staff is pursuing with Representative Ferguson."
+    },
+    {
+      "id": "snap-cost-shift",
+      "summary": "The Manager reported a revised estimated annual County impact of about $381,000 ($172,640 administrative and $208,741 benefit costs), or about 0.31 cents on the tax rate, down from one cent, because the State's error rate fell. Chair McCall noted concern that county-level error rates are not considered individually."
+    },
+    {
+      "id": "landfill-cell-expansion",
+      "summary": "The project remains on schedule for completion by the end of September, with staff addressing stormwater issues with DEQ. Budget Amendment 74 moved it into a new Enterprise Capital Fund."
+    },
+    {
+      "id": "av-system-upgrade-chambers",
+      "summary": "This meeting was the first use of the new Chambers AV system. The Board authorized notice of intent to donate the surplus equipment to Transylvania County Schools, with a donation resolution expected September 28."
+    },
+    {
+      "id": "education-capital-projects",
+      "summary": "Beecher Allison reported on summer GMP 1 work, Blum's August 19 pricing for the BHS additions, BHS infrastructure bidding targeted for fall 2026, and Rosman area construction starting late October or November. All bond work is expected to be done by the end of 2028, and the Manager noted $18 million in bonds remains to be issued by fall 2028."
+    },
+    {
+      "id": "hurricane-helene-recovery",
+      "summary": "Remaining FEMA projects are temporary road repairs, airport building mitigation and the Pisgah Forest compactors. The State Auditor's Office has requested data on all Helene-related funding, with an initial October 13 deadline, and staff met with that office at the NCACC conference."
+    },
+    {
+      "id": "watershed-study",
+      "summary": "The Manager reported that the watershed study remains underway using grant funds."
+    },
+    {
+      "id": "courthouse-renovation-project",
+      "summary": "The Manager reported that bids are being advertised and the project is proceeding on schedule, though it could be paused until spring depending on bids and financing. Limited obligation bond financing is scheduled for December 1, 2026."
+    },
+    {
+      "id": "blue-ridge-community-college-campus",
+      "summary": "The Manager reported a $2 million State allocation for the Transylvania Campus of Blue Ridge Community College. The County is awaiting details from OSBM and has met with BRCC President Dr. Leatherwood."
+    },
+    {
+      "id": "landfill-leachate-pretreatment",
+      "summary": "Following DEQ comments, the project is on hold while the County considers future landfill options, and the grant-funded study is being closed out."
+    },
+    {
+      "id": "housing-study-implementation",
+      "summary": "The engineering contracts for the Brevard system housing projects (the Housing Assistance Corporation extension, Habitat extension and Azalea design) are being reassigned. The County will continue funding Azalea Sewer Extension design, which includes an affordable housing component, through the Dogwood grant."
+    },
+    {
+      "id": "debt-service-long-term-strategy",
+      "summary": "The Manager said the roughly $4 million FY 2026 General Fund surplus was anticipated under the 10-year capital payment plan and is to be transferred to assigned fund balance, with formal action to come back to the Board. FY 2026 debt service was slightly over $5.5 million."
+    },
+    {
+      "id": "county-compensation-study",
+      "summary": "The Board filled three Personnel Board vacancies as preparations begin for the upcoming salary and compensation study, in which the Personnel Board will provide input."
+    },
+    {
+      "id": "solid-waste-rate-study",
+      "summary": "Vice Chair Chapman emphasized that long-term planning for future solid waste needs should begin now, and Chair McCall agreed the County cannot keep relying on the same solutions. The Finance Director cautioned that the Solid Waste Fund is expected to show a year-end loss without a General Fund transfer."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-17T21:53:20.305Z",
+    "revised": false,
+    "warnings": [
+      "Check — followUpUpdates[id=2026-06-02-fu-2]: This compensation study follow-up is marked in_progress, but the support is thin. The minutes only say preparations are beginning and that the Personnel Board will give input. They report no step on the study itself, such as issuing the request for services. A reviewer should decide whether filling the Personnel Board counts as progress on this commitment. (minutes: p.12: \"As preparations begin for the upcoming salary and compensation study, the Personnel Board will play an important role in supporting this work\")",
+      "Check — newFollowUps[4] (Sheriff Flock camera presentation): This may not be a real commitment. Vice Chair Chapman and Commissioner McKelvey said they would like to hear from the Sheriff, but no staff member agreed to schedule it, and the Board took no action. The minutes also record no earlier call for the Sheriff to appear. Consider whether this should be a follow-up. (minutes: p.22: \"He then seconded the earlier call for the Sheriff to come before the Board to present how Flock cameras are being used\"; p.23: \"He agreed with Vice Chair Chapman that hearing from the Sheriff would be appropriate\")",
+      "Check — followUpUpdates[id=2024-06-24-fu-1].resolution: The resolution says the update was given 'at the Board's second-monthly meeting slot'. The minutes do not say which monthly meeting slot this was. They only note that the Board had not met in a month. (minutes: p.12: \"although the Board had not met in a month, substantial work and communication had continued behind the scenes\")"
+    ]
+  }
+}

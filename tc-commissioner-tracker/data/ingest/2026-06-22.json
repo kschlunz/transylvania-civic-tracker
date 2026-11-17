@@ -1,0 +1,1226 @@
+{
+  "meeting": {
+    "id": "2026-06-22",
+    "date": "2026-06-22",
+    "type": "regular",
+    "time": "6:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "chappell",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 15,
+    "duration": "3 hours 55 minutes",
+    "tldr": "After a public hearing, the Board unanimously adopted the FY 2027 budget. It has an $82.5 million General Fund and no property tax increase. The Board also renewed the Veterans' History Museum of the Carolinas lease for two years at the current rate, took $2,184,218 from the Education Capital Fund balance for a new secure-vestibule standard at all schools, and approved the FY 2027 nonprofit funding contracts. Commissioners heard the FY 2025 audit (a clean opinion with two repeat timing-related findings), monthly capital project updates and a discussion of NCACC legislative goals. After a closed session, the Board directed a certified letter to Connestee Fire Rescue about answering audit questions.",
+    "keyVotes": [
+      {
+        "description": "Approved the meeting agenda",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "mckelvey",
+        "background": "There were no agenda changes. The Board approved the agenda after the budget public hearing and public comment.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 5
+      },
+      {
+        "description": "Approved the consent agenda, including a $8,500 audit contract amendment and the FY 2027 Home and Community Care Block Grant and JCPC funding plans",
+        "result": "Unanimous",
+        "mover": "consent agenda",
+        "seconder": "consent agenda",
+        "background": "The consent agenda covered: minutes from earlier meetings, including sealed closed-session minutes; the May and June 1-22, 2026 tax discovery, release and settlement reports; a proclamation making July Park and Recreation Month; a letter supporting AdventHealth's Certificate of Need application for 92 acute care beds; the FY 2027 Home and Community Care Block Grant and Juvenile Crime Prevention Council funding plans; an $8,500 amendment to the FY 2025 audit contract with Martin Starnes & Associates; moving a vacant CARE Coalition Director position to the NC Public Health Alliance Staffing Agency; moving the Health Department training day to September 30, 2026; and out-of-state travel for IT Director Nathanael Carver to the NACo Annual Conference.",
+        "discussion": "",
+        "passed": true,
+        "consent": true,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 5
+      },
+      {
+        "description": "Reappointed seven members to the Juvenile Crime Prevention Council",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "Seven members' terms end in June, and all were eligible and willing to serve again. They are Cynthiana Cain, Sarah Holden, Jennifer Galloway, Commissioner Jake Dalton, April Cameron, Chase Lance and Brian Weaver, each in a statutory role. The Council still has several vacancies, and staff are recruiting.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 14
+      },
+      {
+        "description": "Tabled the recommended appointment of Kay Argroves to the Regional Council on Aging",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "LeeAnne Tucker of Land of Sky's Area Agency on Aging recommended Kay Argroves for one of two vacancies. The seat is a Community Member position that also serves as Alternate Senior Tar Heel Delegate.",
+        "discussion": "Chairwoman McCall recommended tabling the appointment. She said Ms. Argroves does not meet the Board's Citizen Advisory Council Policy, which requires members to live in the County full-time and be registered to vote here.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 14
+      },
+      {
+        "description": "Appointed Jason Davis to the North Transylvania Fire Rescue Relief Fund Board",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "chapman",
+        "background": "Matthew Petty, one of the County's two appointees to the relief fund board, resigned. The North Transylvania Fire Rescue Board of Directors chose Jason Davis to fill the seat and recommended that the Board appoint him.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 15
+      },
+      {
+        "description": "Adopted the FY 2027 budget: $82.5 million General Fund, no property tax increase",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chapman",
+        "background": "The County Manager presented the recommended budget before the required public hearing. The General Fund is $82.5 million, up 1.47%, with no property tax increase. It fully funds the Board of Education's request and gives partner agencies a 2.7% overall increase. It includes a $720,000 General Fund subsidy for Solid Waste, and fund balance would cover any FY 2027 state or federal cost shifts. One speaker, Owen Carson, asked for a public-facing financial roadmap.",
+        "discussion": "Commissioner Chapman said the budget process has been transparent and supported the budget with no tax increase. Commissioner Chappell said budgeting goes on all year, called for continued talks on a local sales tax referendum, and said going ahead with last year's revaluation helped the County's finances. Commissioner Dalton pointed to coming state-level pressures from SNAP administration, teacher pay and Medicaid Hold Harmless. Commissioner McKelvey supported the budget but noted it leaves out Parks and Recreation investment and a long-term solid waste solution, and he encouraged a future sales tax initiative. Chairwoman McCall noted that more than 90% of the budget pays for mandated services.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 17
+      },
+      {
+        "description": "Renewed the Veterans' History Museum of the Carolinas lease for two years at the current rate",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "dalton",
+        "background": "The museum's lease of the former County Administration Building ends June 30, 2026. The rent has been $625 a month (about $2 per square foot, utilities included) for eight years. The Manager estimated the County would need about $12 per square foot to break even, against a downtown market of $18-$26. One HVAC unit has failed and would cost about $20,000 to replace. A new compressor would cost about $5,000 and mini-splits about $15,000. Under the lease, HVAC is the museum's responsibility. The Manager also noted that the 10-year statutory threshold for leases will be reached within about two years.",
+        "discussion": "Commissioner Chapman said he no longer sits on the museum's board, so he had no conflict. He spoke to the museum's value to the community and doubted it could afford a market-rate lease. Chairwoman McCall asked whether HVAC responsibility stays with the museum; Commissioner Chapman said it does under the existing lease. Commissioner Chappell asked about the mini-split cost. He suggested requiring an RFP for the existing courthouse within the two years and said he did not support investing in a new HVAC system. Commissioner McKelvey asked about the break-even cost. Chairwoman McCall said a multi-tenant approach for the courthouse may be practical and that she supported the motion.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 24
+      },
+      {
+        "description": "Approved the FY 2027 nonprofit funding contracts from the $100,000 allocation",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "mckelvey",
+        "background": "Budget and Management Analyst Jennifer Wright presented the recommended awards. Thirty applications asked for a total of $250,000, and $100,000 was available. A committee of staff and Commissioners McKelvey and Chappell scored the applications. No commissioner recused.",
+        "discussion": "Commissioner Chapman asked whether funded nonprofits must report on their progress. Ms. Wright said they must give updates and a year-end report. Commissioner Chappell thanked the review committee, noted the record number of applications, and supported the recommendations.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 26
+      },
+      {
+        "description": "Required the extra $10,000 in designated housing funds for Housing Assistance Corporation to come back to the Board for approval",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "chappell",
+        "background": "Housing Assistance Corporation was recommended for $10,000 for its home repair program, with another $10,000 held back until a mid-year spending report. Ms. Wright asked whether the Board wanted that second $10,000 brought back for its approval when the organization requests it.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 26
+      },
+      {
+        "description": "Approved $2,184,218 from the Education Capital Fund balance for a new secure-vestibule standard at all schools, plus authority to move up to 5% between project scopes",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "chappell",
+        "background": "The County Manager presented budget amendments that move bond funds from the Brevard High School scope to the Rosman Area Schools scope and pay for a standard secure vestibule at every school. The vestibules are estimated at $5.4 million beyond the original scopes. About $3.2 million would come from savings in existing bond projects and $2,184,218 from Education Capital Fund balance. The Education Capital Subcommittee approved the changes on May 29 and the Board of Education on June 15. The 5% transfer authority needs agreement from both the County Manager and the Superintendent and cannot raise the overall project budget.",
+        "discussion": "Commissioner Chappell, a subcommittee member, supported the change, saying it adds security work without dropping any approved projects. Commissioner Chapman asked whether School Resource Officer locations were considered; Superintendent Dr. Fletcher said they were. Commissioner Dalton asked whether Rosman High and Rosman Middle would share one entrance; Dr. Fletcher said they would. Chairwoman McCall asked whether the retaining wall project would still be done; the Manager said yes, with the County managing it directly. Chairwoman McCall also confirmed the fund balance money was already available. Commissioner McKelvey summarized the funding: $5.4 million total, $3.2 million from savings and $2.1 million from fund balance.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 29
+      },
+      {
+        "description": "Entered closed session for privileged information and attorney-client consultation",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chapman",
+        "background": "The Board went into closed session after a 10-minute recess, under N.C.G.S. § 143-318.11(a)(1) and (a)(3), to consult the County Attorney and staff on a confidential matter. The closed session began at 8:54 p.m.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 31
+      },
+      {
+        "description": "Left closed session",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chapman",
+        "background": "The Board left closed session at 9:54 p.m.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 31
+      },
+      {
+        "description": "Sealed the closed session minutes",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "mckelvey",
+        "background": "The closed session minutes are sealed until opening them would no longer defeat the purpose of the closed session.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 32
+      },
+      {
+        "description": "Directed a certified letter to Connestee Fire Rescue asking it to comply with audit questions, toward a contract revision and/or a 90-day termination",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "The motion followed the Board's discussion and direction in closed session. It directs the County Attorney and staff to send a certified letter to Connestee Fire Rescue about complying with audit questions, for the purpose of negotiating a contract revision and/or a 90-day termination of the contract. The letter goes to the Chief, the Board Chair and all Board Members of Connestee Fire Rescue.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 32
+      },
+      {
+        "description": "Adjourned the meeting at 9:55 p.m.",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "dalton",
+        "background": "The Board adjourned with no further business.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 32
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Remarked on how much school capital work has been completed since the interlocal agreement, citing the Brevard High School gymnasium and Exceptional Children classroom improvements, and noted that under-budget projects allowed more improvements.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Noted that more than 90% of the County's budget is mandated services, said FY 2027 may be one of the easier budget cycles, and said the County must stay flexible as state decisions and grant requirements change.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said proceeding with the prior year's revaluation was necessary, and that the County is fortunate to adopt a balanced budget without a tax increase.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Encouraged Commissioners to review the legislative goal groupings and be ready to discuss and approve them on July 13.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Recommended tabling Kay Argroves's appointment to the Regional Council on Aging because she does not meet the Citizen Advisory Council Policy's full-time residency and voter registration requirements.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether the lease motion left HVAC responsibility with the museum, and asked for clarification of the lower-cost HVAC option.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Reported that she asked state legislators to combine the County's separate funding requests for the new courthouse and for renovating the existing courthouse into a single court facilities request.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said a multi-tenant approach may be most practical for the existing courthouse and that an RFP would provide useful information; also recognized the museum's value and the role of Emmett Casciato in founding it.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Supported Commissioner Chapman's motion, saying the two-year extension gives the Board time to gather information before long-term decisions.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Said that, from her own past service on the nonprofit funding review committee, it was one of the most challenging committees she had served on.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Asked for confirmation that the Rosman High School retaining wall project would still be completed, and that the $2.1 million Education Capital Fund appropriation was already available.",
+            "categories": [
+              "schools"
+            ]
+          }
+        ],
+        "motionsMade": 3,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Asked, about the proposed $720,000 General Fund subsidy for Solid Waste, whether the budget recommended additional General Fund support for other agencies.",
+            "categories": [
+              "fiscal",
+              "environment"
+            ]
+          },
+          {
+            "text": "Said it is important for citizens to know that taxpayer dollars are managed responsibly and accounted for, and that a transparent audit process helps build public trust.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether school construction would affect students or school operations when classes resume in August.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Responded to public hearing comments by saying the budget process had been transparent, citing the published timeline, publicly posted agendas, open meetings and online recordings.",
+            "categories": [
+              "governance",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Supported the FY 2027 Budget, thanked staff for recommending no tax increase, and said the budget looks to the future but cannot meet every community need.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said that if voters approve constitutional amendments limiting property taxation, counties will need to set budget priorities differently, and encouraged citizens to tell elected officials their priorities.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Called the NCACC legislative goals process excellent and transparent, said not all goals win approval with 100 counties taking part, and recognized NCACC Executive Director Kevin Leonard.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Disclosed that he no longer serves on the Board of Directors of the Veterans' History Museum of the Carolinas and so had no conflict requiring recusal.",
+            "categories": [
+              "governance",
+              "community"
+            ]
+          },
+          {
+            "text": "Said the museum may not be able to afford a market-rate lease, pointed to its value to visitors and veterans, and recommended a two-year renewal while the future use of the existing courthouse is decided.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stated that under the existing lease the museum remains responsible for the HVAC system, and that if it cannot make repairs it must give the notice specified in the lease before leaving.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Noted the lease's six-month termination provision and said most nonprofits could not afford market-rate space in the existing courthouse, so the County may need to consider other approaches.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked whether nonprofits receiving County funds must submit progress reports, and said residents should know there is follow-up and oversight of nonprofit funding.",
+            "categories": [
+              "governance",
+              "community"
+            ]
+          },
+          {
+            "text": "Asked whether the locations of School Resource Officers were considered in the security vestibule design.",
+            "categories": [
+              "schools",
+              "safety"
+            ]
+          },
+          {
+            "text": "Recognized the County Manager's upcoming NC City-County Management Association leadership role and the County's representation in statewide organizations.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Thanked Superintendent Dr. Lisa Fletcher and said he has heard positive community feedback about recent principal assignments.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Encouraged the two candidates in attendance to keep advocating for the County at the state level if elected, and credited recent state funding successes to the Board's direct engagement with legislators.",
+            "categories": [
+              "governance",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Stressed sound financial practices and preparing for possible state actions that could limit counties' ability to raise revenue.",
+            "categories": [
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 3,
+        "motionsSeconded": 7,
+        "externalRoles": []
+      },
+      "chappell": {
+        "topics": [
+          {
+            "text": "Thanked Martin Starnes and Associates for responding to the County's auditor RFP, and said counties must keep pressing the General Assembly about the shrinking number of firms that perform government audits.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether more changes are expected from Governmental Accounting Standards Board (GASB) updates.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said a key takeaway from the capital update was that all Step One bond projects are projected to be finished by the end of 2028.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Said budgeting continues all year using information from capital workshops, acknowledged that some desired items are not currently feasible, and noted that the State's lack of an adopted budget creates uncertainty.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Thanked staff for including the priorities of all five Commissioners in the recommended budget and noted that budget information is posted on the County website.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Emphasized economic development, workforce development and support for education, including Blue Ridge Community College.",
+            "categories": [
+              "econ",
+              "schools"
+            ]
+          },
+          {
+            "text": "Encouraged continued discussion of more revenue options, including a possible local sales tax referendum.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said proceeding with the prior year's property revaluation strengthened the County's financial position, and recognized the Tax Administrator and staff.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Asked what installing mini-split HVAC systems in the former Administration Building would cost.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Encouraged courthouse reuse proposals that involve partnerships or several organizations, and suggested requiring that an RFP be issued within the two-year lease extension.",
+            "categories": [
+              "community",
+              "governance"
+            ]
+          },
+          {
+            "text": "Said he did not support investing in a new HVAC system for the former Administration Building given its condition and possible future use.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Thanked the nonprofit funding review committee, noted the record number of applications, and said the updated rating process made reviews more consistent.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Supported the school bond scope and budget amendments, saying they remove no approved projects and add security improvements, made possible in part by the State CTE grant and the relocation of Davidson River School.",
+            "categories": [
+              "schools",
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 4,
+        "motionsSeconded": 2,
+        "externalRoles": [
+          "Education Capital Subcommittee",
+          "FY 2027 nonprofit funding review committee"
+        ]
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Asked whether the replacement school roofs would have enough pitch to drain properly.",
+            "categories": [
+              "schools"
+            ]
+          },
+          {
+            "text": "Said he did not envy future Boards, pointing to state-level decisions on SNAP administration, teacher salaries and Medicaid Hold Harmless that could together create significant financial pressure.",
+            "categories": [
+              "fiscal",
+              "health"
+            ]
+          },
+          {
+            "text": "Expressed appreciation that the Board works together despite differences of opinion.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Supported continued advocacy for a different property tax rate for non-resident property owners, noting that the idea has had limited support in the NCACC Tax and Finance Steering Committee.",
+            "categories": [
+              "fiscal",
+              "governance"
+            ]
+          },
+          {
+            "text": "Encouraged advocacy for changes to the State's economic tier system, saying the County's Tier 3 classification does not reflect conditions he believes are closer to Tier 2 or Tier 1.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Stated he would not be present at the July 13 meeting, asked that his legislative priorities be reflected in the record, and otherwise supported the goals as drafted.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether Rosman High School and Rosman Middle School would have separate or combined secure entrances.",
+            "categories": [
+              "schools",
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 1,
+        "motionsSeconded": 2,
+        "externalRoles": [
+          "Juvenile Crime Prevention Council"
+        ]
+      },
+      "mckelvey": {
+        "topics": [
+          {
+            "text": "Noted that many school projects are coming in under budget, and asked when the security vestibule designs would be available given the different layouts at each school.",
+            "categories": [
+              "schools",
+              "safety"
+            ]
+          },
+          {
+            "text": "Encouraged continued discussion of more revenue sources, including a future sales tax initiative, as a way to ease the load on local property taxpayers by having visitors contribute.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that the timing of Hurricane Helene affected the previous sales tax referendum, raised concerns about unfunded mandates and the upcoming compensation study, and stressed competitive wages.",
+            "categories": [
+              "fiscal",
+              "recovery"
+            ]
+          },
+          {
+            "text": "Supported the FY 2027 Budget but noted it does not include more investment in Parks and Recreation or a long-term solution for Solid Waste.",
+            "categories": [
+              "fiscal",
+              "community",
+              "environment"
+            ]
+          },
+          {
+            "text": "Acknowledged the difficulty of weighing the museum's community value against the cost of County property, noted the lease rate had not changed in eight years while costs rose, and asked what the break-even cost is.",
+            "categories": [
+              "community",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that the expanded security vestibule standard costs $5.4 million in total, and that $3.2 million in reallocated bond project savings reduces the additional request to about $2.1 million.",
+            "categories": [
+              "schools",
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 3,
+        "motionsSeconded": 3,
+        "externalRoles": [
+          "FY 2027 nonprofit funding review committee"
+        ]
+      }
+    },
+    "publicComments": [
+      {
+        "speaker": "Owen Carson",
+        "summary": "During the FY 2027 budget public hearing, thanked the Board and staff for the recommended budget and praised the County's long-range capital planning. Said it can be hard for residents to see how the County's long-term commitments fit together, and encouraged a public-facing financial roadmap summarizing school construction and bond payments, courthouse and facility investments, solid waste needs, and possible state and federal funding changes."
+      },
+      {
+        "speaker": "Doug Powell",
+        "summary": "Encouraged residents to reflect on the Declaration of Independence ahead of Independence Day, spoke about its references to God, individual rights and the purpose of government, and encouraged local governments to acknowledge the nation's religious and historical foundations in public buildings and meetings."
+      },
+      {
+        "speaker": "Chuck Gilmore",
+        "summary": "Expressed concern about a proposed constitutional amendment on the November ballot that would limit property tax increases, said it could make it harder for local governments to meet local needs, and encouraged the Board to inform residents about its possible effects before the election."
+      },
+      {
+        "speaker": "David Morrow",
+        "summary": "Speaking for the Veterans History Museum of the Carolinas, thanked the Board for the two-year lease extension and asked that the museum be included in discussions about HVAC work at the building. Said some visitors and volunteers have found the building warm, and asked about the timeline for the work, including whether it could be done before July 4."
+      },
+      {
+        "speaker": "Ashley Hart",
+        "summary": "A County resident and First Vice-Chair of North Carolina's 11th District Republican Party, she thanked the Board for extending the Veterans History Museum lease. Raised concerns about a public records request she had submitted, noted that other local governments confirm receipt of requests even though state law does not require it, and asked the Board to consider confirming receipt of public records requests."
+      }
+    ],
+    "staffActivity": [
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Presented the FY 2027 recommended budget summary for the public hearing: an $82.5 million General Fund with no property tax increase, capital and personnel recommendations, health benefits, the Solid Waste Enterprise Fund and fire department budgets.",
+          "Answered Commissioner Chapman that about 39% of property tax revenue supports outside agencies such as Education, the Rescue Squad, the NC Forestry Service and Vaya Health.",
+          "Reminded the Board that the budget could still be changed after the public hearing, noted Henderson County's post-hearing tax increase proposal, and asked for direction on the FY 2027 Budget.",
+          "Reported that the new courthouse project is on schedule, with bidding and financing expected this fall and a bond sale scheduled for November.",
+          "Gave environmental and infrastructure updates: sediment leaving the landfill cell expansion site, the watershed study, the Boys and Girls Club/Gallimore Road sewer, landfill leachate pretreatment, the Morris Road project, the Calvert Road water and sewer project, and streambank restoration projects.",
+          "Reported that ARPA-funded infrastructure projects must move to state funding sources, with the Brevard High School sewer line and pump station as the top priority, followed by the Azalea/Rhododendron sewer expansion.",
+          "Added that Rosman Area Schools construction this fall will be coordinated with school administrators, and that the security vestibule designs are complete but are not being shared publicly for security reasons.",
+          "Explained the NCACC legislative goals process and the guiding principles staff drafted, with final approval to be requested by July 13 ahead of the August 14 deadline.",
+          "Presented the Veterans' History Museum of the Carolinas lease history, building condition, HVAC repair options, break-even lease rates, comparable County leases, policy considerations and options for the Board.",
+          "Clarified that the museum lease will reach the 10-year statutory threshold within two years, after which renewals require public notice and competitive procedures.",
+          "Explained the costs of the mini-split, window-unit and compressor HVAC options, the roughly $12 per square foot break-even cost, and future maintenance needs at the existing courthouse.",
+          "Noted that all nonprofits receiving County funds must sign a contract with the County.",
+          "Presented the school bond project scope, budget and timeline amendments: the new secure vestibule standard, the funding plan using $3.2 million in reallocated savings plus $2,184,218 from Education Capital Fund balance, and the requested 5% transfer authority.",
+          "Confirmed that SRO input shaped the vestibule designs, that the Rosman High School retaining wall will still be built under direct County management, and that the appropriated funds are cash fund balance restricted to education capital.",
+          "Manager's report: the Board of Education's strategic plan, FEMA flood mapping studies with public comment open through July 10, water testing related to landfill sediment, the investigation of dogs at large and the leash law, and condolences on the death of former Senator John Snow.",
+          "Reported on NCACC County Advocacy Days, the NCACC County Risk Group Board of Trustees meeting, and her upcoming swearing-in as Secretary/Treasurer of the NC City-County Management Association.",
+          "Announced the July 3–4 Independence Day celebration in downtown Brevard and other America 250th anniversary events."
+        ]
+      },
+      {
+        "name": "Meagan O'Neal",
+        "role": "Finance Director",
+        "items": [
+          "Introduced Kelly Gooderham of Martin Starnes and Associates to present the FY 2025 audit.",
+          "Reported that work on the FY 2026 audit will begin soon, with completion targeted by December 31, 2026."
+        ]
+      },
+      {
+        "name": "Beecher Allison",
+        "role": "Project Manager",
+        "items": [
+          "Gave the monthly school capital update, including the CTE grant project's preliminary schematic design and the start of GMP 1 work on June 8 at Brevard Middle, Brevard High and Rosman Elementary.",
+          "Showed progress photographs from each site and described the roofing, brick repair and Geofoam work.",
+          "Reported on the Rosman High School storage tank replacement, which is being done separately from the CMAR.",
+          "Reported the scope modifications approved by the subcommittee on May 29 and the timeline for completing all bond projects by the end of 2028.",
+          "Said remaining work will be coordinated with school staff to limit disruptions, and that some roofing work will continue into the school year.",
+          "Explained that the replacement roofs are low-slope designs analysed to ensure proper drainage."
+        ]
+      },
+      {
+        "name": "Jennifer Wright",
+        "role": "Budget and Management Analyst",
+        "items": [
+          "Reviewed the Session Law 2021-191 recusal requirements for officials who serve on nonprofit boards.",
+          "Reviewed the nonprofit funding process changes approved in February 2026 and reported 30 applications totalling $250,000 competing for $100,000.",
+          "Presented the recommended FY 2027 nonprofit funding awards for human services and for culture and recreation organizations.",
+          "Explained the progress and year-end reporting requirements for funded nonprofits.",
+          "Recommended approval of the nonprofit funding contracts, and asked whether the additional $10,000 in housing funds for Housing Assistance Corporation should come back to the Board for approval."
+        ]
+      },
+      {
+        "name": "Kelly Gooderham",
+        "role": "Martin Starnes and Associates (County auditor)",
+        "items": [
+          "Presented the FY 2025 audit, which received a clean, unmodified opinion.",
+          "Reported General Fund revenue, expenditure and fund balance results, including $39.3 million in available fund balance.",
+          "Reviewed the Solid Waste Fund results and reported two repeat material weakness findings related to timing, as well as the resolution of the prior-year escheat finding.",
+          "Responded that more GASB standard changes are expected."
+        ]
+      },
+      {
+        "name": "Dr. Lisa Fletcher",
+        "role": "Superintendent, Transylvania County Schools",
+        "items": [
+          "Confirmed that SRO locations were considered in the security vestibule designs.",
+          "Confirmed that Rosman High School and Rosman Middle School will share one combined secure entrance."
+        ]
+      },
+      {
+        "name": "LeeAnne Tucker",
+        "role": "Director of the Area Agency on Aging, Land of Sky",
+        "items": [
+          "Recommended appointing Kay Argroves to a Regional Council on Aging vacancy, and will continue recruiting for the Senior Tar Heel Delegate position."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-06-22-fu-1",
+        "dateRaised": "2026-06-22",
+        "owner": "Jennifer Wright",
+        "description": "Bring the additional $10,000 in designated housing funds for Housing Assistance Corporation back to the Board for approval when the organization requests it. Under the approved plan, the money is held in reserve until a mid-year spending report shows how the first $10,000 was used.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "housing",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-2",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Provide more information in the coming months on possible leasing arrangements for the existing courthouse and the former Administration Building, including single-tenant and multi-tenant setups, as part of long-range planning for both buildings.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "governance",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-3",
+        "dateRaised": "2026-06-22",
+        "owner": "John Kubis",
+        "description": "Send a certified letter to the Chief, Board Chair and all Board members of Connestee Fire Rescue about complying with audit questions, for the purpose of negotiating a contract revision and/or a 90-day termination of the contract.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "safety",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-4",
+        "dateRaised": "2026-06-22",
+        "owner": "Meagan O'Neal",
+        "description": "Begin work on the FY 2026 audit and complete it by December 31, 2026.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-5",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Work with NCDEQ, the landfill cell contractor and the project engineer to address construction sediment leaving the landfill cell expansion site, including water testing and additional measures.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "environment",
+          "infrastructure"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-6",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Bring Hurricane Helene-related streambank restoration projects, submitted through the Emergency Watershed Protection Program and state funding opportunities, to the Board once they are ready for approval.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "environment",
+          "recovery"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-7",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Move remaining infrastructure projects from ARPA to state funding sources and work with the project engineer to re-set project order. The Brevard High School sewer line and pump station is first, followed by the Azalea/Rhododendron sewer expansion for the associated affordable housing project.",
+        "status": "open",
+        "type": "long_term",
+        "categories": [
+          "infrastructure",
+          "housing"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-8",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Once the remaining funding sources are confirmed, proceed with a memorandum of understanding with the Town of Rosman for the Calvert Road Water and Sewer Project.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "infrastructure"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-9",
+        "dateRaised": "2026-06-22",
+        "owner": "staff",
+        "description": "Continue recruiting through advertising and community outreach to fill the current vacancies on the Juvenile Crime Prevention Council.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "safety",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      },
+      {
+        "id": "2026-06-22-fu-10",
+        "dateRaised": "2026-06-22",
+        "owner": "LeeAnne Tucker",
+        "description": "Continue recruiting to fill the Regional Council on Aging vacancies, including the Senior Tar Heel Delegate position. The recommended appointment of Kay Argroves was tabled.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "health",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-22"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-06-22%20reg%20mtg%20_%20PH.pdf",
+    "agendaUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/agendas/2026-06-22%20BOC%20Agenda.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-03-23-fu-3",
+      "status": "resolved",
+      "resolution": "The Manager presented the FY 2027 recommended budget at the June 22 public hearing, and the Board then adopted the budget unanimously."
+    },
+    {
+      "id": "2026-03-23-fu-1",
+      "status": "resolved",
+      "resolution": "The FY 2027 budget cycle ended with adoption on June 22. The recommended budget documents were posted in the FY 27 Budget Info folder on the County website."
+    },
+    {
+      "id": "2026-06-02-fu-2",
+      "status": "in_progress",
+      "resolution": "The adopted FY 2027 budget moves forward with a salary study and will consider putting it in place before the originally planned 2028 timeline."
+    },
+    {
+      "id": "2026-05-26-fu-2",
+      "status": "in_progress",
+      "resolution": "The FY 2027 budget presented and adopted at this meeting recommends a series of public meetings during the year to gather community input on future solid waste funding and disposal options."
+    },
+    {
+      "id": "2026-06-08-fu-1",
+      "status": "in_progress",
+      "resolution": "Staff grouped the possible legislative goals under six guiding principles, and the Board discussed them further. Final approval is expected no later than July 13 to meet the August 14 NCACC deadline."
+    },
+    {
+      "id": "2025-04-28-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager gave break-even cost estimates for the existing courthouse ($21 per sq ft) and the former Administration Building ($12 per sq ft) and described a possible RFP for future uses. The Board renewed the museum lease for two years while the future use of the courthouse is decided."
+    },
+    {
+      "id": "2026-03-23-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that Sizemore Architects is finalizing construction drawings while staff reviews them, and the project is expected to go to bidding and financing this fall."
+    },
+    {
+      "id": "2025-10-13-fu-2",
+      "status": "in_progress",
+      "resolution": "The new courthouse is expected to go to bidding and financing this fall, with the bond sale scheduled for November."
+    },
+    {
+      "id": "2024-04-22-fu-1",
+      "status": "in_progress",
+      "resolution": "The Manager gave the monthly update on countywide capital projects, covering the courthouse, landfill, watershed, sewer, water and streambank projects."
+    },
+    {
+      "id": "2024-06-24-fu-1",
+      "status": "in_progress",
+      "resolution": "A monthly capital update was given at this meeting, the Board's second meeting of the month."
+    },
+    {
+      "id": "2025-05-12-fu-5",
+      "status": "in_progress",
+      "resolution": "Project Manager Beecher Allison gave the monthly school capital update, covering the CTE grant design, GMP 1 summer work, the Rosman High School tank replacement and the remaining bond work."
+    },
+    {
+      "id": "2025-12-08-fu-8",
+      "status": "resolved",
+      "resolution": "The subcommittee reviewed scope on February 5 and approved scope modifications on May 29. The Board approved the related budget amendment of $2,184,218 from the Education Capital Fund balance."
+    },
+    {
+      "id": "2025-12-08-fu-7",
+      "status": "in_progress",
+      "resolution": "The remaining bond scope items (Rosman Area Schools, Brevard Area Schools, BHS Scope #2) are still moving through design and pricing. Blum expects to deliver CTE schematic design pricing the week of July 20."
+    },
+    {
+      "id": "2026-04-27-fu-1",
+      "status": "in_progress",
+      "resolution": "The subcommittee approved scope modifications on May 29. Final design and schedule review for the Rosman Area Schools project is expected in July and August, with construction starting in fall 2026."
+    },
+    {
+      "id": "2025-06-23-fu-5",
+      "status": "in_progress",
+      "resolution": "The Rosman High School retaining wall was folded into the revised scope. The Manager said the work and its previously approved funding allocation will shift so the County can manage the project directly."
+    },
+    {
+      "id": "2025-12-08-fu-4",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the watershed study is underway."
+    },
+    {
+      "id": "2026-03-09-fu-3",
+      "status": "in_progress",
+      "resolution": "For the Calvert Road Water and Sewer Project, staff told the Town of Rosman that funding has been allocated. Staff is waiting for the remaining funding sources to be confirmed before moving to a memorandum of understanding."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "veterans-history-museum-lease",
+      "title": "Veterans' History Museum Lease of Former Administration Building",
+      "categories": [
+        "community",
+        "fiscal"
+      ],
+      "summary": "The Board unanimously renewed the museum's $625-per-month lease for two years, with HVAC responsibility staying with the museum. The Manager presented break-even costs of about $12 per sq ft, compared with the current rate of about $2, along with HVAC repair options from $5,000 to $20,000 and the approaching 10-year statutory leasing threshold."
+    },
+    {
+      "id": "existing-courthouse-future-use",
+      "title": "Future Use of Existing Courthouse",
+      "categories": [
+        "governance",
+        "fiscal"
+      ],
+      "summary": "The Manager estimated a break-even cost of about $21 per sq ft for the existing courthouse after court operations move in late 2028. She noted that the museum, the TDA and the City of Brevard have expressed interest, and raised a possible advisory committee and RFP. Commissioners discussed multi-tenant proposals."
+    },
+    {
+      "id": "connestee-fire-rescue-contract",
+      "title": "Connestee Fire Rescue Contract and Audit Compliance",
+      "categories": [
+        "safety",
+        "governance"
+      ],
+      "summary": "After closed session, the Board directed the County Attorney and staff to send a certified letter to Connestee Fire Rescue leadership about complying with audit questions, for the purpose of negotiating a contract revision and/or a 90-day termination of the contract."
+    },
+    {
+      "id": "nonprofit-funding-program",
+      "title": "County Nonprofit Funding Grant Program",
+      "categories": [
+        "community",
+        "fiscal"
+      ],
+      "summary": "The Board approved the FY 2027 nonprofit funding contracts. There were 30 applications requesting $250,000 for $100,000 in available funds. The Board also decided that Housing Assistance Corporation's additional $10,000 in designated housing funds will come back to the Board for approval."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "fy27-budget-development",
+      "summary": "After a public hearing, the Board unanimously adopted the FY 2027 budget with no property tax increase: an $82.5 million General Fund, 1.47% above FY 2026."
+    },
+    {
+      "id": "snap-cost-shift",
+      "summary": "The FY 2027 budget identifies SNAP administration and benefit costs of $1.2 million a year as a state/federal cost shift and recommends covering FY 2027 impacts with fund balance. Commissioner Dalton cited SNAP costs as a coming budget pressure."
+    },
+    {
+      "id": "county-compensation-study",
+      "summary": "The adopted FY 2027 budget moves forward with a salary study and will consider putting it in place before the planned 2028 timeline. Commissioner McKelvey stressed keeping wages competitive."
+    },
+    {
+      "id": "solid-waste-rate-study",
+      "summary": "The FY 2027 Solid Waste budget is about $4.1 million and includes a $720,000 General Fund subsidy. Smith + Gardner recommended eliminating bag fees and adding an availability fee combined with tipping fees, and public meetings are planned during the year."
+    },
+    {
+      "id": "solid-waste-transfer-station",
+      "summary": "Consultants recommended evaluating a future transfer station model instead of building more landfill cells. The question is to go to public meetings during FY 2027."
+    },
+    {
+      "id": "landfill-cell-expansion",
+      "summary": "Construction sediment is moving offsite. Staff is working with NCDEQ, the contractor and the engineer and is conducting water testing. Completion is estimated in September."
+    },
+    {
+      "id": "watershed-study",
+      "summary": "The Manager reported that the watershed study is underway."
+    },
+    {
+      "id": "courthouse-renovation-project",
+      "summary": "The $38 million courthouse project is on schedule. Sizemore Architects is finalizing construction drawings, with bidding and financing expected this fall and the bond sale scheduled for November."
+    },
+    {
+      "id": "bhs-cte-wing",
+      "summary": "LS3P released the preliminary schematic design on June 8, and Blum expects to deliver schematic design pricing the week of July 20. BHS Scope #2 will be completed at the same time as the CTE project."
+    },
+    {
+      "id": "education-capital-projects",
+      "summary": "GMP 1 work began June 8 at BMS, BHS and RES and is on schedule and under budget. The Board approved $2,184,218 from the Education Capital Fund balance for a new standard secure vestibule at all schools, plus authority to move up to 5% of funds between scopes. Completion is still projected by the end of 2028."
+    },
+    {
+      "id": "joint-school-bond-committee",
+      "summary": "The Education Capital Subcommittee approved scope modifications on May 29, including expanded security vestibules and the Rosman High School retaining wall. The Board of Education approved the budget amendment on June 15."
+    },
+    {
+      "id": "county-facility-assessments",
+      "summary": "The building assessment rated the former Administration Building below average and gave 10-year capital needs used to set break-even lease costs. The FY 2027 budget continues the Axias-identified maintenance projects."
+    },
+    {
+      "id": "lead-for-nc-fellowship-2026",
+      "summary": "The FY 2027 personnel recommendation includes funding for the LEAD for North Carolina Fellow position approved in FY 2026."
+    },
+    {
+      "id": "ncacc-legislative-goals-submission",
+      "summary": "Staff grouped possible goals under six guiding principles. Commissioner Dalton supported continuing to push for a differentiated non-resident property tax rate and changes to the economic tier system. Final approval is expected by July 13."
+    },
+    {
+      "id": "quarter-cent-sales-tax-referendum",
+      "summary": "During the budget discussion, Commissioners Chappell and McKelvey encouraged continued discussion of a future local sales tax referendum. McKelvey noted that the timing of Hurricane Helene affected the previous referendum."
+    },
+    {
+      "id": "property-tax-alternatives",
+      "summary": "A public commenter raised concerns about a proposed constitutional amendment on the November ballot that would limit property tax increases. Commissioners discussed other revenue options, including a sales tax and a differentiated non-resident tax rate."
+    },
+    {
+      "id": "infrastructure-grant-allocation",
+      "summary": "The Manager reported that the State has spent its ARPA funds, so remaining grant projects, including the BHS sewer line, are moving to state sources. The BHS sewer line and pump station is the top priority, followed by the Azalea/Rhododendron sewer expansion."
+    },
+    {
+      "id": "rosman-infrastructure-projects",
+      "summary": "Staff told the Town of Rosman that funding has been allocated for the Calvert Road Water and Sewer Project. Staff is waiting for the remaining funding sources to be confirmed before an MOU."
+    },
+    {
+      "id": "hurricane-helene-recovery",
+      "summary": "Soil and Water staff continue to submit Helene-related streambank restoration projects through the Emergency Watershed Protection Program. Helene recovery continues in the FY 2027 budget."
+    },
+    {
+      "id": "opioid-settlement-funding",
+      "summary": "On the consent agenda, the Board approved moving the vacant CARE Coalition Director position, which oversees opioid settlement funds, to the NC Public Health Alliance Staffing Agency."
+    },
+    {
+      "id": "housing-study-implementation",
+      "summary": "The nonprofit funding round included $20,000 in designated housing grant funding based on the housing study. Staff will sequence the Azalea/Rhododendron sewer expansion to support the related affordable housing project."
+    },
+    {
+      "id": "america-250th-anniversary-commemoration",
+      "summary": "The Manager announced a two-day Independence Day celebration in downtown Brevard on July 3–4 and other America 250 events on June 27, July 4 and July 9."
+    },
+    {
+      "id": "public-records-policy-development",
+      "summary": "During public comment, Ashley Hart asked the Board to consider confirming receipt of public records requests, noting that other local governments do so."
+    },
+    {
+      "id": "annual-capital-priorities-advocacy",
+      "summary": "Chairwoman McCall reported asking legislators to combine the separate requests for the new courthouse and for renovating the existing courthouse into one court facilities funding request. Commissioner Chapman credited direct legislative advocacy for recent state funding."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-17T21:41:51.871Z",
+    "revised": false,
+    "warnings": [
+      "Check — newFollowUps[3]: Finishing the annual FY 2026 audit is a statutory, recurring task that will happen anyway. Under the record's conventions it may be a routine next step rather than a follow-up commitment. A human should decide whether to keep it. (minutes: \"Ms. O'Neal thanked the Board for its continued support and reported that work will begin soon on the FY 2026 audit for completion by December 31, 2026.\" (p.10))"
+    ]
+  }
+}

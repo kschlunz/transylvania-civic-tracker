@@ -1,0 +1,478 @@
+{
+  "meeting": {
+    "id": "2026-06-08",
+    "date": "2026-06-08",
+    "type": "regular",
+    "time": "4:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 15,
+    "duration": "57 minutes",
+    "tldr": "The board approved its consent agenda, which included a proclamation for the nation's 250th anniversary, a transit procurement policy update and the cancellation of the July 27 and August 10 regular meetings. It made appointments to the Agricultural Advisory Board, the Library Board of Trustees, the Regional Council on Aging and the Social Services Board, and tabled one Library Board vacancy. Commissioners discussed priorities for the NCACC legislative goals, including unfunded state mandates, local revenue limits, school calendars, occupancy tax and property tax authority, but took no action. The County Manager gave an update on Hurricane Helene recovery and said staff will recommend adopting the FY 2027 budget after the June 22 public hearing.",
+    "keyVotes": [
+      {
+        "description": "Approved the meeting agenda",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chapman",
+        "background": "The minutes record no changes to the agenda. Commissioner Chappell was out of town and did not attend.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 2
+      },
+      {
+        "description": "Approved the consent agenda, including cancellation of the July 27 and August 10 meetings",
+        "result": "Unanimous",
+        "mover": "consent agenda",
+        "seconder": "consent agenda",
+        "background": "The consent agenda included the May 26, 2026 minutes and Proclamation #26-2026 honoring the 250th anniversary of the United States, which Chairwoman McCall read aloud. It also covered an out-of-state travel request for Communications staff, cancellation of the July 27 and August 10 regular meetings, and transit procurement policy updates required by the NCDOT Integrated Mobility Division. Finally, it acknowledged that Commissioner review of the Tourism Development Authority's FY 2026-2027 contracts with Market Connections and Media One was complete.",
+        "discussion": "",
+        "passed": true,
+        "consent": true,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 2
+      },
+      {
+        "description": "Appointed Tracie Gant to the Agricultural Advisory Board",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "mckelvey",
+        "background": "A seat on the Agricultural Advisory Board was vacant after a member's term expired. Cooperative Extension staff helped recruit, and three people applied. The Agricultural Advisory Board said it preferred Farm Bureau representation and recommended Tracie Gant.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 4
+      },
+      {
+        "description": "Reappointed Sarah Justice to the Library Board of Trustees and tabled the remaining vacancy",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "chapman",
+        "background": "Sarah Justice's term was ending in June, and she was eligible and willing to serve again. Karen Cole's term also expired, and term limits made her ineligible for reappointment. The one applicant for her seat did not yet meet the Board's eligibility requirements, so that vacancy was tabled until the applicant qualifies or someone else applies. The minutes name two seconders: Commissioners Chapman and McKelvey.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 4
+      },
+      {
+        "description": "Reappointed Kathe Harris and appointed Woodie Dyches to the Regional Council on Aging",
+        "result": "Unanimous",
+        "mover": "chapman",
+        "seconder": "dalton",
+        "background": "Kathe Harris's term was set to expire on June 30. The Area Agency on Aging Director recommended reappointing her and appointing Woodie Dyches to a vacant community member seat.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 4
+      },
+      {
+        "description": "Appointed Kathy Klepfer to the Social Services Board effective July 1, 2026",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "chapman",
+        "background": "Jessica Shanor's term was set to expire on June 30, and term limits made her ineligible for reappointment. Recruitment produced one application, and the Social Services Board recommended Kathy Klepfer.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 5
+      },
+      {
+        "description": "Adjourned the meeting at 4:57 p.m.",
+        "result": "Unanimous",
+        "mover": "dalton",
+        "seconder": "mckelvey",
+        "background": "The meeting was adjourned after commissioners' comments, with no further business before the Board.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": [
+            "chappell"
+          ]
+        },
+        "page": 7
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Read aloud the proclamation honoring the 250th anniversary of the United States and noted the significance of the upcoming anniversary.",
+            "categories": [
+              "community"
+            ]
+          },
+          {
+            "text": "Reviewed the NCACC legislative goals process, which takes place every two years before the General Assembly's long session, including review by steering committees, the Legislative Goals Committee and the NCACC Board of Directors before prioritization by all 100 counties.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Announced that she, Commissioner Chapman and Commissioner Dalton would travel to Raleigh the next day to meet with state legislators.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Thanked the County Manager and staff for their work on the budget process and long-term planning.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Noted that several Western North Carolina counties and municipalities are considering or implementing significant tax increases alongside fee hikes, amid delayed revaluation impacts.",
+            "categories": [
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said Transylvania County's budget approach is intended to remain fiscally responsible, noted that the budget public hearing and vote will be held at the next meeting, and indicated that financial challenges will continue.",
+            "categories": [
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Raised concerns about trash on roads, describing a recent incident on Rosman Highway in which an elderly resident stopped to remove a large trash bag from the roadway, was nearly struck by traffic and suffered a broken wrist.",
+            "categories": [
+              "safety",
+              "environment"
+            ]
+          },
+          {
+            "text": "Urged residents to report road debris immediately to the Sheriff's Office or Highway Patrol, noted that a County ordinance requires trash on vehicles to be properly tarped, and encouraged the public to report violations.",
+            "categories": [
+              "safety",
+              "environment"
+            ]
+          },
+          {
+            "text": "Shared concerns about regional competition for public safety staffing, citing Henderson County's proposed budget, which includes significant tax increases and an 18% pay raise for law enforcement because of staffing needs for its new jail.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          },
+          {
+            "text": "Said Henderson County's raises could increase pressure on Transylvania County to retain deputies, and warned of future budget challenges.",
+            "categories": [
+              "safety",
+              "fiscal"
+            ]
+          }
+        ],
+        "motionsMade": 2,
+        "motionsSeconded": 3,
+        "externalRoles": []
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Explained that Opportunity Zones are state-designated areas over which counties have limited control, and that past efforts to relocate a zone placed in an undevelopable national forest area were unsuccessful.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Said the two current zones were assigned by the state and are under review, that the county can only recommend and not choose the final designation, and that the Pisgah Forest option is more viable.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Pointed to the County's prior investment of tens of millions of dollars in water and sewer infrastructure along the U.S. 64 corridor and ongoing work on water supply and watershed protection for future needs.",
+            "categories": [
+              "infrastructure",
+              "econ",
+              "environment"
+            ]
+          },
+          {
+            "text": "Referenced the County's targeted industries list on the Transylvania Economic Alliance website, noting that identifying preferred business types does not guarantee those businesses will locate in the county.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Noted that the county previously shared a state grant of just over $2 million with Henderson County to support farmland preservation.",
+            "categories": [
+              "environment"
+            ]
+          },
+          {
+            "text": "Stated that claims about large AI data center projects in the County are unfounded, saying the former Ecusta property was once considered but utility capacity limits and terrain make such projects impractical.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Distinguished large AI data centers from existing smaller data facilities used by county government and other institutions, such as the Pisgah Astronomical Research Institute.",
+            "categories": [
+              "econ"
+            ]
+          }
+        ],
+        "motionsMade": 3,
+        "motionsSeconded": 1,
+        "externalRoles": []
+      },
+      "mckelvey": {
+        "topics": [],
+        "motionsMade": 1,
+        "motionsSeconded": 2,
+        "externalRoles": []
+      }
+    },
+    "publicComments": [
+      {
+        "speaker": "Owen Carson",
+        "summary": "First public comment period: Spoke about the Opportunity Zone nominations the Board recently approved. He said he understood that Opportunity Zones are meant to attract private investment and do not approve development, change zoning or commit local tax dollars. He encouraged the Board to keep engaging the public and to clearly communicate its goals for the designated areas. He also discussed farmland preservation, including the need for continued support and possible updates to the County's Farmland Protection Plan. He thanked the Board for its support of agriculture and for the recent appointment to the Agricultural Advisory Board, and encouraged it to tell the public its position on potential data center development and related economic development initiatives."
+      },
+      {
+        "speaker": "Doug Powell",
+        "summary": "Spoke about the upcoming 250th anniversary of the signing of the Declaration of Independence. He reflected on the sacrifices made by the nation's founders and encouraged citizens to remember their contributions and the importance of preserving freedom for future generations."
+      },
+      {
+        "speaker": "Daniel Carey",
+        "summary": "Speaking for Pisgah Legal Services, invited Commissioners and the public to an upcoming open house at the organization's Brevard office. He thanked the County for its continued support, highlighted the services the organization provides to residents and shared information about its impact in Transylvania County."
+      },
+      {
+        "speaker": "Owen Carson",
+        "summary": "Second public comment period: Asked how the Board developed its list of 21 legislative priorities and whether the public had a chance to give input before they were set. He questioned a proposal to cap land held in conservation easements, saying he felt it could conflict with local property rights and the County's values, and disagreed with limiting land conservation incentives. He emphasized the importance of Blue Ridge Community College, citing programs that help students earn certifications and enter the workforce more quickly, and encouraged continued or increased support for the college."
+      },
+      {
+        "speaker": "Clark Lovelace",
+        "summary": "Speaking as Executive Director of the Transylvania County Tourism Development Authority, gave an update on a state-level issue affecting occupancy tax rules. He explained that the rules have evolved, with major changes in 1997 that standardized how local tourism dollars must be used. He said the interpretation of 'tourism-related expenditures' is being reviewed at the state level and may be clarified in the coming months, and shared history on how counties apply the rules, including special exceptions for counties such as Currituck. He also offered condolences on the recent, sudden death of community member Tim Gafnea, whose wife, Corey Gafnea, worked for the TCTDA for a time."
+      }
+    ],
+    "staffActivity": [
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Reported that a new USDA Disaster Block Grant Program is available to farmers and producers affected by Hurricane Helene, covering infrastructure damage, market and economic losses and timber losses, and that Cooperative Extension staff are helping local producers apply.",
+          "Reported that Renew NC's Commercial District Revitalization Program is offering federal funding to restore damaged commercial districts in Western North Carolina, and that the Renew NC Small Rental Rehabilitation Program is accepting applications to repair, reconstruct or replace storm-damaged rental properties.",
+          "Reported that the first group of hazard mitigation property acquisition projects has been released for bid, with a contractor expected to be selected by July 1 and several participating property owners expected to receive purchase offers this fall.",
+          "Reported that FEMA has agreed to review previously denied private property debris removal applications, and gave figures: 428 Rights of Entry processed, 29 pending eligibility review, 103 found ineligible by FEMA, 44 work authorizations issued to haulers, and 224 properties closed out.",
+          "Reported that assessments of waterways and debris-related impacts are continuing at multiple identified locations throughout the county.",
+          "Reminded the public that, besides the required budget public hearings, there are multiple ways to comment, including two public comment periods at each regular meeting, while state law requires only one per month.",
+          "Said that after the June 22 public hearing on the proposed FY 2027 budget, staff will recommend that the Board adopt the final budget, effective July 1, 2026, to meet statutory requirements.",
+          "Congratulated Planning and Community Development Director Ashley Minery on earning certification from the North Carolina Zoning Officials Association.",
+          "Announced upcoming local events marking the 250th anniversary of the United States, including the Okra Awakening at Washington's Primary Pursuit Revolutionary Era Garden on June 20 and the Appalachian Folk Festival at the Allison-Deaver House on June 27."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-06-08-fu-1",
+        "dateRaised": "2026-06-08",
+        "owner": "staff",
+        "description": "Bring the County's final NCACC legislative goals package to the Board for approval by July 13, after further discussion at the next two meetings, so it can be submitted to NCACC by the August 14 deadline.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "governance",
+          "fiscal"
+        ],
+        "relatedMeetingId": "2026-06-08"
+      },
+      {
+        "id": "2026-06-08-fu-2",
+        "dateRaised": "2026-06-08",
+        "owner": "staff",
+        "description": "Fill the Library Board of Trustees vacancy left by Karen Cole (term-limited), which was tabled until the current applicant meets the Board's eligibility requirements or another application comes in.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "community",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-06-08"
+      },
+      {
+        "id": "2026-06-08-fu-3",
+        "dateRaised": "2026-06-08",
+        "owner": "staff",
+        "description": "Select a contractor for the first group of hazard mitigation property acquisition projects (expected by July 1), with purchase offers to several participating property owners expected this fall.",
+        "status": "open",
+        "type": "long_term",
+        "categories": [
+          "recovery",
+          "environment"
+        ],
+        "relatedMeetingId": "2026-06-08"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-06-08%20reg%20mtg.pdf",
+    "agendaUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/agendas/2026-06-08%20BOC%20Agenda.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-05-11-fu-4",
+      "status": "resolved",
+      "resolution": "After recruitment by Cooperative Extension produced three applications, the Board unanimously appointed Tracie Gant to the Agricultural Advisory Board vacancy, as that board recommended."
+    },
+    {
+      "id": "2026-05-26-fu-6",
+      "status": "resolved",
+      "resolution": "The Board reviewed the legislative goals submitted in the previous NCACC cycle while discussing priorities for the coming session."
+    },
+    {
+      "id": "2026-03-23-fu-3",
+      "status": "in_progress",
+      "resolution": "The County Manager reported that after the June 22 public hearing on the proposed FY 2027 budget, staff will recommend that the Board adopt the final budget, effective July 1, 2026."
+    },
+    {
+      "id": "2026-03-23-fu-1",
+      "status": "in_progress",
+      "resolution": "In the Manager's report, the County Manager reminded the public of the ways to comment on the budget, including the required hearings and two public comment periods at each regular meeting."
+    },
+    {
+      "id": "2025-10-13-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that FEMA has agreed to review previously denied applications for private property debris removal."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "ncacc-legislative-goals-submission",
+      "title": "NCACC Legislative Goals Submission",
+      "categories": [
+        "governance",
+        "fiscal"
+      ],
+      "summary": "Chairwoman McCall explained the NCACC legislative goals process, and the Board discussed possible priorities: unfunded state mandates, limits on local revenue sources, local control of school calendars, use of occupancy tax and property tax authority. No action was taken. Staff asked for the final package by July 13 so it can be submitted by August 14, and the Board will keep working on it over the next two meetings."
+    },
+    {
+      "id": "america-250th-anniversary-commemoration",
+      "title": "America 250th Anniversary Commemoration",
+      "categories": [
+        "community"
+      ],
+      "summary": "As part of the consent agenda, the Board approved Proclamation #26-2026 honoring the 250th anniversary of the United States. The Manager listed upcoming local events: the Okra Awakening garden event on June 20 and the Appalachian Folk Festival at the Allison-Deaver House on June 27."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "hurricane-helene-recovery",
+      "summary": "The County Manager reported a new USDA Disaster Block Grant Program for farmers and producers, Renew NC commercial district and small rental rehabilitation programs, and continuing waterway assessments. The first group of hazard mitigation property acquisition projects has gone out to bid, with contractor selection expected by July 1 and purchase offers to owners expected this fall."
+    },
+    {
+      "id": "private-property-debris-removal",
+      "summary": "The Manager reported that FEMA agreed to review previously denied applications. Figures to date: 428 Rights of Entry processed, 29 pending eligibility review, 103 found ineligible by FEMA, 44 work authorizations issued to haulers and 224 properties closed out."
+    },
+    {
+      "id": "fy27-budget-development",
+      "summary": "The Manager said staff will recommend adoption of the FY 2027 budget, effective July 1, after the June 22 public hearing. Chairwoman McCall thanked staff for their budget work and said the County's approach is intended to stay fiscally responsible while other Western North Carolina governments consider large tax increases."
+    },
+    {
+      "id": "federal-opportunity-zones-2027",
+      "summary": "In public comment, Owen Carson asked the Board to keep the public informed about its goals for the Opportunity Zone nominations. Commissioner Dalton said zones are designated by the state, the county can only recommend, the two current zones are under state review, and the Pisgah Forest option is the more viable of the two."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-17T21:37:45.791Z",
+    "revised": false,
+    "warnings": [
+      "Check — followUpUpdates[4] (2025-10-13-fu-5): Follow-up 2025-10-13-fu-5 is about SMART contractors helping property owners gather documents for FEMA debris removal appeals. The minutes only say that FEMA agreed to review previously denied applications. They do not mention SMART contractors or any help with paperwork, so they do not clearly refer to this follow-up. The update should probably be dropped, or a person should confirm that the two are linked. (minutes: \"FEMA has agreed to review previously denied applications for private property debris removal.\" (p. 4))"
+    ]
+  }
+}
