@@ -889,7 +889,7 @@
     {
       "id": "2026-06-22-fu-5",
       "status": "in_progress",
-      "resolution": "Staff reported that a second NOV response went to NCDEQ on July 2 and the County is waiting for a joint follow-up inspection. An investigation by Smith + Gardner found no evidence that the landfill was the source of sediment in Browns Mill Creek, and staff continue to monitor after rainfall."
+      "resolution": "Staff reported that a second NOV response went to NCDEQ on July 2 and the County is awaiting a follow-up inspection, which it has asked to be done jointly. An investigation by Smith + Gardner found no evidence that the landfill was the source of sediment in Browns Mill Creek, and staff continue to monitor after rainfall."
     },
     {
       "id": "2026-06-22-fu-7",
@@ -972,7 +972,7 @@
     },
     {
       "id": "landfill-cell-expansion",
-      "summary": "Staff reported two NCDEQ Notices of Violation (May 4 and June 19) for erosion and sediment control at the Phase 7 construction site. Corrective actions were completed, a joint follow-up inspection is pending, and Smith + Gardner found no evidence that the landfill was the source of sediment in Browns Mill Creek. Commissioner Chapman noted that Phase 7 will be the final cell at the current site."
+      "summary": "Staff reported two NCDEQ Notices of Violation (May 4 and June 19) for erosion and sediment control at the Phase 7 construction site. Corrective actions were completed, the County is awaiting a follow-up inspection, which it has asked to be done jointly, and Smith + Gardner found no evidence that the landfill was the source of sediment in Browns Mill Creek. Commissioner Chapman noted that Phase 7 will be the final cell at the current site."
     },
     {
       "id": "courthouse-renovation-project",
@@ -984,7 +984,7 @@
     },
     {
       "id": "hurricane-helene-recovery",
-      "summary": "Representative Ferguson reported that about 40% of the roughly $10 million in redirected state funds, plus an additional $4 million, is designated for Helene recovery in the County. The Manager outlined new state and federal assistance programs and announced $2.1 million for streambank restoration and debris removal."
+      "summary": "Representative Ferguson reported that about 40% of the roughly $10 million in redirected state funds, plus an additional $4 million, is designated for Helene recovery in the County. The Manager outlined new state and federal assistance programs."
     },
     {
       "id": "private-property-debris-removal",
@@ -1012,9 +1012,7 @@
     "extractedAt": "2026-11-17T21:48:42.277Z",
     "revised": true,
     "warnings": [
-      "Check — followUpUpdates[id=2026-06-22-fu-6]: The earlier commitment was to bring Helene-related streambank restoration projects (submitted through the Emergency Watershed Protection Program and state funding) to the Board for approval once they were ready. At this meeting the Manager only announced a $2.1 million grant award to be administered by the Soil and Water Conservation District. The minutes do not tie that grant to Helene or to the EWP submissions, and no projects were brought for approval. The link to this follow-up is an inference and should be checked by a person. (minutes: p.19: \"$2.1 million for streambank restoration and debris removal projects to be administered by the Soil and Water Conservation District\")",
-      "Check — threadUpdates[id=hurricane-helene-recovery].summary: The summary presents the $2.1 million streambank restoration and debris removal grant as Helene recovery news. The minutes list it in the Manager's report as a new grant and do not call it Helene-related. (minutes: p.19: \"The County has been awarded several new grants totaling approximately $4.4 million. These include $2.1 million for streambank restoration and debris removal projects...\")",
-      "Check — followUpUpdates[id=2026-06-22-fu-5].resolution; threadUpdates[id=landfill-cell-expansion].summary: Both entries say a joint follow-up inspection is pending. The minutes say only that the County is waiting for a follow-up inspection and has asked that it be done jointly. They do not say NCDEQ agreed to a joint inspection. (minutes: p.6: \"The County is awaiting a follow-up inspection and has requested that NCDEQ, County staff, the contractor, and the project engineers conduct the inspection together\")"
+      "Check — followUpUpdates[id=2026-06-22-fu-6]: The earlier commitment was to bring Helene-related streambank restoration projects (submitted through the Emergency Watershed Protection Program and state funding) to the Board for approval once they were ready. At this meeting the Manager only announced a $2.1 million grant award to be administered by the Soil and Water Conservation District. The minutes do not tie that grant to Helene or to the EWP submissions, and no projects were brought for approval. The link to this follow-up is an inference and should be checked by a person. (minutes: p.19: \"$2.1 million for streambank restoration and debris removal projects to be administered by the Soil and Water Conservation District\")"
     ]
   }
 }
