@@ -1,0 +1,1051 @@
+{
+  "meeting": {
+    "id": "2026-09-28",
+    "date": "2026-09-28",
+    "type": "regular",
+    "time": "6:00 PM",
+    "attendees": [
+      "mccall",
+      "chapman",
+      "chappell",
+      "dalton",
+      "mckelvey"
+    ],
+    "audienceSize": 40,
+    "duration": "3 hours 34 minutes",
+    "tldr": "After a quasi-judicial hearing, the Board unanimously granted Duke Energy a variance to build a 330-foot communications tower on Old Hendersonville Highway, above the ordinance's 180-foot limit. It held public hearings on borrowing up to $40 million for the new courthouse and on a grant application of up to $1 million for the Brevard High School sewer pump station, then adopted the preliminary courthouse financing resolution. It also approved a temporary monthly-reimbursement contract amendment with Connestee Fire Rescue and heard updates on the Hazard Mitigation Grant Program, school and county capital projects, and tourism. Many public speakers raised concerns about the Sheriff's Office Flock license plate reader cameras.",
+    "keyVotes": [
+      {
+        "description": "Variance granted for Duke Energy 330-foot telecommunications tower (Permit No. 27-01-TE)",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "Duke Energy asked for a variance from Section 18.9 of the Telecommunications Tower Ordinance, which limits towers to 180 feet. It wanted to build a 330-foot self-supporting tower (a 320-foot structure plus a 10-foot lightning rod) at its substation on Old Hendersonville Highway to replace an aging water tank that carries communications equipment. Planning Director Ashley Minery reported that the Planning Board had to deny the permit because it lacks authority to grant variances, but its unanimous motion included a statement supporting a variance. Attorney Daniel Peterson and expert witnesses Joel Widmer (Burns & McDonnell) and Patrick Bernier (Duke Energy) testified that the site's lower elevation required the height for microwave line of sight, and that the alternative would be at least two shorter towers on other parcels.",
+        "discussion": "In disclosures, Vice Chair Chapman and Commissioner McKelvey said they had received emails but not responded, and Commissioner Dalton said he had spoken with the Planning Board; no conflicts were reported. Vice Chair Chapman asked about transmission strength, nighttime lighting, removal of the water tank, the construction timeline, icing and maintenance, the propane backup tank, and whether approval would set a precedent; the Manager said variances are decided case by case. Commissioner McKelvey asked how many towers would be needed if the variance were denied, whether fieldwork had been done, and about the Planning Board's vote. Commissioner Dalton asked why the tower was not placed on higher ground. Commissioner Chappell asked about FCC and FAA determinations. Chair McCall asked whether the Planning Board had seen the same presentation and what the tower would do for the County. In public comment, Joan Hardy asked about reliability and icing, and Janelle Arceneaux opposed the variance over views, fall distance, the propane tank, and health concerns. Before the vote, Vice Chair Chapman said the variance would increase resiliency and improve communications for law enforcement and EMS, and Commissioner McKelvey said one tower was preferable to several 180-foot towers across the mountaintops.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 9
+      },
+      {
+        "description": "Entered closed session to consult with the County Attorney under N.C.G.S. § 143-318.11(a)(3)",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chappell",
+        "background": "The Board went into closed session at 7:20 p.m. to consult with the County Attorney and protect attorney-client privilege. The minutes say the Board consulted on a privileged matter and directed staff on how to proceed.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Left closed session",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chapman",
+        "background": "The motion to leave closed session was made at 7:40 p.m., and the Board returned to open session at 7:45 p.m.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Sealed the closed session minutes",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "dalton",
+        "background": "The closed session minutes are sealed until opening them would no longer frustrate the purpose of the closed session.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 13
+      },
+      {
+        "description": "Approved the agenda",
+        "result": "Unanimous",
+        "mover": "mckelvey",
+        "seconder": "chappell",
+        "background": "There were no changes to the agenda.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 15
+      },
+      {
+        "description": "Approved the consent agenda",
+        "result": "Unanimous",
+        "mover": "consent agenda",
+        "seconder": "consent agenda",
+        "background": "The consent agenda included: the August 24, 2026 minutes; the August tax report (releases of $19,251.79, refunds of $1,607.05); resolutions for $1 million NCDEQ Division of Water Infrastructure and $1 million CDBG-I applications for the Brevard High School sewer project; donation of surplus audio-visual equipment to the schools (Resolution #33-2026); a $3,000 American Lung Association grant application; $30,000 from fund balance for security changes at the Building, Permitting & Enforcement office; $7,150 in DOJ Equitable Sharing funds for Sheriff's Office software; acceptance of $105,000 in state law enforcement bonuses for 60 officers; a $5 fee for printed vehicle registration cards; an updated transportation drug and alcohol policy; two out-of-state travel requests; and a reduced October–December meeting schedule (October 26, November 23 and December 14, plus a December 7 organizational meeting).",
+        "discussion": "",
+        "passed": true,
+        "consent": true,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 15
+      },
+      {
+        "description": "Reappointed Alan Mercaldo to the Brevard Board of Adjustment and Appeal",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "Mr. Mercaldo represents County ETJ residents on the board. His term expired at the end of September, and City Planning Director Paul Ray recommended reappointing him to a second term. The County's alternate seat remains vacant.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 24
+      },
+      {
+        "description": "Reappointed Erik Rasmussen and Jessica Hughey to the Parks and Recreation Commission; staff to keep advertising for vacancies",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "mckelvey",
+        "background": "Three terms expired at the end of June. Greg Cochran has served two full terms and cannot be reappointed, and John Felty resigned, leaving two vacancies that staff is recruiting for.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 24
+      },
+      {
+        "description": "Approved temporary monthly-reimbursement contract amendment with Connestee Fire Rescue",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "Finance Director Meagan O'Neal said the Board acted on June 22, 2026 after a third-party audit of Connestee Fire Rescue came back with a disclaimer of opinion, and staff has since met four times with the department. The amendment replaces quarterly payments with monthly reimbursements backed by bank statements, credit card statements, general ledger reports and approvals. It stays in effect for at least 18 months and can end only after an unmodified audit opinion, with the FY 2027 audit the earliest that could qualify. It takes effect before October 1, 2026.",
+        "discussion": "In response to a question, Ms. O'Neal confirmed that Connestee Fire Rescue understood and agreed to the terms and had approved and signed the amendment at its September meeting.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 25
+      },
+      {
+        "description": "Confirmed designated signing agents for Hazard Mitigation Grant Program projects (staff recommendation)",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "mckelvey",
+        "background": "Emergency Management Director Kevin Shook reported that 32 applications were submitted after Hurricane Helene and 11 applicants have been found eligible. If all 11 owners accept buyouts, the County would lose an estimated $10,730.08 a year in tax revenue and would maintain the properties in perpetuity. He asked the Board to keep him as primary designated agent and Communications Director Cameron Sexton as secondary, and the Manager recommended confirming those designations.",
+        "discussion": "In response to a question about who would own the acquired properties, Mr. Shook explained that the State transfers them to the County, or to a municipality if they are inside town or city limits, and does not keep them.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 26
+      },
+      {
+        "description": "Adopted preliminary resolution to negotiate up to $40 million in installment financing (limited obligation bonds) for the new courthouse",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "chapman",
+        "background": "Finance Director Meagan O'Neal presented the resolution after a public hearing earlier in the meeting, in which Peter Offen asked where the payments would come from. This is the County's first issue of limited obligation bonds. The debt would be repaid from annually appropriated General Fund revenues and secured by a deed of trust on the courthouse site at 120 Public Safety Way. The resolution authorizes an application to the LGC and hiring a financing team, with final approval expected in October and bond issuance in December.",
+        "discussion": "Commissioner Dalton noted that the courthouse project and how to finance it had been discussed at length during the spring budget process, and said the resolution was the next step toward completing the project.",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 27
+      },
+      {
+        "description": "Resubmitted the Board's previous federal legislative goals to NCACC",
+        "result": "Unanimous",
+        "mover": "chappell",
+        "seconder": "dalton",
+        "background": "NCACC asks counties for federal legislative goals every two years, with submissions due October 2. The Manager reviewed the Board's earlier goals, including fair market rent methodology, PILT funding, school resource officers, opposition to government shutdowns, prevention programs, Stepping Up, broadband as a utility, and opposition to unfunded mandates. She also updated the Board on proposed SNAP error-rate relief in the 2026 Farm Bill.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 31
+      },
+      {
+        "description": "Adjourned the meeting",
+        "result": "Unanimous",
+        "mover": "mccall",
+        "seconder": "chappell",
+        "background": "The meeting adjourned at 9:34 p.m.",
+        "discussion": "",
+        "passed": true,
+        "consent": false,
+        "votes": {
+          "ayes": [
+            "mccall",
+            "chapman",
+            "chappell",
+            "dalton",
+            "mckelvey"
+          ],
+          "nays": [],
+          "abstained": [],
+          "absent": []
+        },
+        "page": 32
+      }
+    ],
+    "commissionerActivity": {
+      "mccall": {
+        "topics": [
+          {
+            "text": "Asked whether Duke Energy had made the same tower variance presentation to the Planning Board.",
+            "categories": [
+              "infrastructure",
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked Duke Energy to explain how the proposed tower would benefit Transylvania County.",
+            "categories": [
+              "infrastructure",
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked Planning Director Ashley Minery whether the hearing had left out any information given to the Planning Board that would help the Board decide.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Reviewed the four statutory variance criteria under N.C.G.S. § 160D-705(d) before the Board deliberated.",
+            "categories": [
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 4,
+        "motionsSeconded": 0,
+        "externalRoles": []
+      },
+      "chapman": {
+        "topics": [
+          {
+            "text": "Disclosed that he had received emails about the tower variance case and had not responded to them.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether the new tower's transmission strength would be similar to the existing system or much stronger.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked about the tower's nighttime lighting, recalling a previous tower that used blinking white lights.",
+            "categories": [
+              "infrastructure",
+              "environment"
+            ]
+          },
+          {
+            "text": "Asked whether the existing substation water tank would be removed or kept in service for fire suppression.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked how long construction would take and when the tower would be operating if the variance were approved.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked the engineer to respond to concerns about icing and ongoing tower maintenance.",
+            "categories": [
+              "infrastructure",
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked whether the proposed propane tank would supply backup power if service power were lost.",
+            "categories": [
+              "infrastructure",
+              "safety"
+            ]
+          },
+          {
+            "text": "Asked the County Manager whether approving the variance would affect future variance requests or change the ordinance.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Said approving the tower variance would increase resiliency, which the Board had worked toward since Hurricane Helene, and that better communications for law enforcement and EMS deserved serious consideration.",
+            "categories": [
+              "safety",
+              "recovery",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Noted that the Brevard High School pump station project had been identified as critical, asked how the County would deal with the failing pump station if the CDBG-I application were unsuccessful, and urged staff to stress the project's importance to the County's representatives in Raleigh.",
+            "categories": [
+              "schools",
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked whether the City of Brevard and the Town of Rosman would submit their own funding applications.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Thanked TDA Director Clark Lovelace and his staff for their work and recognized the TDA board's dedication to supporting tourism.",
+            "categories": [
+              "econ"
+            ]
+          },
+          {
+            "text": "Acknowledged public concerns about Flock cameras but said the technology also helps law enforcement solve crimes and find missing or abducted children, compared it to retail security cameras and body cameras, and encouraged a balanced view.",
+            "categories": [
+              "safety",
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 3,
+        "externalRoles": []
+      },
+      "chappell": {
+        "topics": [
+          {
+            "text": "Asked whether Duke Energy had received no-concern determinations from the FCC and FAA for the proposed tower.",
+            "categories": [
+              "infrastructure",
+              "safety"
+            ]
+          },
+          {
+            "text": "Stated that the applicant had addressed all four variance criteria and that the Board had the authority to grant the variance.",
+            "categories": [
+              "infrastructure",
+              "governance"
+            ]
+          },
+          {
+            "text": "Thanked Representative Ferguson for attending the meeting and staying more than three hours to hear issues affecting local governments.",
+            "categories": [
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 7,
+        "motionsSeconded": 3,
+        "externalRoles": []
+      },
+      "dalton": {
+        "topics": [
+          {
+            "text": "Disclosed that he had spoken with the Planning Board about the tower variance case.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked whether Duke Energy had considered placing the tower on higher ground on the property rather than in a depression, noting that his calculations showed a net height increase of about 70 feet.",
+            "categories": [
+              "infrastructure",
+              "environment"
+            ]
+          },
+          {
+            "text": "Noted that the courthouse project and how the County would pay for it had been discussed extensively during the spring budget process, and said the preliminary financing resolution was the next step toward completing the project.",
+            "categories": [
+              "fiscal",
+              "safety"
+            ]
+          }
+        ],
+        "motionsMade": 0,
+        "motionsSeconded": 4,
+        "externalRoles": []
+      },
+      "mckelvey": {
+        "topics": [
+          {
+            "text": "Disclosed that he had received emails about the tower variance case and had not responded to them.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Asked how many towers would be needed to provide full capacity in the County if the variance were denied.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked whether Duke Energy's studies included on-site fieldwork, and said the answer eased his concern about the accuracy of a desktop-only study.",
+            "categories": [
+              "infrastructure"
+            ]
+          },
+          {
+            "text": "Asked whether the Planning Board's vote to deny the permit was unanimous and whether the Planning Board supported the variance.",
+            "categories": [
+              "governance"
+            ]
+          },
+          {
+            "text": "Said approving the variance was better than requiring multiple towers of up to 180 feet across the mountaintops, and that he believed it was the right action.",
+            "categories": [
+              "infrastructure",
+              "environment"
+            ]
+          },
+          {
+            "text": "Thanked those who spoke during public comment and said that, although the Board has limited authority over the Sheriff's operations, it can use its voice to convey public concerns and controls the budget process. He encouraged residents to keep sharing their views.",
+            "categories": [
+              "governance",
+              "safety"
+            ]
+          },
+          {
+            "text": "Said his concerns about Flock cameras were not a personal criticism of Sheriff Chuck Owenby or a lack of support for law enforcement, but were about the technology and how future administrations could use it. He quoted Andrew Jackson and said he would stand with the Constitution when law enforcement tools and constitutional protections come into conflict.",
+            "categories": [
+              "safety",
+              "governance"
+            ]
+          }
+        ],
+        "motionsMade": 1,
+        "motionsSeconded": 2,
+        "externalRoles": []
+      }
+    },
+    "publicComments": [
+      {
+        "speaker": "Janelle Arceneaux",
+        "summary": "Tower variance hearing: She asked to become a party, saying the tower would be an eyesore and could harm health; the Chair moved her comments to the public comment portion. In public comment she said she owns a home within sight of the proposed site and questioned departing from the 180-foot limit and the land-use plan for a difference of about 70 feet. She also questioned the 100-foot fall radius, the placement of a 500-gallon propane tank 80 feet from the tower, the risk of power disruption to nearby residents, whether the purpose was revenue through PeakNet, and possible health effects of microwave frequencies, including 11,200 MHz."
+      },
+      {
+        "speaker": "Joan Hardy",
+        "summary": "Tower variance hearing: Asked whether multiple towers would be more reliable and how Duke Energy would maintain the tower if it iced over. She noted that a taller tower in the County had once iced over and took weeks to climb."
+      },
+      {
+        "speaker": "Daniel Peterson",
+        "summary": "Tower variance hearing (attorney with Parker Poe Adams & Bernstein, representing applicant Duke Energy): Presented Duke Energy's request for a variance from Section 18.9 to build a 330-foot tower. He argued that the parcel's low elevation created a hardship the applicant did not cause, that multiple shorter towers would cost more and could disturb more views, and that the tower would be more than 600 feet from homes, had FCC and FAA filings, and would support storm response and co-location."
+      },
+      {
+        "speaker": "Joel Widmer",
+        "summary": "Tower variance hearing (engineer with Burns & McDonnell, expert witness for the applicant): Testified that the microwave antennas must be mounted at 315 feet to keep line of sight, that the site is about 80 feet lower than the existing water tower, and that RF exposure at the base would be below FCC limits. He also said the FAA had issued a no-hazard determination, the tower would meet the TIA-222-H standard, and backup propane power would last up to 48 hours."
+      },
+      {
+        "speaker": "Patrick Bernier",
+        "summary": "Tower variance hearing (Senior Project Manager, Duke Energy, expert witness): Testified that the existing water tank had reached the end of its useful life and that rights-of-way limited where the tower could go. He said a denial would require buying ridgeline parcels for multiple towers, that low- or no-cost co-location would be offered to public safety agencies and commercial carriers, that construction would take three to four months, and that the tower is designed to last at least 50 years."
+      },
+      {
+        "speaker": "Peter Offen",
+        "summary": "Courthouse financing hearing: Asked where the payments on the limited obligation bond financing would come from, noting that although the bonds are secured by the property, payments would still come from County revenues."
+      },
+      {
+        "speaker": "Owen Carson",
+        "summary": "CDBG-I hearing: Asked how close the Brevard High School pump station is to failure and whether his middle-school children could attend the high school in two years if the grant is not awarded. He said the County would not be in this situation if commissioners had acted when money was in hand, raised concerns about the future of the CTE wing, and said he hopes the County secures this grant and SRP funds."
+      },
+      {
+        "speaker": "Joan Hardy",
+        "summary": "Public comment: Raised cybersecurity concerns about the Flock automatic license plate reader system, drawing on her background with the Army's Intelligence and Electronics Warfare Agency. She warned of exposure to foreign adversaries, misuse that could track officers and children, weak encryption, and future computing advances that could break current encryption."
+      },
+      {
+        "speaker": "Ashley Hart",
+        "summary": "Public comment: Thanked the Sheriff's Office for its transparency portal but raised concerns about the figures it reports (13 cameras, 122 searches in 30 days, 1,251 hot list hits, data sharing with 2,612 agencies). She asked who authorized the data sharing, said audits she requested on August 20 were not released, asked how many hits led to arrests, criticized the lack of a public forum, and expressed disappointment in the Board's decision to fund the program."
+      },
+      {
+        "speaker": "Doug Powell",
+        "summary": "Public comment: Spoke about constitutional protections and his experience during COVID-19. Citing Orwell's 1984 and comments attributed to Flock's CEO, he argued the ALPR system is mass surveillance that violates Fourth Amendment rights, and he offered free copies of 1984 to officials."
+      },
+      {
+        "speaker": "Jason Ball",
+        "summary": "Public comment: Asked the Board to require the Sheriff to hold a public hearing on the ALPR program and to consider withholding funding if none is held. He asked whether the money would be better spent on deputy salaries and restated his opposition to the cameras."
+      },
+      {
+        "speaker": "Robert Jazowski",
+        "summary": "Public comment: Opposed the ALPR system as mass surveillance, compared the County to the part of New York he moved from, and disputed claims that the cameras only read plates or do not use AI. He said he did not support destroying the system but wanted the Sheriff to stop using it through lawful means."
+      },
+      {
+        "speaker": "Owen Carson",
+        "summary": "Public comment: Called for a public process on the ALPR program and challenged the argument that people who have done nothing wrong have nothing to fear. Speaking for Upper French Broad River watershed residents, he said sediment from the County landfill continues to flow from Browns Mill Creek into the river, that upcoming DEQ reports would confirm this, and he invited commissioners on a canoe trip. He urged the Board to stop landfill work until protections are in place and to reinstate the Transylvania Natural Resources Council."
+      },
+      {
+        "speaker": "David Morrow",
+        "summary": "Public comment: Praised the new audio-visual equipment in the chambers, suggested a larger font on the screens, and thanked the County for the upgrades."
+      },
+      {
+        "speaker": "Peter Offen",
+        "summary": "Public comment: Raised concerns about Flock camera data collection and sharing, clarifying that he was not criticizing Sheriff Owenby personally. He asked how many plates the County's 13 cameras capture, objected to a camera that has faced the Democratic Party headquarters for a year and a half, and asked the Board to relay public concerns to the Sheriff."
+      },
+      {
+        "speaker": "Ashley Hart",
+        "summary": "Public comment: Asked that the Flock camera facing the Democratic Party headquarters be moved, saying that to her knowledge no camera faces the Republican Party headquarters and calling the placement unnecessary and inappropriate."
+      },
+      {
+        "speaker": "Owen Carson",
+        "summary": "Public comment: Praised the improved audio-visual system. He urged the Board to treat hazard mitigation buyout properties as community resources rather than only a loss of tax revenue, and to work with land trusts and others. He suggested uses such as small-scale farming, pocket parks, pollinator meadows, rain gardens, wetlands and solar installations, within the deed restrictions."
+      },
+      {
+        "speaker": "Robert Jazowski",
+        "summary": "Public comment: Referred to handouts and raised concerns about artificial intelligence and predictive analytics in law enforcement, including AI-enabled Flock cameras tracking people and storing data in the cloud. His time expired while he was discussing material about the Pinal County, Arizona sheriff."
+      }
+    ],
+    "staffActivity": [
+      {
+        "name": "Julie Hooten",
+        "role": "County Attorney",
+        "items": [
+          "Explained quasi-judicial hearing procedures, the variance criteria under N.C.G.S. § 160D-705(d), and the rules on impartial decision-makers and conflicts of interest.",
+          "Explained that the Board decides how much funding elected officials such as the Sheriff receive, while those officials decide how to spend their allocated budgets."
+        ]
+      },
+      {
+        "name": "Ashley Minery",
+        "role": "Planning, Community Development and Transportation Director",
+        "items": [
+          "Presented the staff report on Duke Energy's tower permit application: it met the ordinance except for its 330-foot height against a 180-foot limit, and the Planning Board denied it but supported a variance.",
+          "Confirmed that the Planning Board had received the same information, and clarified that its vote to deny was unanimous and included a statement supporting the variance."
+        ]
+      },
+      {
+        "name": "Jaime Laughter",
+        "role": "County Manager",
+        "items": [
+          "Told the Board that approving the tower variance would not affect future variance requests or change the ordinance, since variances are decided case by case.",
+          "Reported that other grant funds had paid for the Brevard High School pump station design and the start of construction, but about $1 million was still needed before the project could be bid, and confirmed the County's application covered only that pump station.",
+          "Gave the countywide capital update: courthouse bids came in high and were being negotiated; sites were being secured for two grant-funded communication towers; and the County had stormwater concerns at the landfill cell expansion.",
+          "Reported further capital items: the watershed study would be left at its current stage; Azalea construction and Calvert Road were being removed from the County's capital list; and the Town of Rosman planned a CDBG-DR application for an $8 million gap in an $18 million project.",
+          "Reported on $2 million in reallocated state funding for EMS and fire services, and $2 million allocated directly to Blue Ridge Community College's Transylvania campus.",
+          "Reminded the Board of the next day's Joint School Bond Project Committee meeting, noted that the CTE design would need Committee and Board of Education approval, and said Davidson River School needed no immediate repairs.",
+          "Noted a FEMA requirement that substantially damaged structures be brought into compliance within three years, and recommended confirming the existing hazard mitigation signature delegations.",
+          "Noted that this would be the County's first issuance of limited obligation bonds.",
+          "Reviewed the Board's previous NCACC federal legislative goals and reported on 2026 Farm Bill provisions on SNAP error-rate penalties.",
+          "Manager's report: noted the October 26 meeting, recognized Transylvania Public Health and Sarah Ritchie for Beaumont Foundation recognition, and urged residents to be prepared to sustain their households for 72 hours in an emergency."
+        ]
+      },
+      {
+        "name": "Meagan O'Neal",
+        "role": "Finance Director",
+        "items": [
+          "Presented the public hearing on a proposed financing contract of up to $40 million for the new courthouse at 120 Public Safety Way, using limited obligation bonds.",
+          "Explained the preliminary financing resolution and the next steps: final approval in October, pricing in November and bond issuance in December.",
+          "Presented the Connestee Fire Rescue contract amendment requiring monthly reimbursement with supporting documentation for at least 18 months until an unmodified audit opinion is received, and reported that the department had approved and signed it."
+        ]
+      },
+      {
+        "name": "Jennifer Wright",
+        "role": "Director of Budget and Internal Projects",
+        "items": [
+          "Presented the CDBG-I application for up to $1 million for the Brevard High School Sewer Improvements Project, including its low- and moderate-income eligibility and federal compliance requirements.",
+          "Explained that staff was also applying for SRP grant funding through NCDEQ so the project could go to whichever program fits better."
+        ]
+      },
+      {
+        "name": "Beecher Allison",
+        "role": "Project Manager",
+        "items": [
+          "Gave the monthly school capital update on the BHS CTE design, BHS pump station funding, fuel tank replacements and GMP 1 closeout.",
+          "Reported that the $22 million Rosman Area scope was within budget and that construction would start in November, that Brevard Area Schools work was expected in early 2028, and that bond work was expected to be complete by the end of 2028 except for BHS."
+        ]
+      },
+      {
+        "name": "Kevin Shook",
+        "role": "Emergency Management Director",
+        "items": [
+          "Updated the Board on the Hurricane Helene Hazard Mitigation Grant Program: 32 applications, 11 eligible, and an estimated annual tax revenue loss of $10,730.08 if all owners accept buyouts. He also described permitted uses for the acquired properties and how they would be transferred.",
+          "Requested confirmation of himself as primary designated agent and Communications Director Cameron Sexton as secondary agent for hazard mitigation documents."
+        ]
+      },
+      {
+        "name": "Clark Lovelace",
+        "role": "Tourism Development Authority Director",
+        "items": [
+          "Presented the TDA's FY 2025-26 annual report: occupancy tax proceeds of just under $2 million (about 9% above FY 2024-25 and 3% below pre-Helene levels), marketing reach of about 78 million people, and a $71,000 increase in fund balance."
+        ]
+      },
+      {
+        "name": "Sarah Tennyson Richey",
+        "role": "Regional Workforce Development Director",
+        "items": [
+          "Requested approval, through the consent agenda, to attend the 2026 APHA Annual Conference in San Antonio, paid for by a grant."
+        ]
+      },
+      {
+        "name": "Jay Taylor",
+        "role": "DSS Special Counsel",
+        "items": [
+          "Requested approval, through the consent agenda, to attend the International Conference on Social Justice, Law Reform, and Policy Implementation in Atlanta."
+        ]
+      }
+    ],
+    "followUps": [
+      {
+        "id": "2026-09-28-fu-1",
+        "dateRaised": "2026-09-28",
+        "owner": "Meagan O'Neal",
+        "description": "Bring the final approving resolution for the up to $40 million courthouse limited obligation bond financing back to the Board in October. Final pricing is expected in November and bond issuance in December.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "fiscal",
+          "safety"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-2",
+        "dateRaised": "2026-09-28",
+        "owner": "Jaime Laughter",
+        "description": "Bring more information on the Town of Rosman's planned CDBG-DR application to the next meeting, where the Board will be asked to consider a letter of support. The application would address an $8 million gap in an estimated $18 million water and sewer project.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "infrastructure",
+          "recovery"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-3",
+        "dateRaised": "2026-09-28",
+        "owner": "Jaime Laughter",
+        "description": "Report to the Board as the architect's review of the Courthouse Public Safety Complex bids continues. The bids came in higher than anticipated and the architect is negotiating with bidders to reduce costs.",
+        "status": "open",
+        "type": "report",
+        "categories": [
+          "fiscal",
+          "safety"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-4",
+        "dateRaised": "2026-09-28",
+        "owner": "staff",
+        "description": "Keep advertising for applicants to fill the two vacancies on the Parks and Recreation Commission.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "community",
+          "governance"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-5",
+        "dateRaised": "2026-09-28",
+        "owner": "staff",
+        "description": "Submit the CDBG-I funding application for the Brevard High School Sewer Improvements Project by September 30, 2026, and make it available for public review at the Administration Building after that date.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "infrastructure",
+          "schools"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-6",
+        "dateRaised": "2026-09-28",
+        "owner": "Jaime Laughter",
+        "description": "Resubmit the Board's previous list of federal legislative goals through the NCACC portal by the October 2 deadline.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "governance"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-7",
+        "dateRaised": "2026-09-28",
+        "owner": "Beecher Allison",
+        "description": "Put the removal and replacement of the remaining three school fuel storage tanks (TC Henderson, Rosman Elementary and Rosman High) out to bid in the October bid process.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "schools",
+          "environment"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-8",
+        "dateRaised": "2026-09-28",
+        "owner": "staff",
+        "description": "Close out the Boys and Girls Club/Gallimore Road sewer construction project within the next few weeks, once testing is complete.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "infrastructure"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-9",
+        "dateRaised": "2026-09-28",
+        "owner": "staff",
+        "description": "Keep monitoring Davidson River School during its expected two more years of use, and discuss its needs as the Joint School Bond Project Committee considers future projects.",
+        "status": "open",
+        "type": "ongoing",
+        "categories": [
+          "schools"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      },
+      {
+        "id": "2026-09-28-fu-10",
+        "dateRaised": "2026-09-28",
+        "owner": "staff",
+        "description": "Bring the Brevard High School CTE project design to the Joint School Bond Project Committee for approval. The Board of Education must also approve the appearance of the new construction.",
+        "status": "open",
+        "type": "action_item",
+        "categories": [
+          "schools"
+        ],
+        "relatedMeetingId": "2026-09-28"
+      }
+    ],
+    "sourceUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/minutes/2026-09-28%20reg%20mtg%20_%20PH%20_3_.pdf",
+    "agendaUrl": "https://www.transylvaniacounty.org/sites/default/files/departments/administration/agendas/2026-09-28%20BOC%20Agenda.pdf"
+  },
+  "resolvedFollowUps": [
+    {
+      "id": "2026-08-24-fu-1",
+      "status": "resolved",
+      "resolution": "The formal Connestee Fire Rescue contract amendment (monthly reimbursement with documentation for at least 18 months, ending only after an unmodified audit opinion) was presented on September 28 and approved unanimously. Connestee Fire Rescue had already approved and signed it."
+    },
+    {
+      "id": "2026-08-24-fu-3",
+      "status": "resolved",
+      "resolution": "After the statutory notice was posted, the Board adopted Resolution #33-2026 on the consent agenda, donating the surplus audio-visual equipment to Transylvania County Schools at no cost."
+    },
+    {
+      "id": "2026-08-24-fu-2",
+      "status": "in_progress",
+      "resolution": "Ms. O'Neal reported four meetings with fire department representatives. She reviewed the July reimbursement packet and confirmed it had the information required, and the department provided updated information and policies for review. The amendment was approved, and monthly monitoring follows."
+    },
+    {
+      "id": "2026-04-27-fu-1",
+      "status": "resolved",
+      "resolution": "Mr. Allison reported that the final owner review of the Rosman Area (GMP 2) scope was received on August 25. Pricing was within budget, and Blum Construction received a notice to proceed by August 31, with construction to begin in November."
+    },
+    {
+      "id": "2025-12-08-fu-7",
+      "status": "in_progress",
+      "resolution": "Pricing for the Rosman Area scope came in within budget and schedules were given for the Rosman, TC Henderson and Brevard-area schools. BHS Scope #2 and the CTE project are still moving through design and pricing."
+    },
+    {
+      "id": "2025-05-12-fu-5",
+      "status": "in_progress",
+      "resolution": "Project Manager Beecher Allison gave the monthly school capital projects update at the September 28 meeting."
+    },
+    {
+      "id": "2024-04-22-fu-1",
+      "status": "in_progress",
+      "resolution": "The County Manager gave the monthly countywide capital projects update at the September 28 meeting."
+    },
+    {
+      "id": "2024-06-24-fu-1",
+      "status": "in_progress",
+      "resolution": "The County Manager gave the capital projects update at the Board's second meeting of the month on September 28."
+    },
+    {
+      "id": "2025-10-13-fu-2",
+      "status": "in_progress",
+      "resolution": "The Board held a public hearing on, and adopted, a preliminary resolution authorizing the Manager and Finance Director to negotiate up to $40 million in installment financing for the courthouse and to file an application with the Local Government Commission."
+    },
+    {
+      "id": "2026-03-23-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that courthouse bids came in higher than anticipated and that the architect was negotiating with bidders to reduce costs. More information is to follow."
+    },
+    {
+      "id": "2026-06-22-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the landfill cell expansion contractor had demobilized after substantial completion. The County still had concerns about stormwater conditions and met with DEQ and its engineer of record earlier that day."
+    },
+    {
+      "id": "2026-06-22-fu-7",
+      "status": "in_progress",
+      "resolution": "The County is pursuing NCDEQ Division of Water Infrastructure and CDBG-I funding for the Brevard High School pump station, which still needs about $1 million in construction funding. State guidance directs the City of Brevard to apply directly for Azalea sewer construction funding."
+    },
+    {
+      "id": "2026-07-13-fu-4",
+      "status": "in_progress",
+      "resolution": "State guidance directed the City of Brevard to apply directly for Azalea sewer extension construction funding, so Azalea construction will come off the County's capital project list. The design remains, funded by a Dogwood Health Trust grant."
+    },
+    {
+      "id": "2026-06-22-fu-8",
+      "status": "in_progress",
+      "resolution": "State guidance directed the Town of Rosman to apply directly for Calvert Road sewer extension funding, so the Calvert Road design and construction project will come off the County's capital project list."
+    },
+    {
+      "id": "2026-03-09-fu-3",
+      "status": "in_progress",
+      "resolution": "The Manager reported that state guidance directed the City of Brevard and the Town of Rosman to apply directly for construction funding, and that Representative Ferguson had been in contact with both regarding these opportunities."
+    },
+    {
+      "id": "2026-07-13-fu-5",
+      "status": "in_progress",
+      "resolution": "The Manager reported that a meeting with the City, Land of Sky and the project engineer on the Pisgah Labs water and sewer extension was scheduled for later that week."
+    },
+    {
+      "id": "2026-06-22-fu-6",
+      "status": "in_progress",
+      "resolution": "The Manager reported that Emergency Watershed Protection work was underway, with four Helene-related projects confirmed. Additional StRAP funds for blockage removal were being processed through Soil and Water Conservation."
+    },
+    {
+      "id": "2026-08-24-fu-8",
+      "status": "in_progress",
+      "resolution": "The Manager reported that the County was working to secure sites for the two grant-funded communication towers. The locations were not yet announced."
+    },
+    {
+      "id": "2026-06-08-fu-3",
+      "status": "in_progress",
+      "resolution": "Mr. Shook reported that 11 applicants met eligibility requirements and that acquisition proposals were being prepared for nine of them, with at least two having received their packages for review."
+    },
+    {
+      "id": "2026-08-24-fu-11",
+      "status": "in_progress",
+      "resolution": "The Manager noted that the Joint School Bond Project Committee would need to begin considering projects beyond 2028 during the coming year."
+    }
+  ],
+  "newThreads": [
+    {
+      "id": "brevard-high-school-sewer-pump-station",
+      "title": "Brevard High School Sewer Line and Pump Station Replacement",
+      "categories": [
+        "infrastructure",
+        "schools"
+      ],
+      "summary": "The Board held a public hearing on a CDBG-I application of up to $1 million for the project and, on the consent agenda, approved resolutions for both the CDBG-I application and a $1 million NCDEQ Division of Water Infrastructure application. Design is complete, but about $1 million in construction funding is still needed before the project can be bid."
+    },
+    {
+      "id": "hazard-mitigation-property-acquisitions",
+      "title": "Hurricane Helene Hazard Mitigation Grant Program Property Acquisitions",
+      "categories": [
+        "recovery",
+        "environment",
+        "fiscal"
+      ],
+      "summary": "Emergency Management Director Kevin Shook reported that 11 of 32 applicants were eligible. If all of them accept acquisition, the County would lose an estimated $10,730.08 a year in tax revenue and would maintain the deed-restricted properties in perpetuity. The Board confirmed Mr. Shook and Cameron Sexton as designated signing agents."
+    }
+  ],
+  "threadUpdates": [
+    {
+      "id": "courthouse-renovation-project",
+      "summary": "The Board held a public hearing and unanimously adopted a preliminary resolution authorizing negotiation of up to $40 million in limited obligation bond financing for the new courthouse at 120 Public Safety Way. The Manager reported that construction bids came in higher than anticipated and were under review."
+    },
+    {
+      "id": "connestee-fire-rescue-contract",
+      "summary": "The Board unanimously approved the contract amendment replacing quarterly payments with documented monthly reimbursement for at least 18 months, ending only after an unmodified audit opinion. Connestee Fire Rescue had already approved and signed it."
+    },
+    {
+      "id": "education-capital-projects",
+      "summary": "Beecher Allison reported that GMP 1 work is nearing closeout and that GMP 2 (Rosman Area, $22 million) pricing came in within budget, with a notice to proceed issued to Blum and construction starting in November. Bond work is expected to be complete by the end of 2028, excluding BHS work."
+    },
+    {
+      "id": "bhs-cte-wing",
+      "summary": "Schematic design pricing was completed, and LS3P, Blum and school staff are developing the CTE design within budget, coordinated with BHS Scope #2. The full CTE project's completion date has not been set."
+    },
+    {
+      "id": "joint-school-bond-committee",
+      "summary": "The Manager announced a Joint School Bond Project Committee meeting for the following day to meet the quarterly requirement. She said the committee will review the CTE design and begin considering projects beyond 2028 in the coming year."
+    },
+    {
+      "id": "av-system-upgrade-chambers",
+      "summary": "On the consent agenda, the Board approved donating the decommissioned audio-visual equipment to Transylvania County Schools. Public speakers complimented the new system."
+    },
+    {
+      "id": "hurricane-helene-recovery",
+      "summary": "Emergency Management reported on Hazard Mitigation Grant Program acquisitions. Two years after the storm, the Manager urged residents to be prepared to sustain their households for at least 72 hours."
+    },
+    {
+      "id": "helene-streambank-restoration",
+      "summary": "The Manager reported that four Emergency Watershed Protection projects were confirmed and underway. Additional StRAP blockage-removal funds were being processed through Soil and Water Conservation."
+    },
+    {
+      "id": "landfill-cell-expansion",
+      "summary": "The engineer issued substantial completion and the contractor demobilized. The County still had stormwater concerns and met with DEQ that day. During public comment, Owen Carson alleged ongoing sedimentation into the French Broad River and asked the Board to stop work at the landfill."
+    },
+    {
+      "id": "watershed-study",
+      "summary": "The Manager reported that the study was nearing completion. Because of funding changes and the year-end timeline, the County planned to leave it at its current stage rather than file it with the State."
+    },
+    {
+      "id": "pisgah-labs-utility-expansion",
+      "summary": "A meeting with the City, Land of Sky and the project engineer on the water and sewer extension was scheduled for later that week."
+    },
+    {
+      "id": "infrastructure-grant-allocation",
+      "summary": "Three projects remain to be funded from the $10 million reallocated by the State. Because the City of Brevard and Town of Rosman were directed to apply directly, Azalea sewer construction and the Calvert Road project will come off the County's list. The Housing Assistance Corporation, Habitat for Humanity and Azalea design projects were in the contracting stage."
+    },
+    {
+      "id": "rosman-infrastructure-projects",
+      "summary": "The Town of Rosman told the County it intends to apply for CDBG-DR funding to cover an $8 million gap in an estimated $18 million water and sewer project. A letter of support is expected at the next meeting. Calvert Road funding will be sought directly by the Town."
+    },
+    {
+      "id": "public-safety-communication-towers",
+      "summary": "The Manager reported that the County was working to secure sites for two grant-funded towers and that more grant funding may be available. Separately, the Board granted Duke Energy a height variance for a 330-foot tower that Duke said could host County emergency services."
+    },
+    {
+      "id": "flock-license-plate-reader-cameras",
+      "summary": "Several residents spoke against the Sheriff's Flock camera program, citing data sharing, cybersecurity and a camera facing the Democratic Party headquarters, and asked for a public hearing. The County Attorney explained that the Board sets funding while the Sheriff controls spending. Commissioners Chapman and McKelvey offered differing views."
+    },
+    {
+      "id": "ncacc-legislative-goals-submission",
+      "summary": "The Board unanimously voted to resubmit its previous federal legislative goals to the NCACC before the October 2 deadline."
+    },
+    {
+      "id": "snap-cost-shift",
+      "summary": "The Manager reported that a Senate committee had advanced a 2026 Farm Bill provision giving states another year to reduce SNAP error rates. She cautioned that it is not yet law and that the County could still face higher costs."
+    },
+    {
+      "id": "blue-ridge-community-college-campus",
+      "summary": "The Manager reported that $2 million in reallocated state funding had gone directly to Blue Ridge Community College's Transylvania campus, and the County was coordinating with Dr. Leatherwood."
+    }
+  ],
+  "extraction": {
+    "model": "claude-opus-5-5",
+    "extractedAt": "2026-11-25T20:35:55.360Z",
+    "revised": false,
+    "warnings": [
+      "Check — newFollowUps[2]: This new follow-up (report on the courthouse bid review) repeats an existing open item. 2026-03-23-fu-5, \"Return to the Board with a refined new courthouse budget\", already covers it, and the draft records it under followUpUpdates as in_progress. Creating both will double-track the same commitment. (minutes: \"The County was working to bring the project within a reasonable budget. Additional information would be provided as the review continued.\" (p. 23))",
+      "Check — newFollowUps[5]: Resubmitting the federal legislative goals is the routine way out of a vote the Board has just approved, and it is certain to happen by the deadline, so it is not a separate follow-up. The minutes also do not name the Manager as the person who submits it. (minutes: \"Commissioner Chappell moved to resubmit the Board's previously submitted list of federal legislative goals, seconded by Commissioner Dalton, and unanimously approved.\" (p. 31))",
+      "Check — threadUpdates[infrastructure-grant-allocation].summary: The summary includes the Housing Assistance Corporation, Habitat for Humanity and Azalea design projects. The minutes list these under a separate \"Brevard System Housing Projects\" item, not under the $10 million State-reallocated infrastructure funding, so this ties them to the wrong thread. (minutes: \"Brevard System Housing Projects: The Housing Assistance Corporation and Habitat for Humanity design-and-construction projects, along with the Azalea project's design phase, were in the contracting stage.\" (p. 23))"
+    ]
+  }
+}
